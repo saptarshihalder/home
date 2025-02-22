@@ -4,14 +4,9 @@
   <meta charset="UTF-8">
   <title>My Timeline</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&amp;display=swap'>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&amp;display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="./style.css">
-  <button class="btn" type="button" id="toggleMusic">🔊</button>
-  <audio id="backgroundMusic" loop autoplay>
-    <source src="audio.mp3" type="audio/mp3">
-    Your browser does not support the audio tag.
-  </audio>
   <style>
     header {
       text-align: right;
@@ -20,11 +15,9 @@
       color: #fff;
       cursor: pointer;
     }
-
     h2 {
       margin: 0;
     }
-
     .popup {
       display: none;
       position: fixed;
@@ -36,7 +29,6 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
       z-index: 1000;
     }
-
     .overlay {
       display: none;
       position: fixed;
@@ -48,9 +40,6 @@
       z-index: 999;
     }
     .popup button {
-      color: #000;
-    }
-    .popup button {
       background-color: #4CAF50;
       color: #fff;
       padding: 10px 20px;
@@ -60,17 +49,42 @@
       cursor: pointer;
       transition: background-color 0.3s;
     }
-
     .popup button:hover {
       background-color: #45a049;
+    }
+    footer {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 20px;
+      background-color: #ccc;
+    }
+    .footer-item {
+      text-align: center;
+    }
+    .footer-item a {
+      text-decoration: none;
+      color: #333;
+      display: block;
+    }
+    .footer-item i {
+      font-size: 2em;
+      margin-bottom: 5px;
     }
   </style>
 </head>
 <body>
+  <!-- Music Toggle Button & Audio -->
+  <button class="btn" type="button" id="toggleMusic">🔊</button>
+  <audio id="backgroundMusic" loop autoplay>
+    <source src="audio.mp3" type="audio/mp3">
+    Your browser does not support the audio tag.
+  </audio>
+
+  <!-- Header with Popup for Hobbies -->
   <header onclick="showPopup()">
     <h3>My Hobbies</h3>
   </header>
-
   <div class="popup" id="aboutMePopup">
     <div>
       <button onclick="window.location.href='reading.html'">Reading</button><br><br>
@@ -80,7 +94,6 @@
     </div>
     <button onclick="closePopup()">Close</button>
   </div>
-
   <div class="overlay" id="overlay" onclick="closePopup()"></div>
 
   <script>
@@ -88,17 +101,12 @@
       document.getElementById('aboutMePopup').style.display = 'block';
       document.getElementById('overlay').style.display = 'block';
     }
-
     function closePopup() {
       document.getElementById('aboutMePopup').style.display = 'none';
       document.getElementById('overlay').style.display = 'none';
     }
-  </script>
-
-  <script>
     const backgroundMusic = document.getElementById('backgroundMusic');
     const toggleMusicButton = document.getElementById('toggleMusic');
-
     function toggleMusic() {
       if (backgroundMusic.paused) {
         backgroundMusic.play();
@@ -108,148 +116,181 @@
         toggleMusicButton.textContent = '🔇';
       }
     }
-
     toggleMusicButton.addEventListener('click', toggleMusic);
   </script>
 
-<svg display="none">
-  <symbol id="arrow">
-    <polyline points="7 10,12 15,17 10" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-  </symbol>
-</svg>
-<h1>A Slice Of My Life</h1>
-<div id="timeline" class="timeline">
-<div class="btn-group">
-  <button class="btn" type="button" data-action="expand">Expand All</button>
-  <button class="btn" type="button" data-action="collapse">Collapse All</button>
-  </div>
-  <div class="timeline__item">
-    <div class="timeline__item-header">
-      <button class="timeline__arrow" type="button" id="item1" aria-labelledby="item1-name" aria-expanded="false" aria-controls="item1-ctrld" aria-haspopup="true" data-item="1">
-        <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
-          <use href="#arrow" />
-        </svg>
-      </button>
-      <span class="timeline__dot"></span>
-      <span id="item1-name" class="timeline__meta">
-        <time class="timeline__date" datetime="1970-01-01">The Year 2004</time><br>
-        <strong class="timeline__title">My Birth</strong>
-      </span>
+  <!-- SVG Arrow Symbol -->
+  <svg display="none">
+    <symbol id="arrow">
+      <polyline points="7 10,12 15,17 10" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+    </symbol>
+  </svg>
+
+  <h1>A Slice Of My Life</h1>
+  <div id="timeline" class="timeline">
+    <div class="btn-group">
+      <button class="btn" type="button" data-action="expand">Expand All</button>
+      <button class="btn" type="button" data-action="collapse">Collapse All</button>
     </div>
-    <div class="timeline__item-body" id="item1-ctrld" role="region" aria-labelledby="item1" aria-hidden="true">
-      <div class="timeline__item-body-content">
-        <p class="timeline__item-p">I was born in a small town in the state of West Bengal in India, the start of a long journey into the future.
+
+    <!-- Timeline Item: My Birth -->
+    <div class="timeline__item">
+      <div class="timeline__item-header">
+        <button class="timeline__arrow" type="button" id="item1" aria-labelledby="item1-name" aria-expanded="false" aria-controls="item1-ctrld" aria-haspopup="true" data-item="1">
+          <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
+            <use href="#arrow" />
+          </svg>
+        </button>
+        <span class="timeline__dot"></span>
+        <span id="item1-name" class="timeline__meta">
+          <time class="timeline__date" datetime="2004-01-01">The Year 2004</time><br>
+          <strong class="timeline__title">My Birth</strong>
+        </span>
       </div>
-    </div>
-  </div>
-  <div class="timeline__item">
-    <div class="timeline__item-header">
-      <button class="timeline__arrow" type="button" id="item2" aria-labelledby="item2-name" aria-expanded="false" aria-controls="item2-ctrld" aria-haspopup="true" data-item="2">
-        <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
-          <use href="#arrow" />
-        </svg>
-      </button>
-      <span class="timeline__dot"></span>
-      <span id="item2-name" class="timeline__meta">
-        <time class="timeline__date" datetime="1973-10-17">March 17, 2009 - April 8 2020</time><br>
-        <strong class="timeline__title">High School Education</strong>
-      </span>
-    </div>
-    <div class="timeline__item-body" id="item2-ctrld" role="region" aria-labelledby="item2" aria-hidden="true">
-      <div class="timeline__item-body-content">
-        <p class="timeline__item-p">I took admission in Don Bosco, where I would be spending my next decade of my life. This school was affiliated to Indian Certificate of Secondary Education</p>
-      </div>
-    </div>
-  </div>
-  <div class="timeline__item">
-    <div class="timeline__item-header">
-      <button class="timeline__arrow" type="button" id="item3" aria-labelledby="item3-name" aria-expanded="false" aria-controls="item3-ctrld" aria-haspopup="true" data-item="3">
-        <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
-          <use href="#arrow" />
-        </svg>
-      </button>
-      <span class="timeline__dot"></span>
-      <span id="item3-name" class="timeline__meta">
-        <time class="timeline__date" datetime="2001-09-09">March 21, 2020 - July 2020</time><br>
-        <strong class="timeline__title">Senior Secondary Education</strong>
-      </span>
-    </div>
-    <div class="timeline__item-body" id="item3-ctrld" role="region" aria-labelledby="item3" aria-hidden="true">
-      <div class="timeline__item-body-content">
-        <p class="timeline__item-p">It was time for a change, I took admission to Central Academy, a private school affiliated to Central Board of Secondary Education with Science as my Stream</p>
-      </div>
-    </div>
-  </div>
-  <div class="timeline__item">
-    <div class="timeline__item-header">
-      <button class="timeline__arrow" type="button" id="item4" aria-labelledby="item4-name" aria-expanded="false" aria-controls="item4-ctrld" aria-haspopup="true" data-item="4">
-        <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
-          <use href="#arrow" />
-        </svg>
-      </button>
-      <span class="timeline__dot"></span>
-      <span id="item4-name" class="timeline__meta">
-        <time class="timeline__date" datetime="2009-02-13">The Year 2022</time><br>
-        <strong class="timeline__title">Mayhem Of JEE/Jee Adv, IAT, WBJEE,etc.</strong>
-      </span>
-    </div>
-    <div class="timeline__item-body" id="item4-ctrld" role="region" aria-labelledby="item4" aria-hidden="true">
-      <div class="timeline__item-body-content">
-        <p class="timeline__item-p">I survived those along with the covid-19 pandemic. I felt like a tardigrade at that instance </p>
-      </div>
-    </div>
-  </div>
-  <div class="timeline__item">
-    <div class="timeline__item-header">
-      <button class="timeline__arrow" type="button" id="item6" aria-labelledby="item6-name" aria-expanded="false" aria-controls="item6-ctrld" aria-haspopup="true" data-item="6">
-        <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
-          <use href="#arrow" />
-        </svg>
-      </button>
-      <span class="timeline__dot"></span>
-      <span id="item6-name" class="timeline__meta">
-        <time class="timeline__date" datetime="2038-01-19">December 2022- Jan 2026</time><br>
-        <strong class="timeline__title">Undergraduate Degree</strong>
-      </span>
-    </div>
-    <div class="timeline__item-body" id="item6-ctrld" role="region" aria-labelledby="item6" aria-hidden="true">
-      <div class="timeline__item-body-content">
-        <p class="timeline__item-p">Joined Indian Institute Of Science Education And Research Bhopal for persuing an Undergraduate Degree in Computer Science. The majority of my life still remains shrouded in smog waiting to be uncovered</p>
-      </div>
-      <div class="timeline__item">
-        <div class="timeline__item-header">
-          <button class="timeline__arrow" type="button" id="item8" aria-labelledby="item8-name" aria-expanded="false" aria-controls="item8-ctrld" aria-haspopup="true" data-item="8">
-            <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
-              <use href="#arrow" />
-            </svg>
-          </button>
-          <span class="timeline__dot"></span>
-          <span id="item8-name" class="timeline__meta">
-            <time class="timeline__date" datetime="2037-03-12">March 12, 2037</time><br>
-            <strong class="timeline__title">Projects</strong>
-          </span>
+      <div class="timeline__item-body" id="item1-ctrld" role="region" aria-labelledby="item1" aria-hidden="true">
+        <div class="timeline__item-body-content">
+          <p class="timeline__item-p">I was born in a small town in West Bengal, India—the start of a long journey into the future.</p>
         </div>
-        <div class="timeline__item-body" id="item8-ctrld" role="region" aria-labelledby="item8" aria-hidden="true">
-          <div class="timeline__item-body-content">
-            <p class="timeline__item-p">No Content</p>
+      </div>
+    </div>
+
+    <!-- Timeline Item: High School Education -->
+    <div class="timeline__item">
+      <div class="timeline__item-header">
+        <button class="timeline__arrow" type="button" id="item2" aria-labelledby="item2-name" aria-expanded="false" aria-controls="item2-ctrld" aria-haspopup="true" data-item="2">
+          <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
+            <use href="#arrow" />
+          </svg>
+        </button>
+        <span class="timeline__dot"></span>
+        <span id="item2-name" class="timeline__meta">
+          <time class="timeline__date" datetime="2009-03-17">March 17, 2009 - April 8, 2020</time><br>
+          <strong class="timeline__title">High School Education</strong>
+        </span>
+      </div>
+      <div class="timeline__item-body" id="item2-ctrld" role="region" aria-labelledby="item2" aria-hidden="true">
+        <div class="timeline__item-body-content">
+          <p class="timeline__item-p">I took admission in Don Bosco, where I spent a decade learning and growing. The school was affiliated with the Indian Certificate of Secondary Education.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline Item: Senior Secondary Education -->
+    <div class="timeline__item">
+      <div class="timeline__item-header">
+        <button class="timeline__arrow" type="button" id="item3" aria-labelledby="item3-name" aria-expanded="false" aria-controls="item3-ctrld" aria-haspopup="true" data-item="3">
+          <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
+            <use href="#arrow" />
+          </svg>
+        </button>
+        <span class="timeline__dot"></span>
+        <span id="item3-name" class="timeline__meta">
+          <time class="timeline__date" datetime="2020-03-21">March 21, 2020 - July 2020</time><br>
+          <strong class="timeline__title">Senior Secondary Education</strong>
+        </span>
+      </div>
+      <div class="timeline__item-body" id="item3-ctrld" role="region" aria-labelledby="item3" aria-hidden="true">
+        <div class="timeline__item-body-content">
+          <p class="timeline__item-p">I embraced change by joining Central Academy, a private school affiliated with the Central Board of Secondary Education, where I pursued Science.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline Item: Mayhem Of JEE/Jee Adv, IAT, WBJEE, etc. -->
+    <div class="timeline__item">
+      <div class="timeline__item-header">
+        <button class="timeline__arrow" type="button" id="item4" aria-labelledby="item4-name" aria-expanded="false" aria-controls="item4-ctrld" aria-haspopup="true" data-item="4">
+          <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
+            <use href="#arrow" />
+          </svg>
+        </button>
+        <span class="timeline__dot"></span>
+        <span id="item4-name" class="timeline__meta">
+          <time class="timeline__date" datetime="2022-01-01">The Year 2022</time><br>
+          <strong class="timeline__title">Mayhem Of JEE/Jee Adv, IAT, WBJEE, etc.</strong>
+        </span>
+      </div>
+      <div class="timeline__item-body" id="item4-ctrld" role="region" aria-labelledby="item4" aria-hidden="true">
+        <div class="timeline__item-body-content">
+          <p class="timeline__item-p">I navigated through the chaos of competitive exams while weathering the covid-19 pandemic. I felt like a tardigrade, resilient in the face of adversity.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline Item: Undergraduate Degree -->
+    <div class="timeline__item">
+      <div class="timeline__item-header">
+        <button class="timeline__arrow" type="button" id="item6" aria-labelledby="item6-name" aria-expanded="false" aria-controls="item6-ctrld" aria-haspopup="true" data-item="6">
+          <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
+            <use href="#arrow" />
+          </svg>
+        </button>
+        <span class="timeline__dot"></span>
+        <span id="item6-name" class="timeline__meta">
+          <time class="timeline__date" datetime="2022-12-01">December 2022 - January 2026</time><br>
+          <strong class="timeline__title">Undergraduate Degree</strong>
+        </span>
+      </div>
+      <div class="timeline__item-body" id="item6-ctrld" role="region" aria-labelledby="item6" aria-hidden="true">
+        <div class="timeline__item-body-content">
+          <p class="timeline__item-p">I joined the Indian Institute Of Science Education And Research Bhopal to pursue an Undergraduate Degree in Computer Science. Much of my life still remains an exciting mystery waiting to be unraveled.</p>
+        </div>
+        <!-- Nested Timeline Item: Projects -->
+        <div class="timeline__item">
+          <div class="timeline__item-header">
+            <button class="timeline__arrow" type="button" id="item8" aria-labelledby="item8-name" aria-expanded="false" aria-controls="item8-ctrld" aria-haspopup="true" data-item="8">
+              <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
+                <use href="#arrow" />
+              </svg>
+            </button>
+            <span class="timeline__dot"></span>
+            <span id="item8-name" class="timeline__meta">
+              <time class="timeline__date" datetime="2037-03-12">March 12, 2037</time><br>
+              <strong class="timeline__title">Projects</strong>
+            </span>
+          </div>
+          <div class="timeline__item-body" id="item8-ctrld" role="region" aria-labelledby="item8" aria-hidden="true">
+            <div class="timeline__item-body-content">
+              <p class="timeline__item-p">No Content</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="timeline__item">
-        <div class="timeline__item-header">
-          <button class="timeline__arrow" type="button" id="item5" aria-labelledby="item5-name" aria-expanded="false" aria-controls="item5-ctrld" aria-haspopup="true" data-item="5">
-            <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
-              <use href="#arrow" />
-            </svg>
-          </button>
-          <span class="timeline__dot"></span>
-          <span id="item5-name" class="timeline__meta">
-            <time class="timeline__date" datetime="2033-05-18">May 18, 2033</time><br>
-            <strong class="timeline__title">Internships</strong>
-          </span>
-        </div>
-        <div class="timeline__item-body" id="item5-ctrld" role="region" aria-labelledby="item5" aria-hidden="true">
-          <div class="timeline__item-body-content">
+        <!-- Nested Timeline Item: Internships -->
+        <div class="timeline__item">
+          <div class="timeline__item-header">
+            <button class="timeline__arrow" type="button" id="item5" aria-labelledby="item5-name" aria-expanded="false" aria-controls="item5-ctrld" aria-haspopup="true" data-item="5">
+              <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
+                <use href="#arrow" />
+              </svg>
+            </button>
+            <span class="timeline__dot"></span>
+            <span id="item5-name" class="timeline__meta">
+              <time class="timeline__date" datetime="2033-05-18">May 18, 2033</time><br>
+              <strong class="timeline__title">Internships</strong>
+            </span>
+          </div>
+          <div class="timeline__item-body" id="item5-ctrld" role="region" aria-labelledby="item5" aria-hidden="true">
+            <!-- 1. IIIT Kalyani Internship -->
+            <div class="timeline__item">
+              <div class="timeline__item-header">
+                <button class="timeline__arrow" type="button" id="item9a" aria-labelledby="item9a-name" aria-expanded="false" aria-controls="item9a-ctrld" aria-haspopup="true" data-item="9a">
+                  <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
+                    <use href="#arrow" />
+                  </svg>
+                </button>
+                <span class="timeline__dot"></span>
+                <span id="item9a-name" class="timeline__meta">
+                  <time class="timeline__date" datetime="2023-12-01">December 2023 - June 2024</time><br>
+                  <strong class="timeline__title">IIIT Kalyani Internship</strong>
+                </span>
+              </div>
+              <div class="timeline__item-body" id="item9a-ctrld" role="region" aria-labelledby="item9a" aria-hidden="true">
+                <div class="timeline__item-body-content">
+                  <p class="timeline__item-p">I embarked on a remote internship during my first semester at IIIT Kalyani under the lively guidance of Professor Imon Mukherjee. We dove into the quirky realm of AI in Agriculture and Food Sustainability—although the paper never quite made it to print, it was an unforgettable experiment!</p>
+                </div>
+              </div>
+            </div>
+            <!-- 2. Oxford Internship -->
             <div class="timeline__item">
               <div class="timeline__item-header">
                 <button class="timeline__arrow" type="button" id="item9" aria-labelledby="item9-name" aria-expanded="false" aria-controls="item9-ctrld" aria-haspopup="true" data-item="9">
@@ -259,17 +300,37 @@
                 </button>
                 <span class="timeline__dot"></span>
                 <span id="item9-name" class="timeline__meta">
-                  <time class="timeline__date" datetime="2024-04-23">April 23, 2024 - June 9,2024</time><br>
-                  <strong class="timeline__title"><small></small>Research Intern at Oxford University</small></strong>
+                  <time class="timeline__date" datetime="2024-04-23">April 23, 2024 - June 9, 2024</time><br>
+                  <strong class="timeline__title">Research Intern at Oxford University</strong>
                 </span>
               </div>
               <div class="timeline__item-body" id="item9-ctrld" role="region" aria-labelledby="item9" aria-hidden="true">
                 <div class="timeline__item-body-content">
-                  <p class="timeline__item-p">I got a remote internship at Oxford and had the opportunity to work with Professor Robin Evans. He taught me and enlightened me about Markov Models and Bayesian Networks. I learned about their nested functions and gained a glimpse of what the student-teacher experience is like at universities that rank among the best in the world.</p>
+                  <p class="timeline__item-p">I got a remote internship at Oxford and had the opportunity to work with Professor Robin Evans. He introduced me to Markov Models and Bayesian Networks, opening my eyes to the intricate world of nested algorithms.</p>
                 </div>
               </div>
             </div>
-
+            <!-- 3. IIT BHU Internship -->
+            <div class="timeline__item">
+              <div class="timeline__item-header">
+                <button class="timeline__arrow" type="button" id="item12" aria-labelledby="item12-name" aria-expanded="false" aria-controls="item12-ctrld" aria-haspopup="true" data-item="12">
+                  <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px">
+                    <use href="#arrow" />
+                  </svg>
+                </button>
+                <span class="timeline__dot"></span>
+                <span id="item12-name" class="timeline__meta">
+                  <time class="timeline__date" datetime="2024-05-16">May 16, 2024 - July 10, 2024</time><br>
+                  <strong class="timeline__title">Research Intern at IIT BHU (Banaras Hindu University)</strong>
+                </span>
+              </div>
+              <div class="timeline__item-body" id="item12-ctrld" role="region" aria-labelledby="item12" aria-hidden="true">
+                <div class="timeline__item-body-content">
+                  <p class="timeline__item-p">My first offline research internship was a whirlwind of challenges and learning. Under the guidance of Prof Jac Fredo and supportive mentors, I worked on EEG impulses and biometric projects that demanded both mathematical rigor and machine learning prowess.</p>
+                </div>
+              </div>
+            </div>
+            <!-- 4. Duke Internship -->
             <div class="timeline__item">
               <div class="timeline__item-header">
                 <button class="timeline__arrow" type="button" id="item10" aria-labelledby="item10-name" aria-expanded="false" aria-controls="item10-ctrld" aria-haspopup="true" data-item="10">
@@ -279,17 +340,17 @@
                 </button>
                 <span class="timeline__dot"></span>
                 <span id="item10-name" class="timeline__meta">
-                  <time class="timeline__date" datetime="2024-05-25">May 25, 2024 - Present</time><br>
+                  <time class="timeline__date" datetime="2024-05-25">May 25, 2024 - December 1, 2024</time><br>
                   <strong class="timeline__title">Research Intern at Duke University</strong>
                 </span>
               </div>
               <div class="timeline__item-body" id="item10-ctrld" role="region" aria-labelledby="item10" aria-hidden="true">
                 <div class="timeline__item-body-content">
-                  <p class="timeline__item-p">I worked under the mentorship of John Thomas who is Research Scientist at Duke Health under Neurology, I will be working on Scalp EEG Artifact Removal, using deep learning algorithms. A bit about Neuroscience and ML combined. A interesting project in my opinion. I wonder how many lives can be saved if we can marry these two sciences. Then who will be a true doctor? Our Intellect or our Empathy?</p>
+                  <p class="timeline__item-p">I worked under the mentorship of John Thomas, a Research Scientist at Duke Health specializing in Neurology. I took on the challenge of removing artifacts from scalp EEG signals using deep learning—a fascinating blend of neuroscience and machine learning.</p>
                 </div>
               </div>
             </div>
-
+            <!-- 5. Cybersecurity Internship at Damodar Valley Corporation -->
             <div class="timeline__item">
               <div class="timeline__item-header">
                 <button class="timeline__arrow" type="button" id="item11" aria-labelledby="item11-name" aria-expanded="false" aria-controls="item11-ctrld" aria-haspopup="true" data-item="11">
@@ -299,87 +360,56 @@
                 </button>
                 <span class="timeline__dot"></span>
                 <span id="item11-name" class="timeline__meta">
-                  <time class="timeline__date" datetime="2024-05-16">May 16,2024- July 10,2024</time><br>
-                  <strong class="timeline__title">Research Intern At IIT BHU (Beneras Hindu University)</strong>
+                  <time class="timeline__date" datetime="2024-12-05">December 5, 2024 - January 10, 2025</time><br>
+                  <strong class="timeline__title">Cybersecurity Internship at Damodar Valley Corporation</strong>
                 </span>
               </div>
               <div class="timeline__item-body" id="item11-ctrld" role="region" aria-labelledby="item11" aria-hidden="true">
                 <div class="timeline__item-body-content">
-                  <p class="timeline__item-p">My First Offline Research Internship, these months were tough with too many things on my hand, but guidance under Prof Jac Fredo and help from guides helped me a lot to overcome the hurdles. I worked on EEG impulses and their Projects on Biometric which needed extensive Mathematical and Machine Learning DNN models. </p>
+                  <p class="timeline__item-p">At Damodar Valley Corporation, I donned my digital armor to safeguard critical systems from cyber mischief. It was a playful yet challenging stint where I got to outsmart virtual villains and keep the bytes safe!</p>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </div> <!-- End of Internships Nested Item -->
       </div>
     </div>
   </div>
-</div>
 
-<script src="./script.js"></script>
-<style>
-  footer {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 20px;
-    background-color: #ccc;
-  }
-
-  .footer-item {
-    text-align: center;
-  }
-
-  .footer-item a {
-    text-decoration: none;
-    color: #333;
-    display: block;
-  }
-
-  .footer-item i {
-    font-size: 2em;
-    margin-bottom: 5px;
-  }
-</style>
-</head>
-<body>
-
-<footer>
-  <div class="footer-item">
-    <a href="https://saptarshihalder.github.io/blog" target="_blank" rel="noopener noreferrer">
-      <i class="fas fa-blog"></i>
-      <span>Blog</span>
-    </a>
-  </div>
-
-  <div class="footer-item">
-    <a href="https://linkedin.com/yourprofile" target="_blank" rel="noopener noreferrer">
-      <i class="fab fa-linkedin"></i>
-      <span>LinkedIn</span>
-    </a>
-  </div>
-
-  <div class="footer-item">
-    <a href="https://yourpodcast.com" target="_blank" rel="noopener noreferrer">
-      <i class="fas fa-podcast"></i>
-      <span>Podcast</span>
-    </a>
-  </div>
-
-  <div class="footer-item">
-    <a href="https://x.com/Iamsaptarshi69" target="_blank" rel="noopener noreferrer">
-      <i class="fab fa-twitter"></i>
-      <span>Twitter</span>
-    </a>
-  </div>
-
-  <div class="footer-item">
-    <a href="https://github.com/saptarshihalder" target="_blank" rel="noopener noreferrer">
-      <i class="fab fa-github"></i>
-      <span>GitHub</span>
-    </a>
-  </div>
-</footer>
-
+  <!-- Footer -->
+  <footer>
+    <div class="footer-item">
+      <a href="https://saptarshihalder.github.io/blog" target="_blank" rel="noopener noreferrer">
+        <i class="fas fa-blog"></i>
+        <span>Blog</span>
+      </a>
+    </div>
+    <div class="footer-item">
+      <a href="https://linkedin.com/yourprofile" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-linkedin"></i>
+        <span>LinkedIn</span>
+      </a>
+    </div>
+    <div class="footer-item">
+      <a href="https://yourpodcast.com" target="_blank" rel="noopener noreferrer">
+        <i class="fas fa-podcast"></i>
+        <span>Podcast</span>
+      </a>
+    </div>
+    <div class="footer-item">
+      <a href="https://x.com/Iamsaptarshi69" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-twitter"></i>
+        <span>Twitter</span>
+      </a>
+    </div>
+    <div class="footer-item">
+      <a href="https://github.com/saptarshihalder" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-github"></i>
+        <span>GitHub</span>
+      </a>
+    </div>
+  </footer>
+  
+  <script src="./script.js"></script>
 </body>
 </html>
