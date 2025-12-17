@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>My Timeline</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&amp;display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="./style.css">
@@ -141,12 +142,65 @@
       font-size: 2em;
       margin-bottom: 5px;
     }
+
+    /* --- Day/Night Mode (no extra UI) ---
+       Follows the user's OS/browser theme via prefers-color-scheme.
+       Keeps your existing dark styling as-is; only overrides for light mode. */
+    @media (prefers-color-scheme: light) {
+      body {
+        background: #f7f7fb;
+        color: #14151a;
+      }
+      header {
+        background-color: #f1f1f6;
+        color: #14151a;
+      }
+      footer {
+        background-color: #f1f1f6;
+      }
+      .footer-item a {
+        color: #14151a;
+      }
+      .popup {
+        background: linear-gradient(135deg, #ffffff 0%, #f2f3f7 100%);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.06);
+      }
+      .popup-header {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      }
+      .popup-header h3 {
+        color: #14151a;
+      }
+      .popup .hobby-button {
+        background: rgba(0, 0, 0, 0.04);
+        color: #14151a;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+      }
+      .popup .hobby-button:hover {
+        background: rgba(0, 0, 0, 0.06);
+        border-color: rgba(0, 0, 0, 0.14);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+      }
+      .popup .close-button {
+        color: rgba(0, 0, 0, 0.6);
+        border: 1px solid rgba(0, 0, 0, 0.12);
+      }
+      .popup .close-button:hover {
+        background: rgba(0, 0, 0, 0.04);
+        color: rgba(0, 0, 0, 0.85);
+        border-color: rgba(0, 0, 0, 0.2);
+      }
+      .overlay {
+        background-color: rgba(0, 0, 0, 0.35);
+      }
+    }
+
   </style>
 </head>
 <body>
   <!-- Music Toggle Button & Audio -->
-  <button class="btn" type="button" id="toggleMusic">🔊</button>
-  <audio id="backgroundMusic" loop autoplay>
+  <button class="btn" type="button" id="toggleMusic" aria-label="Toggle background music" aria-pressed="false">🔇</button>
+  <audio id="backgroundMusic" loop autoplay muted preload="auto" playsinline>
     <source src="audio.mp3" type="audio/mp3">
     Your browser does not support the audio tag.
   </audio>
@@ -190,18 +244,91 @@
       document.getElementById('aboutMePopup').style.display = 'none';
       document.getElementById('overlay').style.display = 'none';
     }
+
+    // --- Background music: robust autoplay handling + persisted preference ---
     const backgroundMusic = document.getElementById('backgroundMusic');
     const toggleMusicButton = document.getElementById('toggleMusic');
-    function toggleMusic() {
-      if (backgroundMusic.paused) {
-        backgroundMusic.play();
-        toggleMusicButton.textContent = '🔊';
-      } else {
-        backgroundMusic.pause();
-        toggleMusicButton.textContent = '🔇';
+    const MUSIC_PREF_KEY = 'bgMusicPreference'; // 'on' | 'off'
+
+    // Default = ON (matches your previous autoplay intent), but browsers may require a user gesture.
+    let musicPref = localStorage.getItem(MUSIC_PREF_KEY);
+    if (musicPref !== 'on' && musicPref !== 'off') musicPref = 'on';
+
+    // Start muted to satisfy autoplay policies; unmute after a user gesture if pref = on.
+    if (musicPref === 'off') {
+      backgroundMusic.pause();
+      backgroundMusic.muted = true;
+    } else {
+      backgroundMusic.muted = true;
+      // Kick autoplay attempt (muted). If the browser blocks it anyway, we just ignore the rejection.
+      backgroundMusic.play().catch(() => {});
+    }
+
+    function syncMusicUI() {
+      const audible = !backgroundMusic.paused && !backgroundMusic.muted;
+      toggleMusicButton.textContent = audible ? '🔊' : '🔇';
+      toggleMusicButton.setAttribute('aria-pressed', audible ? 'true' : 'false');
+      toggleMusicButton.title = audible ? 'Mute music' : 'Play music';
+    }
+
+    async function startAudibleMusic() {
+      try {
+        await backgroundMusic.play();
+        backgroundMusic.muted = false;
+      } catch (e) {
+        // Autoplay/audible playback may still be blocked until a user gesture.
+      } finally {
+        syncMusicUI();
       }
     }
-    toggleMusicButton.addEventListener('click', toggleMusic);
+
+    function stopMusic() {
+      backgroundMusic.pause();
+      backgroundMusic.muted = true;
+      syncMusicUI();
+    }
+
+    // Toggle button: play/unmute or pause/mute. Also persists preference.
+    toggleMusicButton.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      const audible = !backgroundMusic.paused && !backgroundMusic.muted;
+
+      if (audible) {
+        musicPref = 'off';
+        localStorage.setItem(MUSIC_PREF_KEY, 'off');
+        stopMusic();
+      } else {
+        musicPref = 'on';
+        localStorage.setItem(MUSIC_PREF_KEY, 'on');
+        await startAudibleMusic();
+      }
+    });
+
+    // First user interaction anywhere on the page: if user wants music on, unlock audible playback.
+    const unlockOnce = () => {
+      if (musicPref === 'on') startAudibleMusic();
+    };
+    window.addEventListener('pointerdown', unlockOnce, { once: true, passive: true, capture: true });
+    window.addEventListener('keydown', unlockOnce, { once: true, passive: true, capture: true });
+    window.addEventListener('touchstart', unlockOnce, { once: true, passive: true, capture: true });
+
+    // Keep UI synced even if playback state changes for any reason.
+    backgroundMusic.addEventListener('play', syncMusicUI);
+    backgroundMusic.addEventListener('pause', syncMusicUI);
+    backgroundMusic.addEventListener('ended', syncMusicUI);
+
+    // If the tab is hidden, pause. When visible, resume muted (audible resumes on next gesture if needed).
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        backgroundMusic.dataset.wasPlaying = (!backgroundMusic.paused ? '1' : '0');
+        backgroundMusic.pause();
+      } else if (musicPref === 'on' && backgroundMusic.dataset.wasPlaying === '1') {
+        backgroundMusic.play().catch(() => {});
+      }
+      syncMusicUI();
+    });
+
+    syncMusicUI();
   </script>
 
   <!-- SVG Arrow Symbol -->
@@ -517,7 +644,7 @@
       </a>
     </div>
     <div class="footer-item">
-      <a href="https://linkedin.com/yourprofile" target="_blank" rel="noopener noreferrer">
+      <a href="https://www.linkedin.com/in/saptarshi-halder/" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-linkedin"></i>
         <span>LinkedIn</span>
       </a>
