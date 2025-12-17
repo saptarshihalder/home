@@ -5,6 +5,24 @@
   <title>My Timeline</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
+  <script>
+    // Apply saved/system theme ASAP to avoid a flash of the wrong theme
+    (function () {
+      try {
+        var key = 'themePreference';
+        var stored = localStorage.getItem(key);
+        var mq = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)');
+        var systemTheme = (mq && mq.matches) ? 'light' : 'dark';
+        var theme = (stored === 'light' || stored === 'dark') ? stored : systemTheme;
+        document.documentElement.dataset.theme = theme;
+      } catch (e) {
+        // If storage is unavailable, fall back to system preference
+        var mq2 = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)');
+        document.documentElement.dataset.theme = (mq2 && mq2.matches) ? 'light' : 'dark';
+      }
+    })();
+  </script>
+
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&amp;display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="./style.css">
@@ -143,14 +161,100 @@
       margin-bottom: 5px;
     }
 
-    /* --- Day/Night Mode (no extra UI) ---
-       Follows the user's OS/browser theme via prefers-color-scheme.
-       Keeps your existing dark styling as-is; only overrides for light mode. */
-    @media (prefers-color-scheme: light) {
-      body {
-        background: #f7f7fb;
-        color: #14151a;
-      }
+    /* --- Theme (Light/Dark) ---
+       Controlled by the toggle button + persisted in localStorage.
+       Default follows system preference on first load. */
+    html[data-theme="light"] {
+      color-scheme: light;
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+    }
+    html[data-theme="light"] body {
+      background: #f7f7fb;
+      color: #14151a;
+    }
+    html[data-theme="light"] header {
+      background-color: #f1f1f6;
+      color: #14151a;
+    }
+    html[data-theme="light"] footer {
+      background-color: #f1f1f6;
+    }
+    html[data-theme="light"] .footer-item a {
+      color: #14151a;
+    }
+    html[data-theme="light"] .popup {
+      background: linear-gradient(135deg, #ffffff 0%, #f2f3f7 100%);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.06);
+    }
+    html[data-theme="light"] .popup-header {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+    html[data-theme="light"] .popup-header h3 {
+      color: #14151a;
+    }
+    html[data-theme="light"] .popup .hobby-button {
+      background: rgba(0, 0, 0, 0.04);
+      color: #14151a;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+    html[data-theme="light"] .popup .hobby-button:hover {
+      background: rgba(0, 0, 0, 0.06);
+      border-color: rgba(0, 0, 0, 0.14);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+    }
+    html[data-theme="light"] .popup .close-button {
+      color: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(0, 0, 0, 0.12);
+    }
+    html[data-theme="light"] .popup .close-button:hover {
+      background: rgba(0, 0, 0, 0.04);
+      color: rgba(0, 0, 0, 0.85);
+      border-color: rgba(0, 0, 0, 0.2);
+    }
+    html[data-theme="light"] .overlay {
+      background-color: rgba(0, 0, 0, 0.35);
+    }
+
+    /* Minimal, visible corner controls (music + theme) */
+    .top-controls {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      display: flex;
+      gap: 10px;
+      z-index: 1101;
+    }
+    .top-controls .btn {
+      padding: 10px 12px;
+      border-radius: 14px;
+      line-height: 1;
+      min-width: 44px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #ffffff;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .top-controls .btn:hover {
+      background: rgba(0, 0, 0, 0.45);
+      border-color: rgba(255, 255, 255, 0.22);
+    }
+    html[data-theme="light"] .top-controls .btn {
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(0, 0, 0, 0.10);
+      color: #14151a;
+    }
+    html[data-theme="light"] .top-controls .btn:hover {
+      background: rgba(255, 255, 255, 0.9);
+      border-color: rgba(0, 0, 0, 0.18);
+    }
+
       header {
         background-color: #f1f1f6;
         color: #14151a;
@@ -199,7 +303,10 @@
 </head>
 <body>
   <!-- Music Toggle Button & Audio -->
-  <button class="btn" type="button" id="toggleMusic" aria-label="Toggle background music" aria-pressed="false">🔇</button>
+  <div class="top-controls">
+    <button class="btn" type="button" id="toggleMusic" aria-label="Toggle background music" aria-pressed="false">🔇</button>
+    <button class="btn" type="button" id="toggleTheme" aria-label="Toggle theme" aria-pressed="false">☀️</button>
+  </div>
   <audio id="backgroundMusic" loop autoplay muted preload="auto" playsinline>
     <source src="audio.mp3" type="audio/mp3">
     Your browser does not support the audio tag.
@@ -243,6 +350,71 @@
     function closePopup() {
       document.getElementById('aboutMePopup').style.display = 'none';
       document.getElementById('overlay').style.display = 'none';
+    }
+    
+    // --- Theme toggle (Light/Dark) ---
+    const toggleThemeButton = document.getElementById('toggleTheme');
+    const THEME_PREF_KEY = 'themePreference';
+
+    function getSystemTheme() {
+      const mq = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)');
+      return (mq && mq.matches) ? 'light' : 'dark';
+    }
+
+    function getStoredTheme() {
+      try {
+        const t = localStorage.getItem(THEME_PREF_KEY);
+        return (t === 'light' || t === 'dark') ? t : null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function applyTheme(theme, persist) {
+      document.documentElement.dataset.theme = theme;
+      if (persist) {
+        try { localStorage.setItem(THEME_PREF_KEY, theme); } catch (e) {}
+      }
+      syncThemeUI();
+    }
+
+    function syncThemeUI() {
+      const current = document.documentElement.dataset.theme || getSystemTheme();
+      const isDark = current === 'dark';
+      // Show the "other" mode icon (minimal but obvious)
+      toggleThemeButton.textContent = isDark ? '☀️' : '🌙';
+      toggleThemeButton.title = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+      toggleThemeButton.setAttribute('aria-label', toggleThemeButton.title);
+      toggleThemeButton.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    }
+
+    // Ensure we have a theme set (head script usually does this, but keep it robust)
+    (function initTheme() {
+      const stored = getStoredTheme();
+      if (stored) {
+        applyTheme(stored, false);
+      } else if (!document.documentElement.dataset.theme) {
+        applyTheme(getSystemTheme(), false);
+      } else {
+        syncThemeUI();
+      }
+    })();
+
+    toggleThemeButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const current = document.documentElement.dataset.theme || getSystemTheme();
+      const next = (current === 'dark') ? 'light' : 'dark';
+      applyTheme(next, true);
+    });
+
+    // If the user hasn't chosen a theme, keep following the system setting
+    const themeMQ = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)');
+    if (themeMQ && themeMQ.addEventListener) {
+      themeMQ.addEventListener('change', () => {
+        if (!getStoredTheme()) {
+          applyTheme(getSystemTheme(), false);
+        }
+      });
     }
 
     // --- Background music: robust autoplay handling + persisted preference ---
