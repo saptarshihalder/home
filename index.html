@@ -419,7 +419,12 @@
     const toggleMusicButton = document.getElementById('toggleMusic');
     const MUSIC_PREF_KEY = 'bgMusicPreference'; // 'on' | 'off'
 
-    // Default = ON (matches your previous autoplay intent), but browsers may require a user gesture.
+    
+
+    // Keep the background tune as a soft whisper (0.0 - 1.0)
+    const WHISPER_VOLUME = 0.08;
+    backgroundMusic.volume = WHISPER_VOLUME;
+// Default = ON (matches your previous autoplay intent), but browsers may require a user gesture.
     let musicPref = localStorage.getItem(MUSIC_PREF_KEY);
     if (musicPref !== 'on' && musicPref !== 'off') musicPref = 'on';
 
@@ -441,11 +446,28 @@
     }
 
     async function startAudibleMusic() {
+      // Bring music in gently at whisper volume (no sudden loud start)
+      const target = (typeof WHISPER_VOLUME === 'number') ? WHISPER_VOLUME : 0.08;
+
+      const fadeTo = (to, ms = 900) => {
+        const from = backgroundMusic.volume;
+        const start = performance.now();
+        const step = (t) => {
+          const p = Math.min(1, (t - start) / ms);
+          backgroundMusic.volume = from + (to - from) * p;
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      };
+
       try {
+        // Set to 0 before unmuting to avoid a loud burst on some browsers
+        backgroundMusic.volume = 0;
         await backgroundMusic.play();
         backgroundMusic.muted = false;
+        fadeTo(target, 900);
       } catch (e) {
-        // Autoplay/audible playback may still be blocked until a user gesture.
+        // Audible playback may still be blocked until a user gesture.
       } finally {
         syncMusicUI();
       }
@@ -813,7 +835,7 @@
       </a>
     </div>
     <div class="footer-item">
-      <a href="https://linkedin.com/yourprofile" target="_blank" rel="noopener noreferrer">
+      <a href="https://www.linkedin.com/in/saptarshi-halder/" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-linkedin"></i>
         <span>LinkedIn</span>
       </a>
