@@ -301,7 +301,6 @@
 <body>
   <!-- Music Toggle Button & Audio -->
   <div class="top-controls">
-    <button class="btn" type="button" id="toggleMusic" aria-label="Toggle background music" aria-pressed="false">🔇</button>
     <button class="btn" type="button" id="toggleTheme" aria-label="Toggle theme" aria-pressed="false">☀️</button>
   </div>
   <audio id="backgroundMusic" loop autoplay muted preload="auto" playsinline>
@@ -414,112 +413,56 @@
       });
     }
 
-    // --- Background music: robust autoplay handling + persisted preference ---
+    // --- Background music: always-on whisper (no mute toggle) ---
     const backgroundMusic = document.getElementById('backgroundMusic');
-    const toggleMusicButton = document.getElementById('toggleMusic');
-    const MUSIC_PREF_KEY = 'bgMusicPreference'; // 'on' | 'off'
-
-    
 
     // Keep the background tune as a soft whisper (0.0 - 1.0)
     const WHISPER_VOLUME = 0.08;
-    backgroundMusic.volume = WHISPER_VOLUME;
-// Default = ON (matches your previous autoplay intent), but browsers may require a user gesture.
-    let musicPref = localStorage.getItem(MUSIC_PREF_KEY);
-    if (musicPref !== 'on' && musicPref !== 'off') musicPref = 'on';
 
-    // Start muted to satisfy autoplay policies; unmute after a user gesture if pref = on.
-    if (musicPref === 'off') {
-      backgroundMusic.pause();
-      backgroundMusic.muted = true;
-    } else {
-      backgroundMusic.muted = true;
-      // Kick autoplay attempt (muted). If the browser blocks it anyway, we just ignore the rejection.
-      backgroundMusic.play().catch(() => {});
-    }
-
-    function syncMusicUI() {
-      const audible = !backgroundMusic.paused && !backgroundMusic.muted;
-      toggleMusicButton.textContent = audible ? '🔊' : '🔇';
-      toggleMusicButton.setAttribute('aria-pressed', audible ? 'true' : 'false');
-      toggleMusicButton.title = audible ? 'Mute music' : 'Play music';
-    }
-
-    async function startAudibleMusic() {
-      // Bring music in gently at whisper volume (no sudden loud start)
-      const target = (typeof WHISPER_VOLUME === 'number') ? WHISPER_VOLUME : 0.08;
-
-      const fadeTo = (to, ms = 900) => {
-        const from = backgroundMusic.volume;
-        const start = performance.now();
-        const step = (t) => {
-          const p = Math.min(1, (t - start) / ms);
-          backgroundMusic.volume = from + (to - from) * p;
-          if (p < 1) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
+    const fadeTo = (to, ms = 900) => {
+      const from = backgroundMusic.volume;
+      const start = performance.now();
+      const step = (t) => {
+        const p = Math.min(1, (t - start) / ms);
+        backgroundMusic.volume = from + (to - from) * p;
+        if (p < 1) requestAnimationFrame(step);
       };
+      requestAnimationFrame(step);
+    };
 
+    // Try to start playback immediately (muted autoplay is usually allowed).
+    // Then, on the first user interaction, unmute and fade-in to whisper volume.
+    (() => {
+      backgroundMusic.volume = WHISPER_VOLUME;
+      backgroundMusic.muted = true;
+      backgroundMusic.play().catch(() => {});
+    })();
+
+    const unlockWhisper = async () => {
       try {
-        // Set to 0 before unmuting to avoid a loud burst on some browsers
+        // Prevent loud bursts: start from 0 and fade up.
         backgroundMusic.volume = 0;
         await backgroundMusic.play();
         backgroundMusic.muted = false;
-        fadeTo(target, 900);
+        fadeTo(WHISPER_VOLUME, 900);
       } catch (e) {
-        // Audible playback may still be blocked until a user gesture.
-      } finally {
-        syncMusicUI();
+        // Some browsers may still block audible playback until a valid gesture.
       }
-    }
-
-    function stopMusic() {
-      backgroundMusic.pause();
-      backgroundMusic.muted = true;
-      syncMusicUI();
-    }
-
-    // Toggle button: play/unmute or pause/mute. Also persists preference.
-    toggleMusicButton.addEventListener('click', async (e) => {
-      e.stopPropagation();
-      const audible = !backgroundMusic.paused && !backgroundMusic.muted;
-
-      if (audible) {
-        musicPref = 'off';
-        localStorage.setItem(MUSIC_PREF_KEY, 'off');
-        stopMusic();
-      } else {
-        musicPref = 'on';
-        localStorage.setItem(MUSIC_PREF_KEY, 'on');
-        await startAudibleMusic();
-      }
-    });
-
-    // First user interaction anywhere on the page: if user wants music on, unlock audible playback.
-    const unlockOnce = () => {
-      if (musicPref === 'on') startAudibleMusic();
     };
-    window.addEventListener('pointerdown', unlockOnce, { once: true, passive: true, capture: true });
-    window.addEventListener('keydown', unlockOnce, { once: true, passive: true, capture: true });
-    window.addEventListener('touchstart', unlockOnce, { once: true, passive: true, capture: true });
 
-    // Keep UI synced even if playback state changes for any reason.
-    backgroundMusic.addEventListener('play', syncMusicUI);
-    backgroundMusic.addEventListener('pause', syncMusicUI);
-    backgroundMusic.addEventListener('ended', syncMusicUI);
+    window.addEventListener('pointerdown', unlockWhisper, { once: true, passive: true, capture: true });
+    window.addEventListener('keydown', unlockWhisper, { once: true, passive: true, capture: true });
+    window.addEventListener('touchstart', unlockWhisper, { once: true, passive: true, capture: true });
 
-    // If the tab is hidden, pause. When visible, resume muted (audible resumes on next gesture if needed).
+    // Pause when hidden; resume when visible.
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
-        backgroundMusic.dataset.wasPlaying = (!backgroundMusic.paused ? '1' : '0');
         backgroundMusic.pause();
-      } else if (musicPref === 'on' && backgroundMusic.dataset.wasPlaying === '1') {
+      } else {
         backgroundMusic.play().catch(() => {});
       }
-      syncMusicUI();
     });
 
-    syncMusicUI();
   </script>
 
   <!-- SVG Arrow Symbol -->
