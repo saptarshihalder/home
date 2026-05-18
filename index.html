@@ -247,7 +247,18 @@
   <div class="top-controls">
     <button class="btn" type="button" id="toggleTheme" aria-label="Toggle theme" aria-pressed="false">☀️</button>
   </div>
-  <audio id="backgroundMusic" loop autoplay muted preload="auto" playsinline>
+
+  <!--
+    Audio element notes for mobile reliability:
+      - `loop`         : keeps looping forever
+      - `autoplay`     : kicks off as soon as it can (only allowed because we start muted)
+      - `muted`        : muted autoplay is permitted by all major browsers, incl. iOS Safari
+      - `playsinline`  : prevents iOS from going full-screen for media
+      - `webkit-playsinline`: legacy Safari fallback
+      - `preload="auto"`: load metadata + audio data immediately
+      - `x-webkit-airplay="deny"`: don't offer AirPlay routing
+  -->
+  <audio id="backgroundMusic" loop autoplay muted preload="auto" playsinline webkit-playsinline x-webkit-airplay="deny">
     <source src="audio.mp3" type="audio/mp3">
     Your browser does not support the audio tag.
   </audio>
@@ -343,42 +354,159 @@
       });
     }
 
-    // --- Background music (updated) ---
-    const backgroundMusic = document.getElementById('backgroundMusic');
+    /* ============================================================
+       BACKGROUND MUSIC — always-on, tab-aware, mobile-friendly
+       ------------------------------------------------------------
+       Goal: music plays at all times EXCEPT when the tab is hidden
+             (switching tabs / minimising / locking the phone).
 
-    const WHISPER_VOLUME = 0.10;
-    const fadeTo = (to, ms = 900) => {
-      const from = backgroundMusic.volume;
-      const start = performance.now();
-      const step = (t) => {
-        const p = Math.min(1, (t - start) / ms);
-        backgroundMusic.volume = from + (to - from) * p;
-        if (p < 1) requestAnimationFrame(step);
+       Strategy:
+         1. Start muted + autoplay  → browsers always allow this.
+         2. On ANY first user gesture → unmute & fade in.
+         3. Keep the gesture listeners alive forever (no `once: true`)
+            so subsequent gestures can also resume audio if the
+            browser ever pauses us silently (common on iOS).
+         4. Listen on the <audio> element itself for `pause` events
+            we did not initiate → re-issue play().
+         5. visibilitychange is the ONLY thing that intentionally
+            pauses the audio. Coming back fires play() again.
+         6. A low-frequency heartbeat (every 2 s) catches edge cases
+            like iOS suspending the media element after a phone call,
+            losing audio focus, or the OS killing playback in the BG.
+       ============================================================ */
+    (function setupBackgroundMusic() {
+      const audio = document.getElementById('backgroundMusic');
+      if (!audio) return;
+
+      const WHISPER_VOLUME = 0.10;   // final ambient volume (10%)
+      const FADE_MS        = 900;    // fade-in duration
+
+      // State flags
+      let userInteracted = false;    // has the user gesture-unlocked sound?
+      let tabHidden      = document.hidden;
+      let resumeLock     = false;    // prevents recursive play() storms
+
+      // --- Smooth volume fade ---
+      const fadeTo = (target, ms = FADE_MS) => {
+        const from  = audio.volume;
+        const start = performance.now();
+        const step  = (t) => {
+          const p = Math.min(1, (t - start) / ms);
+          audio.volume = from + (target - from) * p;
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
       };
-      requestAnimationFrame(step);
-    };
 
-    // Start muted (browsers allow this without a gesture)
-    backgroundMusic.volume = 0;
-    backgroundMusic.muted = true;
-    backgroundMusic.play().catch(() => {});
+      // --- Safe play(): swallows promise rejections, avoids loops ---
+      const safePlay = () => {
+        if (tabHidden || resumeLock) return;
+        if (!audio.paused) return;
+        resumeLock = true;
+        const p = audio.play();
+        const release = () => { resumeLock = false; };
+        if (p && typeof p.then === 'function') {
+          p.then(release).catch((err) => {
+            release();
+            // Most likely: no user gesture yet. We'll unlock on next tap.
+            // console.debug('audio play() rejected:', err);
+          });
+        } else {
+          release();
+        }
+      };
 
-    const unlockWhisper = () => {
-      backgroundMusic.muted = false;
-      backgroundMusic.volume = 0;
-      backgroundMusic.play()
-        .then(() => fadeTo(WHISPER_VOLUME, 900))
-        .catch(err => console.warn('Audio play failed:', err));
-    };
+      // --- Initial muted autoplay (always permitted) ---
+      audio.volume = 0;
+      audio.muted  = true;
+      audio.loop   = true;
+      safePlay();
 
-    ['pointerdown', 'keydown', 'touchstart'].forEach(evt =>
-      window.addEventListener(evt, unlockWhisper, { once: true, passive: true, capture: true })
-    );
+      // --- Unlock on first gesture (then keep listening for resumes) ---
+      const unlockOrResume = () => {
+        if (!userInteracted) {
+          userInteracted = true;
+          audio.muted    = false;
+          audio.volume   = 0;
+          const p = audio.play();
+          const onOk = () => fadeTo(WHISPER_VOLUME);
+          if (p && typeof p.then === 'function') {
+            p.then(onOk).catch(() => { /* try again on next gesture */ userInteracted = false; });
+          } else {
+            onOk();
+          }
+        } else if (audio.paused && !tabHidden) {
+          // Already unlocked but somehow paused → resume.
+          safePlay();
+        }
+      };
 
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) backgroundMusic.pause();
-      else backgroundMusic.play().catch(() => {});
-    });
+      // Capture-phase + passive so we never block taps/scrolls.
+      // No `{ once: true }` — we want every gesture to be able to recover audio.
+      const gestureEvents = [
+        'pointerdown', 'pointerup',
+        'mousedown', 'click',
+        'keydown',
+        'touchstart', 'touchend',
+        'scroll', 'wheel'
+      ];
+      gestureEvents.forEach(evt =>
+        window.addEventListener(evt, unlockOrResume, { passive: true, capture: true })
+      );
+
+      // --- Tab visibility is the ONLY intentional pause trigger ---
+      document.addEventListener('visibilitychange', () => {
+        tabHidden = document.hidden;
+        if (tabHidden) {
+          audio.pause();
+        } else if (userInteracted) {
+          safePlay();
+        }
+      });
+
+      // Older/iOS Safari: pagehide / pageshow mirror visibility on bfcache.
+      window.addEventListener('pageshow', () => {
+        tabHidden = document.hidden;
+        if (!tabHidden && userInteracted) safePlay();
+      });
+      window.addEventListener('pagehide', () => {
+        // Don't force-pause here; visibilitychange already handled it.
+      });
+
+      // --- If something else pauses us (iOS audio interruption,
+      //     headphone unplug, lost audio focus...) → re-play ---
+      audio.addEventListener('pause', () => {
+        // Only fight pauses that aren't from a tab change.
+        if (!tabHidden && userInteracted) {
+          // Defer slightly so we don't stomp on the browser's own state.
+          setTimeout(safePlay, 120);
+        }
+      });
+
+      // `ended` shouldn't fire because of loop, but belt-and-braces:
+      audio.addEventListener('ended', () => {
+        if (!tabHidden && userInteracted) {
+          try { audio.currentTime = 0; } catch (e) {}
+          safePlay();
+        }
+      });
+
+      // Sometimes mobile browsers stall the stream — kick it.
+      audio.addEventListener('stalled', () => { if (!tabHidden && userInteracted) safePlay(); });
+      audio.addEventListener('suspend', () => { if (!tabHidden && userInteracted) safePlay(); });
+
+      // --- Heartbeat: catches silent failures (especially on iOS) ---
+      setInterval(() => {
+        if (!tabHidden && userInteracted && audio.paused) {
+          safePlay();
+        }
+      }, 2000);
+
+      // --- Window focus is a useful extra hint on desktop ---
+      window.addEventListener('focus', () => {
+        if (!tabHidden && userInteracted && audio.paused) safePlay();
+      });
+    })();
   </script>
 
   <svg display="none">
