@@ -50,14 +50,11 @@
   <script>
     (function () {
       try {
-        const saved =
-          localStorage.getItem("themePreference");
+        const saved = localStorage.getItem("themePreference");
 
         const prefersLight =
           window.matchMedia &&
-          window.matchMedia(
-            "(prefers-color-scheme: light)"
-          ).matches;
+          window.matchMedia("(prefers-color-scheme: light)").matches;
 
         const systemTheme =
           prefersLight ? "light" : "dark";
@@ -68,8 +65,7 @@
             : systemTheme;
 
       } catch (error) {
-        document.documentElement.dataset.theme =
-          "dark";
+        document.documentElement.dataset.theme = "dark";
       }
     })();
   </script>
@@ -109,13 +105,10 @@
 
 <body>
 
-  <!-- background music -->
-
   <audio
     id="backgroundMusic"
     loop
     autoplay
-    muted
     preload="auto"
     playsinline
     webkit-playsinline
@@ -126,8 +119,6 @@
     >
   </audio>
 
-
-  <!-- navigation -->
 
   <nav
     class="topbar"
@@ -170,8 +161,6 @@
 
 
   <main id="top">
-
-    <!-- intro -->
 
     <section class="intro">
 
@@ -232,8 +221,6 @@
     </section>
 
 
-    <!-- timeline -->
-
     <section class="timeline-section">
 
       <div class="section-heading">
@@ -282,7 +269,7 @@
         </div>
 
 
-        <!-- school -->
+        <!-- School -->
 
         <article class="timeline__item">
 
@@ -295,7 +282,6 @@
               aria-labelledby="item1-name"
               aria-expanded="false"
               aria-controls="item1-ctrld"
-              data-item="1"
             >
 
               <svg
@@ -369,7 +355,7 @@
         </article>
 
 
-        <!-- science and entrance exams -->
+        <!-- Science -->
 
         <article class="timeline__item">
 
@@ -382,7 +368,6 @@
               aria-labelledby="item2-name"
               aria-expanded="false"
               aria-controls="item2-ctrld"
-              data-item="2"
             >
 
               <svg
@@ -472,7 +457,6 @@
               aria-labelledby="item3-name"
               aria-expanded="false"
               aria-controls="item3-ctrld"
-              data-item="3"
             >
 
               <svg
@@ -532,8 +516,8 @@
 
                 <p>
                   University has mostly been a mixture of interesting ideas,
-                  unfinished side projects, questionable sleep and finding new
-                  subjects that I suddenly decide I need to learn.
+                  unfinished side projects, questionable sleep and finding
+                  new subjects that I suddenly decide I need to learn.
                 </p>
 
               </div>
@@ -542,7 +526,7 @@
               <div class="timeline__nested">
 
 
-                <!-- things I built -->
+                <!-- Projects -->
 
                 <article class="timeline__item">
 
@@ -555,7 +539,6 @@
                       aria-labelledby="item4-name"
                       aria-expanded="false"
                       aria-controls="item4-ctrld"
-                      data-item="4"
                     >
 
                       <svg
@@ -605,11 +588,7 @@
                     <div class="timeline__item-body-inner">
 
 
-                      <!-- GamerKraft -->
-
-                      <article
-                        class="timeline__item timeline__item-small"
-                      >
+                      <article class="timeline__item timeline__item-small">
 
                         <div class="timeline__item-header">
 
@@ -620,7 +599,6 @@
                             aria-labelledby="item5-name"
                             aria-expanded="false"
                             aria-controls="item5-ctrld"
-                            data-item="5"
                           >
 
                             <svg
@@ -729,7 +707,7 @@
                 </article>
 
 
-                <!-- research -->
+                <!-- Research -->
 
                 <article class="timeline__item">
 
@@ -742,7 +720,6 @@
                       aria-labelledby="item6-name"
                       aria-expanded="false"
                       aria-controls="item6-ctrld"
-                      data-item="6"
                     >
 
                       <svg
@@ -789,9 +766,7 @@
 
                       <!-- IIIT Kalyani -->
 
-                      <article
-                        class="timeline__item timeline__item-small"
-                      >
+                      <article class="timeline__item timeline__item-small">
 
                         <div class="timeline__item-header">
 
@@ -802,7 +777,6 @@
                             aria-labelledby="item7-name"
                             aria-expanded="false"
                             aria-controls="item7-ctrld"
-                            data-item="7"
                           >
 
                             <svg
@@ -878,9 +852,7 @@
 
                       <!-- Oxford -->
 
-                      <article
-                        class="timeline__item timeline__item-small"
-                      >
+                      <article class="timeline__item timeline__item-small">
 
                         <div class="timeline__item-header">
 
@@ -891,7 +863,6 @@
                             aria-labelledby="item8-name"
                             aria-expanded="false"
                             aria-controls="item8-ctrld"
-                            data-item="8"
                           >
 
                             <svg
@@ -965,9 +936,7 @@
 
                       <!-- IIT BHU -->
 
-                      <article
-                        class="timeline__item timeline__item-small"
-                      >
+                      <article class="timeline__item timeline__item-small">
 
                         <div class="timeline__item-header">
 
@@ -978,7 +947,6 @@
                             aria-labelledby="item9-name"
                             aria-expanded="false"
                             aria-controls="item9-ctrld"
-                            data-item="9"
                           >
 
                             <svg
@@ -1037,8 +1005,8 @@
                               <p>
                                 I worked around EEG signals, biometrics and
                                 machine learning, while also getting much better
-                                at the useful research skill of figuring things
-                                out when nothing works on the first attempt.
+                                at figuring things out when nothing works on the
+                                first attempt.
                               </p>
 
                             </div>
@@ -1052,9 +1020,7 @@
 
                       <!-- Duke -->
 
-                      <article
-                        class="timeline__item timeline__item-small"
-                      >
+                      <article class="timeline__item timeline__item-small">
 
                         <div class="timeline__item-header">
 
@@ -1065,7 +1031,6 @@
                             aria-labelledby="item10-name"
                             aria-expanded="false"
                             aria-controls="item10-ctrld"
-                            data-item="10"
                           >
 
                             <svg
@@ -1139,9 +1104,7 @@
 
                       <!-- DVC -->
 
-                      <article
-                        class="timeline__item timeline__item-small"
-                      >
+                      <article class="timeline__item timeline__item-small">
 
                         <div class="timeline__item-header">
 
@@ -1152,7 +1115,6 @@
                             aria-labelledby="item11-name"
                             aria-expanded="false"
                             aria-controls="item11-ctrld"
-                            data-item="11"
                           >
 
                             <svg
@@ -1215,8 +1177,8 @@
 
 
                               <p>
-                                Very different from academic research, which was
-                                probably exactly why it was useful.
+                                Very different from academic research, which
+                                was probably exactly why it was useful.
                               </p>
 
                             </div>
@@ -1248,7 +1210,7 @@
   </main>
 
 
-  <!-- hobbies popup -->
+  <!-- Popup -->
 
   <div
     class="overlay"
@@ -1291,17 +1253,14 @@
         class="hobby-row"
         href="https://saptarshihalder.github.io/mybooks/"
       >
-
         <i
           class="fas fa-book-open"
           aria-hidden="true"
         ></i>
 
-
         <span>
           Reading
         </span>
-
 
         <span
           class="hobby-arrow"
@@ -1309,7 +1268,6 @@
         >
           ↗
         </span>
-
       </a>
 
 
@@ -1317,17 +1275,14 @@
         class="hobby-row"
         href="./writing.html"
       >
-
         <i
           class="fas fa-pen-fancy"
           aria-hidden="true"
         ></i>
 
-
         <span>
           Writing
         </span>
-
 
         <span
           class="hobby-arrow"
@@ -1335,7 +1290,6 @@
         >
           ↗
         </span>
-
       </a>
 
 
@@ -1343,17 +1297,14 @@
         class="hobby-row"
         href="./numismatics.html"
       >
-
         <i
           class="fas fa-coins"
           aria-hidden="true"
         ></i>
 
-
         <span>
           Numismatics
         </span>
-
 
         <span
           class="hobby-arrow"
@@ -1361,7 +1312,6 @@
         >
           ↗
         </span>
-
       </a>
 
 
@@ -1369,17 +1319,14 @@
         class="hobby-row"
         href="./music.html"
       >
-
         <i
           class="fas fa-headphones"
           aria-hidden="true"
         ></i>
 
-
         <span>
           Music
         </span>
-
 
         <span
           class="hobby-arrow"
@@ -1387,7 +1334,6 @@
         >
           ↗
         </span>
-
       </a>
 
 
@@ -1403,8 +1349,6 @@
 
   </section>
 
-
-  <!-- footer -->
 
   <footer>
 
@@ -1464,15 +1408,11 @@
   </footer>
 
 
-  <!-- arrow definition -->
-
   <svg
     class="svg-defs"
     aria-hidden="true"
   >
-
     <symbol id="arrow">
-
       <polyline
         points="7 10,12 15,17 10"
         fill="none"
@@ -1481,9 +1421,7 @@
         stroke-linejoin="round"
         stroke-width="2"
       ></polyline>
-
     </symbol>
-
   </svg>
 
 </body>
