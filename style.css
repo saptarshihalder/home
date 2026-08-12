@@ -29,8 +29,7 @@
 	--transition: 220ms ease;
 
 	--timeline-transition:
-		320ms
-		cubic-bezier(0.65, 0, 0.35, 1);
+		320ms cubic-bezier(0.65, 0, 0.35, 1);
 
 	font-size: 16px;
 }
@@ -140,9 +139,7 @@ svg {
 }
 
 
-/* =========================================================
-   Top navigation
-   ========================================================= */
+/* top navigation */
 
 .topbar {
 	width:
@@ -262,9 +259,7 @@ html[data-theme="light"]
 }
 
 
-/* =========================================================
-   Intro
-   ========================================================= */
+/* intro */
 
 .intro {
 	width:
@@ -365,9 +360,7 @@ html[data-theme="light"]
 }
 
 
-/* =========================================================
-   Timeline heading
-   ========================================================= */
+/* timeline heading */
 
 .timeline-section {
 	width:
@@ -420,9 +413,7 @@ html[data-theme="light"]
 }
 
 
-/* =========================================================
-   Expand and collapse buttons
-   ========================================================= */
+/* buttons */
 
 .btn-group {
 	display: flex;
@@ -478,9 +469,7 @@ html[data-theme="light"]
 }
 
 
-/* =========================================================
-   Timeline
-   ========================================================= */
+/* timeline */
 
 .timeline {
 	position: relative;
@@ -504,15 +493,6 @@ html[data-theme="light"]
 	padding-bottom: 0;
 }
 
-
-/*
-	The connector line now belongs to the entire item.
-
-	This is the important phone fix.
-
-	It means the line automatically becomes taller when the
-	item body expands instead of using a fixed pixel height.
-*/
 
 .timeline__item:not(:last-child)::before {
 	content: "";
@@ -699,9 +679,7 @@ html[data-theme="light"]
 }
 
 
-/* =========================================================
-   Expandable body
-   ========================================================= */
+/* expandable body */
 
 .timeline__item-body {
 	display: grid;
@@ -709,11 +687,6 @@ html[data-theme="light"]
 	grid-template-rows: 0fr;
 
 	min-width: 0;
-
-	/*
-		This matches the beginning of the title column.
-		The connector is safely to the left of the cards.
-	*/
 
 	margin-left: 78px;
 
@@ -794,9 +767,7 @@ p + p {
 }
 
 
-/* =========================================================
-   Nested timeline
-   ========================================================= */
+/* nested timeline */
 
 .timeline__nested {
 	position: relative;
@@ -877,11 +848,6 @@ p + p {
 
 .timeline__nested
 .timeline__item-body {
-	/*
-		Nested title begins around here.
-		This keeps the card away from the connector.
-	*/
-
 	margin-left: 67px;
 }
 
@@ -905,9 +871,7 @@ p + p {
 }
 
 
-/* =========================================================
-   Overlay
-   ========================================================= */
+/* overlay */
 
 .overlay {
 	position: fixed;
@@ -942,9 +906,7 @@ p + p {
 }
 
 
-/* =========================================================
-   Hobbies popup
-   ========================================================= */
+/* popup */
 
 .popup {
 	position: fixed;
@@ -1149,9 +1111,7 @@ html[data-theme="light"]
 }
 
 
-/* =========================================================
-   Footer
-   ========================================================= */
+/* footer */
 
 footer {
 	width:
@@ -1235,9 +1195,7 @@ footer {
 }
 
 
-/* =========================================================
-   Tablets
-   ========================================================= */
+/* tablets */
 
 @media (max-width: 760px) {
 
@@ -1255,9 +1213,7 @@ footer {
 }
 
 
-/* =========================================================
-   Phones
-   ========================================================= */
+/* phones */
 
 @media (max-width: 640px) {
 
@@ -1287,8 +1243,6 @@ footer {
 		width: 44px;
 	}
 
-
-	/* intro */
 
 	.intro {
 		width:
@@ -1338,8 +1292,6 @@ footer {
 	}
 
 
-	/* timeline section */
-
 	.timeline-section {
 		width:
 			calc(100% - 28px);
@@ -1364,8 +1316,6 @@ footer {
 		line-height: 1.6;
 	}
 
-
-	/* buttons */
 
 	.btn-group {
 		width: 100%;
@@ -1392,21 +1342,12 @@ footer {
 	}
 
 
-	/* main timeline */
-
 	.timeline__item {
 		padding-bottom: 2.2rem;
 	}
 
 
 	.timeline__item:not(:last-child)::before {
-		/*
-			40px arrow
-			8px gap
-			9px dot
-			dot centre = 52.5px
-		*/
-
 		left: 52.5px;
 
 		top: 20px;
@@ -1468,15 +1409,6 @@ footer {
 	}
 
 
-	/*
-		The title begins at roughly 65px.
-
-		The card begins there as well.
-
-		The connector is around 52px, leaving enough empty
-		space that it can no longer cut through the card.
-	*/
-
 	.timeline__item-body {
 		margin-left: 65px;
 	}
@@ -1501,8 +1433,6 @@ footer {
 		margin-top: 16px;
 	}
 
-
-	/* nested timeline */
 
 	.timeline__nested {
 		margin-top: 25px;
@@ -1557,13 +1487,6 @@ footer {
 
 	.timeline__nested
 	.timeline__item:not(:last-child)::before {
-		/*
-			32px arrow
-			7px gap
-			7px dot
-			centre = 42.5px
-		*/
-
 		left: 42.5px;
 
 		top: 17px;
@@ -1588,10 +1511,6 @@ footer {
 
 	.timeline__nested
 	.timeline__item-body {
-		/*
-			The nested title starts at about 53px.
-		*/
-
 		margin-left: 53px;
 	}
 
@@ -1617,8 +1536,6 @@ footer {
 	}
 
 
-	/* popup */
-
 	.popup {
 		width:
 			calc(100% - 24px);
@@ -1643,8 +1560,6 @@ footer {
 	}
 
 
-	/* footer */
-
 	footer {
 		width:
 			calc(100% - 32px);
@@ -1666,9 +1581,7 @@ footer {
 }
 
 
-/* =========================================================
-   Very small phones
-   ========================================================= */
+/* very small phones */
 
 @media (max-width: 380px) {
 
@@ -1810,9 +1723,7 @@ footer {
 }
 
 
-/* =========================================================
-   Reduced motion
-   ========================================================= */
+/* reduced motion */
 
 @media (
 	prefers-reduced-motion: reduce
@@ -1834,25 +1745,6 @@ footer {
 
 		transition-duration:
 			0.01ms !important;
-	}
-
-}
-
-
-/* =========================================================
-   Touch devices
-   ========================================================= */
-
-@media (hover: none) {
-
-	.quiet-button:hover,
-	.small-button:hover,
-	.timeline__arrow:hover,
-	.hobby-row:hover,
-	.footer-links a:hover,
-	.intro-links a:hover,
-	.site-name:hover {
-		color: inherit;
 	}
 
 }
