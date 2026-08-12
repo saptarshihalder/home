@@ -2,849 +2,1370 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My Timeline</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <title>Saptarshi Halder</title>
+
+  <meta
+    name="description"
+    content="A small personal corner of the internet belonging to Saptarshi Halder."
+  >
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+
   <meta name="color-scheme" content="light dark">
+
+  <meta property="og:title" content="Saptarshi Halder">
+
+  <meta
+    property="og:description"
+    content="Research, projects, books, code and other things I have ended up spending time on."
+  >
+
+  <meta
+    property="og:image"
+    content="https://saptarshihalder.github.io/home/embed.jpg"
+  >
+
+  <meta
+    property="og:url"
+    content="https://saptarshihalder.github.io/home/"
+  >
+
+  <meta property="og:type" content="website">
+
+  <meta
+    name="twitter:card"
+    content="summary_large_image"
+  >
+
+  <meta
+    name="theme-color"
+    content="#090a0d"
+    id="themeColorMeta"
+  >
+
   <script>
     (function () {
       try {
-        var key = 'themePreference';
-        var stored = localStorage.getItem(key);
-        var mq = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)');
-        var systemTheme = (mq && mq.matches) ? 'light' : 'dark';
-        var theme = (stored === 'light' || stored === 'dark') ? stored : systemTheme;
-        document.documentElement.dataset.theme = theme;
-      } catch (e) {
-        var mq2 = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)');
-        document.documentElement.dataset.theme = (mq2 && mq2.matches) ? 'light' : 'dark';
+        const saved = localStorage.getItem("themePreference");
+
+        const prefersLight =
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: light)").matches;
+
+        const systemTheme =
+          prefersLight ? "light" : "dark";
+
+        document.documentElement.dataset.theme =
+          saved === "light" || saved === "dark"
+            ? saved
+            : systemTheme;
+      } catch (error) {
+        document.documentElement.dataset.theme = "dark";
       }
     })();
   </script>
 
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link rel="stylesheet" href="./style.css">
-  <style>
-    header {
-      text-align: right;
-      padding: 20px;
-      background-color: #17181C;
-      color: #fff;
-      cursor: pointer;
-    }
-    h2 { margin: 0; }
-    .popup {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 90%;
-      max-width: 420px;
-      background: linear-gradient(135deg, #1a1d29 0%, #252938 100%);
-      border-radius: 20px;
-      padding: 0;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.1);
-      z-index: 1000;
-      animation: popupSlide 0.3s ease-out;
-    }
-    @keyframes popupSlide {
-      from { opacity: 0; transform: translate(-50%, -48%); }
-      to   { opacity: 1; transform: translate(-50%, -50%); }
-    }
-    .popup-header {
-      padding: 28px 32px 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .popup-header h3 {
-      margin: 0;
-      color: #ffffff;
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
-    .popup-content { padding: 24px 32px 32px; }
-    .overlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.75);
-      backdrop-filter: blur(4px);
-      z-index: 999;
-      animation: fadeIn 0.3s ease-out;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-    .popup .hobby-button {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      background: rgba(255,255,255,0.05);
-      color: #ffffff;
-      padding: 16px 20px;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px;
-      margin-bottom: 12px;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
-      font-size: 15px;
-      font-weight: 500;
-      letter-spacing: 0.2px;
-    }
-    .popup .hobby-button i {
-      margin-right: 14px;
-      font-size: 18px;
-      width: 20px;
-      text-align: center;
-      opacity: 0.9;
-    }
-    .popup .hobby-button:hover {
-      background: rgba(255,255,255,0.1);
-      border-color: rgba(255,255,255,0.2);
-      transform: translateX(4px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-    .popup .close-button {
-      width: 100%;
-      background: transparent;
-      color: rgba(255,255,255,0.6);
-      padding: 14px 20px;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
-      margin-top: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-    .popup .close-button:hover {
-      background: rgba(255,255,255,0.05);
-      color: rgba(255,255,255,0.9);
-      border-color: rgba(255,255,255,0.2);
-    }
-    footer {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      padding: 20px;
-      background-color: #ccc;
-    }
-    .footer-item { text-align: center; }
-    .footer-item a {
-      text-decoration: none;
-      color: #333;
-      display: block;
-    }
-    .footer-item i {
-      font-size: 2em;
-      margin-bottom: 5px;
-    }
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
 
-    html[data-theme="light"] { color-scheme: light; }
-    html[data-theme="dark"]  { color-scheme: dark; }
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
 
-    html[data-theme="light"] body        { background: #f7f7fb !important; color: #14151a !important; }
-    html[data-theme="light"] header      { background-color: #f1f1f6 !important; color: #14151a !important; }
-    html[data-theme="light"] footer      { background-color: #f1f1f6 !important; }
-    html[data-theme="light"] .footer-item a { color: #14151a !important; }
-    html[data-theme="light"] .popup {
-      background: linear-gradient(135deg, #ffffff 0%, #f2f3f7 100%) !important;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.06);
-    }
-    html[data-theme="light"] .popup-header      { border-bottom: 1px solid rgba(0,0,0,0.08) !important; }
-    html[data-theme="light"] .popup-header h3   { color: #14151a !important; }
-    html[data-theme="light"] .popup .hobby-button {
-      background: rgba(0,0,0,0.04) !important;
-      color: #14151a !important;
-      border: 1px solid rgba(0,0,0,0.08) !important;
-    }
-    html[data-theme="light"] .popup .hobby-button:hover {
-      background: rgba(0,0,0,0.06) !important;
-      border-color: rgba(0,0,0,0.14) !important;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.10);
-    }
-    html[data-theme="light"] .popup .close-button {
-      color: rgba(0,0,0,0.6) !important;
-      border: 1px solid rgba(0,0,0,0.12) !important;
-    }
-    html[data-theme="light"] .popup .close-button:hover {
-      background: rgba(0,0,0,0.04) !important;
-      color: rgba(0,0,0,0.85) !important;
-      border-color: rgba(0,0,0,0.2) !important;
-    }
-    html[data-theme="light"] .overlay { background-color: rgba(0,0,0,0.35) !important; }
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+  >
 
-    html[data-theme="dark"] body   { background: #07090d !important; color: #e9ecf1 !important; }
-    html[data-theme="dark"] header { background-color: #07090d !important; color: #e9ecf1 !important; }
-    html[data-theme="dark"] footer { background-color: #07090d !important; }
-    html[data-theme="dark"] .footer-item a { color: #e9ecf1 !important; }
-    html[data-theme="dark"] h1,
-    html[data-theme="dark"] h2,
-    html[data-theme="dark"] h3,
-    html[data-theme="dark"] p,
-    html[data-theme="dark"] strong,
-    html[data-theme="dark"] time,
-    html[data-theme="dark"] .timeline__title,
-    html[data-theme="dark"] .timeline__date,
-    html[data-theme="dark"] .timeline__item-p { color: #e9ecf1 !important; }
-    html[data-theme="dark"] .btn {
-      background: rgba(255,255,255,0.06) !important;
-      border-color: rgba(255,255,255,0.14) !important;
-      color: #e9ecf1 !important;
-    }
-    html[data-theme="dark"] .btn:hover {
-      background: rgba(255,255,255,0.10) !important;
-      border-color: rgba(255,255,255,0.22) !important;
-    }
-    html[data-theme="dark"] .timeline__dot { background: #e9ecf1 !important; }
-    html[data-theme="dark"] .timeline__arrow,
-    html[data-theme="dark"] .timeline__arrow-icon { color: #e9ecf1 !important; }
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  >
 
-    .top-controls {
-      position: fixed;
-      top: 16px;
-      left: 16px;
-      display: flex;
-      gap: 10px;
-      z-index: 1101;
-    }
-    .top-controls .btn {
-      padding: 10px 12px;
-      border-radius: 14px;
-      line-height: 1;
-      min-width: 44px;
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,0.35);
-      border: 1px solid rgba(255,255,255,0.14);
-      color: #ffffff;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-    .top-controls .btn:hover {
-      background: rgba(0,0,0,0.45);
-      border-color: rgba(255,255,255,0.22);
-    }
-    html[data-theme="light"] .top-controls .btn {
-      background: rgba(255,255,255,0.75);
-      border: 1px solid rgba(0,0,0,0.10);
-      color: #14151a;
-    }
-    html[data-theme="light"] .top-controls .btn:hover {
-      background: rgba(255,255,255,0.9);
-      border-color: rgba(0,0,0,0.18);
-    }
-  </style>
+  <link
+    rel="stylesheet"
+    href="./style.css"
+  >
+
+  <script
+    src="./script.js"
+    defer
+  ></script>
 </head>
-<body>
-  <div class="top-controls">
-    <button class="btn" type="button" id="toggleTheme" aria-label="Toggle theme" aria-pressed="false">☀️</button>
-  </div>
 
-  <!--
-    Audio element notes for mobile reliability:
-      - `loop`         : keeps looping forever
-      - `autoplay`     : kicks off as soon as it can (only allowed because we start muted)
-      - `muted`        : muted autoplay is permitted by all major browsers, incl. iOS Safari
-      - `playsinline`  : prevents iOS from going full-screen for media
-      - `webkit-playsinline`: legacy Safari fallback
-      - `preload="auto"`: load metadata + audio data immediately
-      - `x-webkit-airplay="deny"`: don't offer AirPlay routing
-  -->
-  <audio id="backgroundMusic" loop autoplay muted preload="auto" playsinline webkit-playsinline x-webkit-airplay="deny">
-    <source src="audio.mp3" type="audio/mp3">
-    Your browser does not support the audio tag.
+<body>
+
+  <audio
+    id="backgroundMusic"
+    loop
+    autoplay
+    muted
+    preload="auto"
+    playsinline
+    webkit-playsinline
+  >
+    <source
+      src="./audio.mp3"
+      type="audio/mpeg"
+    >
   </audio>
 
-  <header onclick="showPopup()">
-    <h3>My Hobbies</h3>
-  </header>
-  <div class="popup" id="aboutMePopup">
+
+  <nav
+    class="topbar"
+    aria-label="Main navigation"
+  >
+
+    <a
+      class="site-name"
+      href="#top"
+    >
+      saptarshi
+    </a>
+
+    <div class="top-actions">
+
+      <button
+        class="quiet-button"
+        id="openHobbies"
+        type="button"
+        aria-haspopup="dialog"
+        aria-controls="hobbiesPopup"
+      >
+        other stuff
+      </button>
+
+      <button
+        class="quiet-button theme-button"
+        id="toggleTheme"
+        type="button"
+        aria-label="Toggle theme"
+      >
+        ☀
+      </button>
+
+    </div>
+
+  </nav>
+
+
+  <main id="top">
+
+    <section class="intro">
+
+      <p class="intro-kicker">
+        hi, i am Saptarshi.
+      </p>
+
+      <h1>
+        Just keeping track of things.
+      </h1>
+
+      <p class="intro-text">
+        This is mostly where I keep the bits of my life that are worth
+        remembering. Research, code, books, side projects and whatever
+        else I happen to be curious about at the time.
+      </p>
+
+      <p class="intro-text intro-text-secondary">
+        I study at IISER Bhopal and spend an unreasonable amount of time
+        around machine learning, data, maths and problems that usually
+        lead to more problems.
+      </p>
+
+      <div class="intro-links">
+
+        <a
+          href="https://github.com/saptarshihalder"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GitHub
+        </a>
+
+        <a
+          href="https://www.linkedin.com/in/saptarshi-halder/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LinkedIn
+        </a>
+
+        <a
+          href="https://saptarshihalder.github.io/blog"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Blog
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <section class="timeline-section">
+
+      <div class="section-heading">
+
+        <p class="section-label">
+          so far
+        </p>
+
+        <h2>
+          A somewhat incomplete history
+        </h2>
+
+        <p>
+          Mostly the things that somehow led to whatever I am doing now.
+        </p>
+
+      </div>
+
+
+      <div
+        id="timeline"
+        class="timeline"
+      >
+
+        <div class="btn-group">
+
+          <button
+            class="small-button"
+            type="button"
+            data-action="expand"
+          >
+            open everything
+          </button>
+
+          <button
+            class="small-button"
+            type="button"
+            data-action="collapse"
+          >
+            close everything
+          </button>
+
+        </div>
+
+
+        <!-- School -->
+
+        <article class="timeline__item">
+
+          <div class="timeline__item-header">
+
+            <button
+              class="timeline__arrow"
+              type="button"
+              id="item1"
+              aria-labelledby="item1-name"
+              aria-expanded="false"
+              aria-controls="item1-ctrld"
+              data-item="1"
+            >
+              <svg
+                class="timeline__arrow-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <use href="#arrow"></use>
+              </svg>
+            </button>
+
+            <span
+              class="timeline__dot"
+              aria-hidden="true"
+            ></span>
+
+            <div
+              id="item1-name"
+              class="timeline__meta"
+            >
+
+              <time class="timeline__date">
+                2009 to 2020
+              </time>
+
+              <h3 class="timeline__title">
+                School days
+              </h3>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="timeline__item-body"
+            id="item1-ctrld"
+            role="region"
+            aria-labelledby="item1"
+            aria-hidden="true"
+          >
+
+            <div class="timeline__item-body-inner">
+
+              <div class="timeline__item-body-content">
+
+                <p>
+                  I spent most of my school years at Don Bosco in West Bengal.
+                  I liked computers, books, puzzles and things that gave me
+                  something to figure out.
+                </p>
+
+                <p>
+                  Nothing particularly dramatic happened here. I mostly went
+                  to school, came home, played around with whatever interested
+                  me and slowly became the kind of person who now spends too
+                  much time staring at a screen.
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- Science and entrance exams -->
+
+        <article class="timeline__item">
+
+          <div class="timeline__item-header">
+
+            <button
+              class="timeline__arrow"
+              type="button"
+              id="item2"
+              aria-labelledby="item2-name"
+              aria-expanded="false"
+              aria-controls="item2-ctrld"
+              data-item="2"
+            >
+              <svg
+                class="timeline__arrow-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <use href="#arrow"></use>
+              </svg>
+            </button>
+
+            <span
+              class="timeline__dot"
+              aria-hidden="true"
+            ></span>
+
+            <div
+              id="item2-name"
+              class="timeline__meta"
+            >
+
+              <time class="timeline__date">
+                2020 to 2022
+              </time>
+
+              <h3 class="timeline__title">
+                Science, lockdown and entrance exams
+              </h3>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="timeline__item-body"
+            id="item2-ctrld"
+            role="region"
+            aria-labelledby="item2"
+            aria-hidden="true"
+          >
+
+            <div class="timeline__item-body-inner">
+
+              <div class="timeline__item-body-content">
+
+                <p>
+                  I picked science for senior secondary school and almost
+                  immediately the world shut down.
+                </p>
+
+                <p>
+                  Classes moved online, sleep schedules stopped making much
+                  sense and JEE, JEE Advanced, IAT, WBJEE and a few other
+                  exams occupied a fairly unreasonable amount of my life.
+                </p>
+
+                <p>
+                  Not my favourite era, but I survived it.
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- IISER -->
+
+        <article class="timeline__item">
+
+          <div class="timeline__item-header">
+
+            <button
+              class="timeline__arrow"
+              type="button"
+              id="item3"
+              aria-labelledby="item3-name"
+              aria-expanded="false"
+              aria-controls="item3-ctrld"
+              data-item="3"
+            >
+              <svg
+                class="timeline__arrow-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <use href="#arrow"></use>
+              </svg>
+            </button>
+
+            <span
+              class="timeline__dot"
+              aria-hidden="true"
+            ></span>
+
+            <div
+              id="item3-name"
+              class="timeline__meta"
+            >
+
+              <time class="timeline__date">
+                2022 to present
+              </time>
+
+              <h3 class="timeline__title">
+                IISER Bhopal
+              </h3>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="timeline__item-body"
+            id="item3-ctrld"
+            role="region"
+            aria-labelledby="item3"
+            aria-hidden="true"
+          >
+
+            <div class="timeline__item-body-inner">
+
+              <div class="timeline__item-body-content">
+
+                <p>
+                  I joined IISER Bhopal and eventually found myself spending
+                  most of my time around data science, machine learning,
+                  mathematics and research.
+                </p>
+
+                <p>
+                  University has mostly been a mixture of interesting ideas,
+                  unfinished side projects, questionable sleep and finding new
+                  subjects that I suddenly decide I need to learn.
+                </p>
+
+              </div>
+
+
+              <div class="timeline__nested">
+
+
+                <!-- Projects -->
+
+                <article class="timeline__item">
+
+                  <div class="timeline__item-header">
+
+                    <button
+                      class="timeline__arrow"
+                      type="button"
+                      id="item4"
+                      aria-labelledby="item4-name"
+                      aria-expanded="false"
+                      aria-controls="item4-ctrld"
+                      data-item="4"
+                    >
+                      <svg
+                        class="timeline__arrow-icon"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <use href="#arrow"></use>
+                      </svg>
+                    </button>
+
+                    <span
+                      class="timeline__dot"
+                      aria-hidden="true"
+                    ></span>
+
+                    <div
+                      id="item4-name"
+                      class="timeline__meta"
+                    >
+
+                      <time class="timeline__date">
+                        ongoing
+                      </time>
+
+                      <h3 class="timeline__title">
+                        Things I have built
+                      </h3>
+
+                    </div>
+
+                  </div>
+
+
+                  <div
+                    class="timeline__item-body"
+                    id="item4-ctrld"
+                    role="region"
+                    aria-labelledby="item4"
+                    aria-hidden="true"
+                  >
+
+                    <div class="timeline__item-body-inner">
+
+
+                      <!-- GamerKraft -->
+
+                      <article class="timeline__item timeline__item-small">
+
+                        <div class="timeline__item-header">
+
+                          <button
+                            class="timeline__arrow"
+                            type="button"
+                            id="item5"
+                            aria-labelledby="item5-name"
+                            aria-expanded="false"
+                            aria-controls="item5-ctrld"
+                            data-item="5"
+                          >
+                            <svg
+                              class="timeline__arrow-icon"
+                              viewBox="0 0 24 24"
+                              aria-hidden="true"
+                            >
+                              <use href="#arrow"></use>
+                            </svg>
+                          </button>
+
+                          <span
+                            class="timeline__dot"
+                            aria-hidden="true"
+                          ></span>
+
+                          <div
+                            id="item5-name"
+                            class="timeline__meta"
+                          >
+
+                            <h3 class="timeline__title">
+                              GamerKraft 2D
+                            </h3>
+
+                          </div>
+
+                        </div>
+
+
+                        <div
+                          class="timeline__item-body"
+                          id="item5-ctrld"
+                          role="region"
+                          aria-labelledby="item5"
+                          aria-hidden="true"
+                        >
+
+                          <div class="timeline__item-body-inner">
+
+                            <div class="timeline__item-body-content">
+
+                              <p>
+                                I wanted to see how far I could get making a
+                                little game builder with plain HTML, CSS and
+                                JavaScript.
+                              </p>
+
+                              <p>
+                                It eventually became a browser based editor
+                                with tiles, physics, logic and the ability to
+                                export games as standalone HTML files.
+                              </p>
+
+                              <p>
+                                Basically, a tiny Mario Maker that got slightly
+                                out of hand.
+                              </p>
+
+                              <p>
+                                <a
+                                  href="https://saptarshihalder.github.io/gamerkraft/"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  Try GamerKraft 2D
+                                </a>
+                              </p>
+
+                              <p>
+                                There is also a 3D version. It is still a bit
+                                unstable and occasionally behaves like it has
+                                personal issues.
+                              </p>
+
+                              <p>
+                                <a
+                                  href="https://saptarshihalder.github.io/gamerkraft-3d-beta/"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  Try the 3D version
+                                </a>
+                              </p>
+
+                            </div>
+
+                          </div>
+
+                        </div>
+
+                      </article>
+
+                    </div>
+
+                  </div>
+
+                </article>
+
+
+                <!-- Research and internships -->
+
+                <article class="timeline__item">
+
+                  <div class="timeline__item-header">
+
+                    <button
+                      class="timeline__arrow"
+                      type="button"
+                      id="item6"
+                      aria-labelledby="item6-name"
+                      aria-expanded="false"
+                      aria-controls="item6-ctrld"
+                      data-item="6"
+                    >
+                      <svg
+                        class="timeline__arrow-icon"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <use href="#arrow"></use>
+                      </svg>
+                    </button>
+
+                    <span
+                      class="timeline__dot"
+                      aria-hidden="true"
+                    ></span>
+
+                    <div
+                      id="item6-name"
+                      class="timeline__meta"
+                    >
+
+                      <h3 class="timeline__title">
+                        Research and internships
+                      </h3>
+
+                    </div>
+
+                  </div>
+
+
+                  <div
+                    class="timeline__item-body"
+                    id="item6-ctrld"
+                    role="region"
+                    aria-labelledby="item6"
+                    aria-hidden="true"
+                  >
+
+                    <div class="timeline__item-body-inner">
+
+
+                      <!-- IIIT Kalyani -->
+
+                      <article class="timeline__item timeline__item-small">
+
+                        <div class="timeline__item-header">
+
+                          <button
+                            class="timeline__arrow"
+                            type="button"
+                            id="item7"
+                            aria-labelledby="item7-name"
+                            aria-expanded="false"
+                            aria-controls="item7-ctrld"
+                            data-item="7"
+                          >
+                            <svg
+                              class="timeline__arrow-icon"
+                              viewBox="0 0 24 24"
+                              aria-hidden="true"
+                            >
+                              <use href="#arrow"></use>
+                            </svg>
+                          </button>
+
+                          <span
+                            class="timeline__dot"
+                            aria-hidden="true"
+                          ></span>
+
+                          <div
+                            id="item7-name"
+                            class="timeline__meta"
+                          >
+
+                            <time class="timeline__date">
+                              December 2023 to June 2024
+                            </time>
+
+                            <h3 class="timeline__title">
+                              IIIT Kalyani
+                            </h3>
+
+                          </div>
+
+                        </div>
+
+
+                        <div
+                          class="timeline__item-body"
+                          id="item7-ctrld"
+                          role="region"
+                          aria-labelledby="item7"
+                          aria-hidden="true"
+                        >
+
+                          <div class="timeline__item-body-inner">
+
+                            <div class="timeline__item-body-content">
+
+                              <p>
+                                This was one of my first proper research
+                                experiences. I worked remotely with Professor
+                                Imon Mukherjee and got a fairly early look at
+                                how messy research can actually be.
+                              </p>
+
+                              <p>
+                                Ideas changed, experiments did not always work
+                                and the paper we hoped for never really happened.
+                                Still learned a lot.
+                              </p>
+
+                            </div>
+
+                          </div>
+
+                        </div>
+
+                      </article>
+
+
+                      <!-- Oxford -->
+
+                      <article class="timeline__item timeline__item-small">
+
+                        <div class="timeline__item-header">
+
+                          <button
+                            class="timeline__arrow"
+                            type="button"
+                            id="item8"
+                            aria-labelledby="item8-name"
+                            aria-expanded="false"
+                            aria-controls="item8-ctrld"
+                            data-item="8"
+                          >
+                            <svg
+                              class="timeline__arrow-icon"
+                              viewBox="0 0 24 24"
+                              aria-hidden="true"
+                            >
+                              <use href="#arrow"></use>
+                            </svg>
+                          </button>
+
+                          <span
+                            class="timeline__dot"
+                            aria-hidden="true"
+                          ></span>
+
+                          <div
+                            id="item8-name"
+                            class="timeline__meta"
+                          >
+
+                            <time class="timeline__date">
+                              April 2024 to June 2024
+                            </time>
+
+                            <h3 class="timeline__title">
+                              Oxford
+                            </h3>
+
+                          </div>
+
+                        </div>
+
+
+                        <div
+                          class="timeline__item-body"
+                          id="item8-ctrld"
+                          role="region"
+                          aria-labelledby="item8"
+                          aria-hidden="true"
+                        >
+
+                          <div class="timeline__item-body-inner">
+
+                            <div class="timeline__item-body-content">
+
+                              <p>
+                                I worked remotely with Professor Robin Evans and
+                                spent some time learning about Markov models,
+                                Bayesian networks and graphical models.
+                              </p>
+
+                              <p>
+                                It was one of those experiences where every
+                                answer somehow created three more questions.
+                              </p>
+
+                            </div>
+
+                          </div>
+
+                        </div>
+
+                      </article>
+
+
+                      <!-- IIT BHU -->
+
+                      <article class="timeline__item timeline__item-small">
+
+                        <div class="timeline__item-header">
+
+                          <button
+                            class="timeline__arrow"
+                            type="button"
+                            id="item9"
+                            aria-labelledby="item9-name"
+                            aria-expanded="false"
+                            aria-controls="item9-ctrld"
+                            data-item="9"
+                          >
+                            <svg
+                              class="timeline__arrow-icon"
+                              viewBox="0 0 24 24"
+                              aria-hidden="true"
+                            >
+                              <use href="#arrow"></use>
+                            </svg>
+                          </button>
+
+                          <span
+                            class="timeline__dot"
+                            aria-hidden="true"
+                          ></span>
+
+                          <div
+                            id="item9-name"
+                            class="timeline__meta"
+                          >
+
+                            <time class="timeline__date">
+                              May 2024 to July 2024
+                            </time>
+
+                            <h3 class="timeline__title">
+                              IIT BHU
+                            </h3>
+
+                          </div>
+
+                        </div>
+
+
+                        <div
+                          class="timeline__item-body"
+                          id="item9-ctrld"
+                          role="region"
+                          aria-labelledby="item9"
+                          aria-hidden="true"
+                        >
+
+                          <div class="timeline__item-body-inner">
+
+                            <div class="timeline__item-body-content">
+
+                              <p>
+                                My first offline research internship.
+                              </p>
+
+                              <p>
+                                I worked around EEG signals, biometrics and
+                                machine learning, while also getting much better
+                                at the useful research skill of figuring things
+                                out when nothing works on the first attempt.
+                              </p>
+
+                            </div>
+
+                          </div>
+
+                        </div>
+
+                      </article>
+
+
+                      <!-- Duke -->
+
+                      <article class="timeline__item timeline__item-small">
+
+                        <div class="timeline__item-header">
+
+                          <button
+                            class="timeline__arrow"
+                            type="button"
+                            id="item10"
+                            aria-labelledby="item10-name"
+                            aria-expanded="false"
+                            aria-controls="item10-ctrld"
+                            data-item="10"
+                          >
+                            <svg
+                              class="timeline__arrow-icon"
+                              viewBox="0 0 24 24"
+                              aria-hidden="true"
+                            >
+                              <use href="#arrow"></use>
+                            </svg>
+                          </button>
+
+                          <span
+                            class="timeline__dot"
+                            aria-hidden="true"
+                          ></span>
+
+                          <div
+                            id="item10-name"
+                            class="timeline__meta"
+                          >
+
+                            <time class="timeline__date">
+                              May 2024 to December 2024
+                            </time>
+
+                            <h3 class="timeline__title">
+                              Duke Health
+                            </h3>
+
+                          </div>
+
+                        </div>
+
+
+                        <div
+                          class="timeline__item-body"
+                          id="item10-ctrld"
+                          role="region"
+                          aria-labelledby="item10"
+                          aria-hidden="true"
+                        >
+
+                          <div class="timeline__item-body-inner">
+
+                            <div class="timeline__item-body-content">
+
+                              <p>
+                                I worked with John Thomas on removing artifacts
+                                from scalp EEG signals using deep learning.
+                              </p>
+
+                              <p>
+                                It ended up being a nice mixture of neuroscience,
+                                signal processing, machine learning and many
+                                hours spent looking at waveforms.
+                              </p>
+
+                            </div>
+
+                          </div>
+
+                        </div>
+
+                      </article>
+
+
+                      <!-- DVC -->
+
+                      <article class="timeline__item timeline__item-small">
+
+                        <div class="timeline__item-header">
+
+                          <button
+                            class="timeline__arrow"
+                            type="button"
+                            id="item11"
+                            aria-labelledby="item11-name"
+                            aria-expanded="false"
+                            aria-controls="item11-ctrld"
+                            data-item="11"
+                          >
+                            <svg
+                              class="timeline__arrow-icon"
+                              viewBox="0 0 24 24"
+                              aria-hidden="true"
+                            >
+                              <use href="#arrow"></use>
+                            </svg>
+                          </button>
+
+                          <span
+                            class="timeline__dot"
+                            aria-hidden="true"
+                          ></span>
+
+                          <div
+                            id="item11-name"
+                            class="timeline__meta"
+                          >
+
+                            <time class="timeline__date">
+                              December 2024 to January 2025
+                            </time>
+
+                            <h3 class="timeline__title">
+                              Damodar Valley Corporation
+                            </h3>
+
+                          </div>
+
+                        </div>
+
+
+                        <div
+                          class="timeline__item-body"
+                          id="item11-ctrld"
+                          role="region"
+                          aria-labelledby="item11"
+                          aria-hidden="true"
+                        >
+
+                          <div class="timeline__item-body-inner">
+
+                            <div class="timeline__item-body-content">
+
+                              <p>
+                                My first proper corporate internship.
+                              </p>
+
+                              <p>
+                                I worked around cybersecurity, NIST frameworks,
+                                security processes and risk assessment.
+                              </p>
+
+                              <p>
+                                Very different from academic research, which was
+                                probably exactly why it was useful.
+                              </p>
+
+                            </div>
+
+                          </div>
+
+                        </div>
+
+                      </article>
+
+                    </div>
+
+                  </div>
+
+                </article>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- Hobbies popup -->
+
+  <div
+    class="overlay"
+    id="overlay"
+    aria-hidden="true"
+  ></div>
+
+
+  <section
+    class="popup"
+    id="hobbiesPopup"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="hobbiesTitle"
+    aria-hidden="true"
+  >
+
     <div class="popup-header">
-      <h3>My Hobbies</h3>
+
+      <p class="popup-label">
+        away from the laptop, sometimes
+      </p>
+
+      <h2 id="hobbiesTitle">
+        Other stuff I like
+      </h2>
+
+      <p>
+        Research is thankfully not my entire personality.
+      </p>
+
     </div>
+
+
     <div class="popup-content">
-      <button class="hobby-button" onclick="window.location.href='https://saptarshihalder.github.io/mybooks/'">
-        <i class="fas fa-book-open"></i>
-        <span>Reading</span>
+
+      <a
+        class="hobby-row"
+        href="https://saptarshihalder.github.io/mybooks/"
+      >
+
+        <i
+          class="fas fa-book-open"
+          aria-hidden="true"
+        ></i>
+
+        <span>
+          Reading
+        </span>
+
+        <span
+          class="hobby-arrow"
+          aria-hidden="true"
+        >
+          ↗
+        </span>
+
+      </a>
+
+
+      <a
+        class="hobby-row"
+        href="./writing.html"
+      >
+
+        <i
+          class="fas fa-pen-fancy"
+          aria-hidden="true"
+        ></i>
+
+        <span>
+          Writing
+        </span>
+
+        <span
+          class="hobby-arrow"
+          aria-hidden="true"
+        >
+          ↗
+        </span>
+
+      </a>
+
+
+      <a
+        class="hobby-row"
+        href="./numismatics.html"
+      >
+
+        <i
+          class="fas fa-coins"
+          aria-hidden="true"
+        ></i>
+
+        <span>
+          Numismatics
+        </span>
+
+        <span
+          class="hobby-arrow"
+          aria-hidden="true"
+        >
+          ↗
+        </span>
+
+      </a>
+
+
+      <a
+        class="hobby-row"
+        href="./music.html"
+      >
+
+        <i
+          class="fas fa-headphones"
+          aria-hidden="true"
+        ></i>
+
+        <span>
+          Music
+        </span>
+
+        <span
+          class="hobby-arrow"
+          aria-hidden="true"
+        >
+          ↗
+        </span>
+
+      </a>
+
+
+      <button
+        class="popup-close"
+        id="closeHobbies"
+        type="button"
+      >
+        close
       </button>
-      <button class="hobby-button" onclick="window.location.href='writing.html'">
-        <i class="fas fa-pen-fancy"></i>
-        <span>Writing</span>
-      </button>
-      <button class="hobby-button" onclick="window.location.href='numismatics.html'">
-        <i class="fas fa-coins"></i>
-        <span>Numismatics</span>
-      </button>
-      <button class="hobby-button" onclick="window.location.href='music.html'">
-        <i class="fas fa-headphones"></i>
-        <span>Listening To Music</span>
-      </button>
-      <button class="close-button" onclick="closePopup()">Close</button>
-    </div>
-  </div>
-  <div class="overlay" id="overlay" onclick="closePopup()"></div>
 
-  <script>
-    function showPopup() {
-      document.getElementById('aboutMePopup').style.display = 'block';
-      document.getElementById('overlay').style.display = 'block';
-    }
-    function closePopup() {
-      document.getElementById('aboutMePopup').style.display = 'none';
-      document.getElementById('overlay').style.display = 'none';
-    }
-
-    // --- Theme toggle ---
-    const toggleThemeButton = document.getElementById('toggleTheme');
-    const THEME_PREF_KEY = 'themePreference';
-
-    function getSystemTheme() {
-      const mq = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)');
-      return (mq && mq.matches) ? 'light' : 'dark';
-    }
-    function getStoredTheme() {
-      try {
-        const t = localStorage.getItem(THEME_PREF_KEY);
-        return (t === 'light' || t === 'dark') ? t : null;
-      } catch (e) { return null; }
-    }
-    function applyTheme(theme, persist) {
-      document.documentElement.dataset.theme = theme;
-      if (persist) {
-        try { localStorage.setItem(THEME_PREF_KEY, theme); } catch (e) {}
-      }
-      syncThemeUI();
-    }
-    function syncThemeUI() {
-      const current = document.documentElement.dataset.theme || getSystemTheme();
-      const isDark = current === 'dark';
-      toggleThemeButton.textContent = isDark ? '☀️' : '🌙';
-      toggleThemeButton.title = isDark ? 'Switch to light mode' : 'Switch to dark mode';
-      toggleThemeButton.setAttribute('aria-label', toggleThemeButton.title);
-      toggleThemeButton.setAttribute('aria-pressed', isDark ? 'true' : 'false');
-    }
-    (function initTheme() {
-      const stored = getStoredTheme();
-      if (stored) {
-        applyTheme(stored, false);
-      } else if (!document.documentElement.dataset.theme) {
-        applyTheme(getSystemTheme(), false);
-      } else {
-        syncThemeUI();
-      }
-    })();
-    toggleThemeButton.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const current = document.documentElement.dataset.theme || getSystemTheme();
-      const next = (current === 'dark') ? 'light' : 'dark';
-      applyTheme(next, true);
-    });
-    const themeMQ = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)');
-    if (themeMQ && themeMQ.addEventListener) {
-      themeMQ.addEventListener('change', () => {
-        if (!getStoredTheme()) applyTheme(getSystemTheme(), false);
-      });
-    }
-
-    /* ============================================================
-       BACKGROUND MUSIC — mobile-first, iOS-correct.
-       ------------------------------------------------------------
-       Why phones are hard:
-         - iOS Safari blocks ALL audible playback until a user gesture.
-         - Muted autoplay is unreliable on iOS; counting on it fails.
-         - The play() call must happen synchronously inside the
-           gesture handler. Unmuting BEFORE play() makes iOS treat it
-           as scripted-audio and reject the gesture.
-         - The CORRECT iOS pattern is:
-             gesture → audio.play() (still muted) → on success, unmute.
-         - Once muted-playing in a gesture, you can later unmute
-           without needing another gesture.
-
-       Also: tab visibility is the only thing we intentionally pause for.
-       ============================================================ */
-    (function setupBackgroundMusic() {
-      const audio = document.getElementById('backgroundMusic');
-      if (!audio) return;
-
-      const WHISPER_VOLUME = 0.10;
-      const FADE_MS        = 900;
-
-      let unlocked   = false;   // true once muted-play succeeded in a gesture
-      let unmuted    = false;   // true once we actually unmuted
-      let tabHidden  = document.hidden;
-      let playLock   = false;   // serialises play() calls
-
-      // Floating "tap to play" pill (mobile fallback if everything else fails)
-      const pill = document.createElement('button');
-      pill.type = 'button';
-      pill.id = 'musicPill';
-      pill.setAttribute('aria-label', 'Play background music');
-      pill.innerHTML = '🎵 Tap for music';
-      Object.assign(pill.style, {
-        position: 'fixed',
-        right: '16px',
-        bottom: '16px',
-        zIndex: '1102',
-        padding: '12px 18px',
-        borderRadius: '999px',
-        border: '1px solid rgba(255,255,255,0.2)',
-        background: 'rgba(0,0,0,0.65)',
-        color: '#fff',
-        fontSize: '14px',
-        fontWeight: '600',
-        letterSpacing: '0.3px',
-        boxShadow: '0 6px 20px rgba(0,0,0,0.35)',
-        backdropFilter: 'blur(8px)',
-        WebkitBackdropFilter: 'blur(8px)',
-        cursor: 'pointer',
-        display: 'none'
-      });
-      document.body.appendChild(pill);
-
-      const showPill = () => { pill.style.display = 'inline-flex'; };
-      const hidePill = () => { pill.style.display = 'none'; };
-
-      const fadeTo = (target, ms = FADE_MS) => {
-        const from  = audio.volume;
-        const start = performance.now();
-        const step  = (t) => {
-          const p = Math.min(1, (t - start) / ms);
-          audio.volume = from + (target - from) * p;
-          if (p < 1) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
-      };
-
-      // Configure audio element defensively (covers cases where the
-      // HTML attributes were stripped or ignored by some browsers).
-      audio.loop  = true;
-      audio.muted = true;
-      audio.volume = 0;
-      try { audio.setAttribute('playsinline', ''); } catch (e) {}
-      try { audio.load(); } catch (e) {}
-
-      // Try silent autoplay (works on most desktops & some Androids).
-      const tryInitialAutoplay = () => {
-        const p = audio.play();
-        if (p && p.catch) p.catch(() => { /* will need a gesture */ });
-      };
-      tryInitialAutoplay();
-
-      // The ONE function that runs in a real user-gesture stack.
-      // Critical: every operation here is synchronous before play().
-      const unlockInGesture = () => {
-        if (unlocked) {
-          // Already unlocked — just make sure we're playing & loud.
-          if (!unmuted) {
-            audio.muted = false;
-            unmuted = true;
-            fadeTo(WHISPER_VOLUME);
-          }
-          if (audio.paused && !tabHidden) {
-            const p = audio.play();
-            if (p && p.catch) p.catch(() => {});
-          }
-          hidePill();
-          return;
-        }
-        // Step 1: keep muted, attempt play() in this exact gesture.
-        audio.muted = true;
-        audio.volume = 0;
-        let p;
-        try { p = audio.play(); } catch (e) { p = null; }
-
-        const onUnlocked = () => {
-          unlocked = true;
-          // Step 2: now that audio is playing muted from a gesture,
-          // unmute and fade in. iOS allows this without a new gesture.
-          audio.muted = false;
-          unmuted = true;
-          fadeTo(WHISPER_VOLUME);
-          hidePill();
-        };
-
-        if (p && typeof p.then === 'function') {
-          p.then(onUnlocked).catch(() => {
-            // Gesture rejected (rare). Keep the pill visible so the
-            // user can tap it directly — that's an even stronger gesture.
-            showPill();
-          });
-        } else {
-          // Old browsers: no promise. Assume success.
-          onUnlocked();
-        }
-      };
-
-      // Direct tap on the pill = strong gesture, never blocked.
-      pill.addEventListener('click', (e) => {
-        e.stopPropagation();
-        unlockInGesture();
-      });
-      pill.addEventListener('touchend', (e) => {
-        e.stopPropagation();
-        unlockInGesture();
-      }, { passive: true });
-
-      // Listen for the FIRST useful gesture anywhere on the page,
-      // then keep listening so we can resume on later gestures too.
-      const gestureEvents = [
-        'touchstart', 'touchend',
-        'pointerdown', 'pointerup',
-        'mousedown', 'click',
-        'keydown'
-      ];
-      const onAnyGesture = () => unlockInGesture();
-      gestureEvents.forEach(evt => {
-        document.addEventListener(evt, onAnyGesture, { passive: true, capture: true });
-      });
-
-      // If still locked after 1.2s, surface the pill so the user
-      // knows there's music available.
-      setTimeout(() => { if (!unlocked) showPill(); }, 1200);
-
-      // Safe play (no recursion, no stacking promises).
-      const safePlay = () => {
-        if (tabHidden || playLock) return;
-        if (!audio.paused) return;
-        playLock = true;
-        const p = audio.play();
-        const release = () => { playLock = false; };
-        if (p && typeof p.then === 'function') p.then(release).catch(release);
-        else release();
-      };
-
-      // Tab visibility is the ONLY intentional pause.
-      document.addEventListener('visibilitychange', () => {
-        tabHidden = document.hidden;
-        if (tabHidden) audio.pause();
-        else if (unlocked) safePlay();
-      });
-
-      // iOS bfcache restores.
-      window.addEventListener('pageshow', () => {
-        tabHidden = document.hidden;
-        if (!tabHidden && unlocked) safePlay();
-      });
-
-      // Recover from any unexpected pause that isn't a tab switch.
-      audio.addEventListener('pause', () => {
-        if (!tabHidden && unlocked) setTimeout(safePlay, 120);
-      });
-      audio.addEventListener('ended', () => {
-        if (!tabHidden && unlocked) {
-          try { audio.currentTime = 0; } catch (e) {}
-          safePlay();
-        }
-      });
-      audio.addEventListener('stalled', () => { if (!tabHidden && unlocked) safePlay(); });
-      audio.addEventListener('suspend', () => { if (!tabHidden && unlocked) safePlay(); });
-
-      // Mobile heartbeat — iOS can silently kill audio after interruptions.
-      setInterval(() => {
-        if (!tabHidden && unlocked && audio.paused) safePlay();
-      }, 2000);
-
-      window.addEventListener('focus', () => {
-        if (!tabHidden && unlocked && audio.paused) safePlay();
-      });
-
-      // Diagnostic: if the audio file itself fails to load, surface it.
-      audio.addEventListener('error', () => {
-        pill.innerHTML = '⚠️ Audio failed to load';
-        pill.style.background = 'rgba(180,40,40,0.85)';
-        showPill();
-        console.error('Background music failed to load. Check the audio.mp3 path.');
-      });
-    })();
-  </script>
-
-  <svg display="none">
-    <symbol id="arrow">
-      <polyline points="7 10,12 15,17 10" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-    </symbol>
-  </svg>
-
-  <h1>A Slice Of My Life</h1>
-  <div id="timeline" class="timeline">
-    <div class="btn-group">
-      <button class="btn" type="button" data-action="expand">Expand All</button>
-      <button class="btn" type="button" data-action="collapse">Collapse All</button>
     </div>
 
-    <div class="timeline__item">
-      <div class="timeline__item-header">
-        <button class="timeline__arrow" type="button" id="item1" aria-labelledby="item1-name" aria-expanded="false" aria-controls="item1-ctrld" aria-haspopup="true" data-item="1">
-          <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px"><use href="#arrow" /></svg>
-        </button>
-        <span class="timeline__dot"></span>
-        <span id="item1-name" class="timeline__meta">
-          <time class="timeline__date" datetime="2004-01-01">The Year 2004</time><br>
-          <strong class="timeline__title">My Birth</strong>
-        </span>
-      </div>
-      <div class="timeline__item-body" id="item1-ctrld" role="region" aria-labelledby="item1" aria-hidden="true">
-        <div class="timeline__item-body-content">
-          <p class="timeline__item-p">I was born in a small town in West Bengal, India, the place began to write a story from that day on, a story of a journey into the future</p>
-        </div>
-      </div>
-    </div>
+  </section>
 
-    <div class="timeline__item">
-      <div class="timeline__item-header">
-        <button class="timeline__arrow" type="button" id="item2" aria-labelledby="item2-name" aria-expanded="false" aria-controls="item2-ctrld" aria-haspopup="true" data-item="2">
-          <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px"><use href="#arrow" /></svg>
-        </button>
-        <span class="timeline__dot"></span>
-        <span id="item2-name" class="timeline__meta">
-          <time class="timeline__date" datetime="2009-03-17">March 17, 2009 - April 8, 2020</time><br>
-          <strong class="timeline__title">High School Education</strong>
-        </span>
-      </div>
-      <div class="timeline__item-body" id="item2-ctrld" role="region" aria-labelledby="item2" aria-hidden="true">
-        <div class="timeline__item-body-content">
-          <p class="timeline__item-p">I spent a decade at Don Bosco, where classrooms became second homes and lessons shaped who I would become. The school followed the Indian Certificate of Secondary Education, grounding me in both knowledge and discipline.</p>
-        </div>
-      </div>
-    </div>
 
-    <div class="timeline__item">
-      <div class="timeline__item-header">
-        <button class="timeline__arrow" type="button" id="item3" aria-labelledby="item3-name" aria-expanded="false" aria-controls="item3-ctrld" aria-haspopup="true" data-item="3">
-          <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px"><use href="#arrow" /></svg>
-        </button>
-        <span class="timeline__dot"></span>
-        <span id="item3-name" class="timeline__meta">
-          <time class="timeline__date" datetime="2020-03-21">March 21, 2020 - July 2020</time><br>
-          <strong class="timeline__title">Senior Secondary Education</strong>
-        </span>
-      </div>
-      <div class="timeline__item-body" id="item3-ctrld" role="region" aria-labelledby="item3" aria-hidden="true">
-        <div class="timeline__item-body-content">
-          <p class="timeline__item-p">I took a leap and joined Central Academy, a private school under the Central Board of Secondary Education. There, I took Science as my stream, discovering new ways of seeing and understanding the world around me.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="timeline__item">
-      <div class="timeline__item-header">
-        <button class="timeline__arrow" type="button" id="item4" aria-labelledby="item4-name" aria-expanded="false" aria-controls="item4-ctrld" aria-haspopup="true" data-item="4">
-          <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px"><use href="#arrow" /></svg>
-        </button>
-        <span class="timeline__dot"></span>
-        <span id="item4-name" class="timeline__meta">
-          <time class="timeline__date" datetime="2022-01-01">The Year 2022</time><br>
-          <strong class="timeline__title">Mayhem Of JEE/Jee Adv, IAT, WBJEE, etc.</strong>
-        </span>
-      </div>
-      <div class="timeline__item-body" id="item4-ctrld" role="region" aria-labelledby="item4" aria-hidden="true">
-        <div class="timeline__item-body-content">
-          <p class="timeline__item-p">The world wore a mask those years. I buried myself in formulas and practice sheets while sirens wailed outside. Like a tree bending in storm winds, I learned that roots grow deeper when the ground shakes beneath you. A battle that lasts lifetime of adversity</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="timeline__item">
-      <div class="timeline__item-header">
-        <button class="timeline__arrow" type="button" id="item6" aria-labelledby="item6-name" aria-expanded="false" aria-controls="item6-ctrld" aria-haspopup="true" data-item="6">
-          <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px"><use href="#arrow" /></svg>
-        </button>
-        <span class="timeline__dot"></span>
-        <span id="item6-name" class="timeline__meta">
-          <time class="timeline__date" datetime="2022-12-01">December 2022 - January 2026</time><br>
-          <strong class="timeline__title">Undergraduate Degree</strong>
-        </span>
-      </div>
-      <div class="timeline__item-body" id="item6-ctrld" role="region" aria-labelledby="item6" aria-hidden="true">
-        <div class="timeline__item-body-content">
-          <p class="timeline__item-p">I joined the Indian Institute Of Science Education And Research Bhopal to pursue an Undergraduate Degree in Computer Science. Much of my life still remains an exciting mystery waiting to be unraveled.</p>
-        </div>
-
-        <div class="timeline__item">
-          <div class="timeline__item-header">
-            <button class="timeline__arrow" type="button" id="item8" aria-labelledby="item8-name" aria-expanded="false" aria-controls="item8-ctrld" aria-haspopup="true" data-item="8">
-              <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px"><use href="#arrow" /></svg>
-            </button>
-            <span class="timeline__dot"></span>
-            <span id="item8-name" class="timeline__meta">
-              <time class="timeline__date" datetime="2024-01-01">2024 - Present</time><br>
-              <strong class="timeline__title">Projects</strong>
-            </span>
-          </div>
-          <div class="timeline__item-body" id="item8-ctrld" role="region" aria-labelledby="item8" aria-hidden="true">
-            <div class="timeline__item">
-              <div class="timeline__item-header">
-                <button class="timeline__arrow" type="button" id="item13" aria-labelledby="item13-name" aria-expanded="false" aria-controls="item13-ctrld" aria-haspopup="true" data-item="13">
-                  <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px"><use href="#arrow" /></svg>
-                </button>
-                <span class="timeline__dot"></span>
-                <span id="item13-name" class="timeline__meta">
-                  <strong class="timeline__title">GamerKraft 2d</strong>
-                </span>
-              </div>
-              <div class="timeline__item-body" id="item13-ctrld" role="region" aria-labelledby="item13" aria-hidden="true">
-                <div class="timeline__item-body-content">
-                  <p class="timeline__item-p">
-                    Built a professional 2D game maker using just vanilla HTML, CSS, and JS (no heavy engines needed!).
-                    It features a full drag-and-drop tile editor, physics, logic, and even lets you export your creations as standalone HTML files.
-                    Basically, it's Mario Maker in your browser.
-                    <br><br>
-                    👉 <a href="https://saptarshihalder.github.io/gamerkraft/" target="_blank" style="color: #4da6ff; text-decoration: underline;">Try GamerKraft 2d here</a>
-                    <br><br>
-                    I'm also working on a <strong>3D version</strong> (Unreal Engine who?), but it's currently in beta and a bit unstable:
-                    <a href="https://saptarshihalder.github.io/gamerkraft-3d-beta/" target="_blank" style="color: #4da6ff; text-decoration: underline;">Test the 3D Beta</a>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline__item">
-          <div class="timeline__item-header">
-            <button class="timeline__arrow" type="button" id="item5" aria-labelledby="item5-name" aria-expanded="false" aria-controls="item5-ctrld" aria-haspopup="true" data-item="5">
-              <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px"><use href="#arrow" /></svg>
-            </button>
-            <span class="timeline__dot"></span>
-            <span id="item5-name" class="timeline__meta">
-              <time class="timeline__date" datetime="2033-05-18">May 18, 2033</time><br>
-              <strong class="timeline__title">Internships</strong>
-            </span>
-          </div>
-          <div class="timeline__item-body" id="item5-ctrld" role="region" aria-labelledby="item5" aria-hidden="true">
-
-            <div class="timeline__item">
-              <div class="timeline__item-header">
-                <button class="timeline__arrow" type="button" id="item9a" aria-labelledby="item9a-name" aria-expanded="false" aria-controls="item9a-ctrld" aria-haspopup="true" data-item="9a">
-                  <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px"><use href="#arrow" /></svg>
-                </button>
-                <span class="timeline__dot"></span>
-                <span id="item9a-name" class="timeline__meta">
-                  <time class="timeline__date" datetime="2023-12-01">December 2023 - June 2024</time><br>
-                  <strong class="timeline__title">IIIT Kalyani Internship</strong>
-                </span>
-              </div>
-              <div class="timeline__item-body" id="item9a-ctrld" role="region" aria-labelledby="item9a" aria-hidden="true">
-                <div class="timeline__item-body-content">
-                  <p class="timeline__item-p">I embarked on a remote internship during my first semester at IIIT Kalyani under the lively guidance of Professor Imon Mukherjee. Both my prof and my Guide were enthusiastic about getting a paper published based on my the research I did in my time—although the paper never quite made it to print, it was an unforgettable experiment!</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="timeline__item">
-              <div class="timeline__item-header">
-                <button class="timeline__arrow" type="button" id="item9" aria-labelledby="item9-name" aria-expanded="false" aria-controls="item9-ctrld" aria-haspopup="true" data-item="9">
-                  <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px"><use href="#arrow" /></svg>
-                </button>
-                <span class="timeline__dot"></span>
-                <span id="item9-name" class="timeline__meta">
-                  <time class="timeline__date" datetime="2024-04-23">April 23, 2024 - June 9, 2024</time><br>
-                  <strong class="timeline__title">Research Intern at Oxford University</strong>
-                </span>
-              </div>
-              <div class="timeline__item-body" id="item9-ctrld" role="region" aria-labelledby="item9" aria-hidden="true">
-                <div class="timeline__item-body-content">
-                  <p class="timeline__item-p">I got a remote internship at Oxford and had the opportunity to work with Professor Robin Evans. He introduced me to Markov Models and Bayesian Networks, opening my eyes to the intricate world of nested algorithms.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="timeline__item">
-              <div class="timeline__item-header">
-                <button class="timeline__arrow" type="button" id="item12" aria-labelledby="item12-name" aria-expanded="false" aria-controls="item12-ctrld" aria-haspopup="true" data-item="12">
-                  <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px"><use href="#arrow" /></svg>
-                </button>
-                <span class="timeline__dot"></span>
-                <span id="item12-name" class="timeline__meta">
-                  <time class="timeline__date" datetime="2024-05-16">May 16, 2024 - July 10, 2024</time><br>
-                  <strong class="timeline__title">Research Intern at IIT BHU (Banaras Hindu University)</strong>
-                </span>
-              </div>
-              <div class="timeline__item-body" id="item12-ctrld" role="region" aria-labelledby="item12" aria-hidden="true">
-                <div class="timeline__item-body-content">
-                  <p class="timeline__item-p">My first offline research internship was a whirlwind of challenges and learning. Under the guidance of Prof Jac Fredo and supportive mentors, I worked on EEG impulses and biometric projects that demanded both mathematical rigour and machine learning prowess.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="timeline__item">
-              <div class="timeline__item-header">
-                <button class="timeline__arrow" type="button" id="item10" aria-labelledby="item10-name" aria-expanded="false" aria-controls="item10-ctrld" aria-haspopup="true" data-item="10">
-                  <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px"><use href="#arrow" /></svg>
-                </button>
-                <span class="timeline__dot"></span>
-                <span id="item10-name" class="timeline__meta">
-                  <time class="timeline__date" datetime="2024-05-25">May 25, 2024 - December 1, 2024</time><br>
-                  <strong class="timeline__title">Research Intern at Duke University</strong>
-                </span>
-              </div>
-              <div class="timeline__item-body" id="item10-ctrld" role="region" aria-labelledby="item10" aria-hidden="true">
-                <div class="timeline__item-body-content">
-                  <p class="timeline__item-p">I worked under the mentorship of John Thomas, a Research Scientist at Duke Health specializing in Neurology. I took on the challenge of removing artifacts from scalp EEG signals using deep learning—a fascinating blend of neuroscience and machine learning.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="timeline__item">
-              <div class="timeline__item-header">
-                <button class="timeline__arrow" type="button" id="item11" aria-labelledby="item11-name" aria-expanded="false" aria-controls="item11-ctrld" aria-haspopup="true" data-item="11">
-                  <svg class="timeline__arrow-icon" viewBox="0 0 24 24" width="24px" height="24px"><use href="#arrow" /></svg>
-                </button>
-                <span class="timeline__dot"></span>
-                <span id="item11-name" class="timeline__meta">
-                  <time class="timeline__date" datetime="2024-12-05">December 5, 2024 - January 10, 2025</time><br>
-                  <strong class="timeline__title">Cybersecurity Internship at Damodar Valley Corporation</strong>
-                </span>
-              </div>
-              <div class="timeline__item-body" id="item11-ctrld" role="region" aria-labelledby="item11" aria-hidden="true">
-                <div class="timeline__item-body-content">
-                  <p class="timeline__item-p">My First Corporate Internship! Excluding the ones I did at Internshala, I gained hands-on experience with security protocols and the application of NIST frameworks. I also developed two original frameworks based on established security protocols. The most important thing I learned here is that 'P' in IoT stands for Privacy.</p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
+  <!-- Footer -->
 
   <footer>
-    <div class="footer-item">
-      <a href="https://saptarshihalder.github.io/blog" target="_blank" rel="noopener noreferrer">
-        <i class="fas fa-blog"></i><span>Blog</span>
+
+    <p class="footer-note">
+      still figuring things out.
+    </p>
+
+
+    <div class="footer-links">
+
+      <a
+        href="https://saptarshihalder.github.io/blog"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Blog
       </a>
-    </div>
-    <div class="footer-item">
-      <a href="https://www.linkedin.com/in/saptarshi-halder/" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-linkedin"></i><span>LinkedIn</span>
+
+      <a
+        href="https://www.linkedin.com/in/saptarshi-halder/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        LinkedIn
       </a>
-    </div>
-    <div class="footer-item">
-      <a href="https://yourpodcast.com" target="_blank" rel="noopener noreferrer">
-        <i class="fas fa-podcast"></i><span>Podcast</span>
+
+      <a
+        href="https://yourpodcast.com"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Podcast
       </a>
-    </div>
-    <div class="footer-item">
-      <a href="https://x.com/Iamsaptarshi69" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-twitter"></i><span>Twitter</span>
+
+      <a
+        href="https://x.com/Iamsaptarshi69"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        X
       </a>
-    </div>
-    <div class="footer-item">
-      <a href="https://github.com/saptarshihalder" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-github"></i><span>GitHub</span>
+
+      <a
+        href="https://github.com/saptarshihalder"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        GitHub
       </a>
+
     </div>
+
   </footer>
 
-  <script src="./script.js"></script>
+
+  <!-- Timeline arrow definition -->
+
+  <svg
+    class="svg-defs"
+    aria-hidden="true"
+  >
+
+    <symbol id="arrow">
+
+      <polyline
+        points="7 10,12 15,17 10"
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+      ></polyline>
+
+    </symbol>
+
+  </svg>
+
 </body>
 </html>
