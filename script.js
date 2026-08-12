@@ -1,9 +1,12 @@
-window.addEventListener("DOMContentLoaded", () => {
-	initTheme();
-	initTimeline();
-	initHobbies();
-	initBackgroundMusic();
-});
+window.addEventListener(
+	"DOMContentLoaded",
+	() => {
+		initTheme();
+		initTimeline();
+		initHobbies();
+		initBackgroundMusic();
+	}
+);
 
 
 /* =========================================================
@@ -12,14 +15,20 @@ window.addEventListener("DOMContentLoaded", () => {
 
 function initTheme() {
 	const button =
-		document.getElementById("toggleTheme");
+		document.getElementById(
+			"toggleTheme"
+		);
 
 	const themeColorMeta =
-		document.getElementById("themeColorMeta");
+		document.getElementById(
+			"themeColorMeta"
+		);
+
 
 	if (!button) {
 		return;
 	}
+
 
 	const preferenceKey =
 		"themePreference";
@@ -57,7 +66,9 @@ function initTheme() {
 	}
 
 
-	function updateThemeColor(theme) {
+	function updateThemeColor(
+		theme
+	) {
 		if (!themeColorMeta) {
 			return;
 		}
@@ -73,23 +84,32 @@ function initTheme() {
 
 	function updateButton() {
 		const currentTheme =
-			document.documentElement.dataset.theme ||
+			document.documentElement
+				.dataset.theme ||
 			getSystemTheme();
 
-		const dark =
+
+		const isDark =
 			currentTheme === "dark";
 
+
 		button.textContent =
-			dark ? "☀" : "☾";
+			isDark
+				? "☀"
+				: "☾";
+
 
 		button.setAttribute(
 			"aria-label",
-			dark
+			isDark
 				? "Switch to light mode"
 				: "Switch to dark mode"
 		);
 
-		updateThemeColor(currentTheme);
+
+		updateThemeColor(
+			currentTheme
+		);
 	}
 
 
@@ -97,8 +117,10 @@ function initTheme() {
 		theme,
 		save = false
 	) {
-		document.documentElement.dataset.theme =
+		document.documentElement
+			.dataset.theme =
 			theme;
+
 
 		if (save) {
 			try {
@@ -106,10 +128,15 @@ function initTheme() {
 					preferenceKey,
 					theme
 				);
+
 			} catch (error) {
-				/* local storage may be unavailable */
+				/*
+					Local storage may not
+					be available.
+				*/
 			}
 		}
+
 
 		updateButton();
 	}
@@ -120,14 +147,22 @@ function initTheme() {
 
 
 	if (storedTheme) {
-		applyTheme(storedTheme);
+
+		applyTheme(
+			storedTheme
+		);
 
 	} else if (
-		!document.documentElement.dataset.theme
+		!document.documentElement
+			.dataset.theme
 	) {
-		applyTheme(getSystemTheme());
+
+		applyTheme(
+			getSystemTheme()
+		);
 
 	} else {
+
 		updateButton();
 	}
 
@@ -136,13 +171,16 @@ function initTheme() {
 		"click",
 		() => {
 			const currentTheme =
-				document.documentElement.dataset.theme ||
+				document.documentElement
+					.dataset.theme ||
 				getSystemTheme();
+
 
 			const nextTheme =
 				currentTheme === "dark"
 					? "light"
 					: "dark";
+
 
 			applyTheme(
 				nextTheme,
@@ -159,18 +197,22 @@ function initTheme() {
 
 
 	if (
-		systemThemeQuery.addEventListener
+		systemThemeQuery
+			.addEventListener
 	) {
-		systemThemeQuery.addEventListener(
-			"change",
-			() => {
-				if (!getStoredTheme()) {
-					applyTheme(
-						getSystemTheme()
-					);
+		systemThemeQuery
+			.addEventListener(
+				"change",
+				() => {
+					if (
+						!getStoredTheme()
+					) {
+						applyTheme(
+							getSystemTheme()
+						);
+					}
 				}
-			}
-		);
+			);
 	}
 }
 
@@ -181,24 +223,32 @@ function initTheme() {
 
 function initTimeline() {
 	const timeline =
-		document.getElementById("timeline");
+		document.getElementById(
+			"timeline"
+		);
+
 
 	if (!timeline) {
 		return;
 	}
 
 
-	function getControlledBody(button) {
+	function getControlledBody(
+		button
+	) {
 		const id =
 			button.getAttribute(
 				"aria-controls"
 			);
 
+
 		if (!id) {
 			return null;
 		}
 
-		return document.getElementById(id);
+
+		return document
+			.getElementById(id);
 	}
 
 
@@ -207,7 +257,10 @@ function initTimeline() {
 		expanded
 	) {
 		const body =
-			getControlledBody(button);
+			getControlledBody(
+				button
+			);
+
 
 		if (!body) {
 			return;
@@ -241,6 +294,10 @@ function initTimeline() {
 		"click",
 		event => {
 
+			/*
+				Expand or collapse all.
+			*/
+
 			const actionButton =
 				event.target.closest(
 					"[data-action]"
@@ -249,12 +306,15 @@ function initTimeline() {
 
 			if (
 				actionButton &&
-				timeline.contains(actionButton)
+				timeline.contains(
+					actionButton
+				)
 			) {
 				const action =
 					actionButton.getAttribute(
 						"data-action"
 					);
+
 
 				const shouldExpand =
 					action === "expand";
@@ -266,16 +326,23 @@ function initTimeline() {
 					);
 
 
-				buttons.forEach(button => {
-					setExpanded(
-						button,
-						shouldExpand
-					);
-				});
+				buttons.forEach(
+					button => {
+						setExpanded(
+							button,
+							shouldExpand
+						);
+					}
+				);
+
 
 				return;
 			}
 
+
+			/*
+				Individual item.
+			*/
 
 			const itemButton =
 				event.target.closest(
@@ -285,7 +352,9 @@ function initTimeline() {
 
 			if (
 				!itemButton ||
-				!timeline.contains(itemButton)
+				!timeline.contains(
+					itemButton
+				)
 			) {
 				return;
 			}
@@ -316,15 +385,18 @@ function initHobbies() {
 			"openHobbies"
 		);
 
+
 	const closeButton =
 		document.getElementById(
 			"closeHobbies"
 		);
 
+
 	const popup =
 		document.getElementById(
 			"hobbiesPopup"
 		);
+
 
 	const overlay =
 		document.getElementById(
@@ -363,6 +435,7 @@ function initHobbies() {
 			"is-open"
 		);
 
+
 		overlay.classList.add(
 			"is-open"
 		);
@@ -372,6 +445,7 @@ function initHobbies() {
 			"aria-hidden",
 			"false"
 		);
+
 
 		overlay.setAttribute(
 			"aria-hidden",
@@ -387,7 +461,10 @@ function initHobbies() {
 		const focusable =
 			getFocusableElements();
 
-		if (focusable.length > 0) {
+
+		if (
+			focusable.length > 0
+		) {
 			focusable[0].focus();
 		}
 	}
@@ -398,6 +475,7 @@ function initHobbies() {
 			"is-open"
 		);
 
+
 		overlay.classList.remove(
 			"is-open"
 		);
@@ -407,6 +485,7 @@ function initHobbies() {
 			"aria-hidden",
 			"true"
 		);
+
 
 		overlay.setAttribute(
 			"aria-hidden",
@@ -429,7 +508,9 @@ function initHobbies() {
 	}
 
 
-	function trapFocus(event) {
+	function trapFocus(
+		event
+	) {
 		if (
 			event.key !== "Tab" ||
 			!popup.classList.contains(
@@ -444,13 +525,16 @@ function initHobbies() {
 			getFocusableElements();
 
 
-		if (focusable.length === 0) {
+		if (
+			focusable.length === 0
+		) {
 			return;
 		}
 
 
 		const first =
 			focusable[0];
+
 
 		const last =
 			focusable[
@@ -460,7 +544,8 @@ function initHobbies() {
 
 		if (
 			event.shiftKey &&
-			document.activeElement === first
+			document.activeElement ===
+				first
 		) {
 			event.preventDefault();
 
@@ -468,7 +553,8 @@ function initHobbies() {
 
 		} else if (
 			!event.shiftKey &&
-			document.activeElement === last
+			document.activeElement ===
+				last
 		) {
 			event.preventDefault();
 
@@ -506,28 +592,21 @@ function initHobbies() {
 				)
 			) {
 				closePopup();
+
 				return;
 			}
 
-			trapFocus(event);
+
+			trapFocus(
+				event
+			);
 		}
 	);
 }
 
 
 /* =========================================================
-   Automatic background music
-
-   Volume is always capped at 0.10.
-
-   Modern browsers may block audible autoplay.
-   We first try audible playback immediately.
-
-   If the browser blocks it, muted playback is prepared.
-   The first normal tap, click or key interaction then
-   unlocks the audio and fades it in automatically.
-
-   There is no visible music button.
+   Background music
    ========================================================= */
 
 function initBackgroundMusic() {
@@ -536,31 +615,50 @@ function initBackgroundMusic() {
 			"backgroundMusic"
 		);
 
+
 	if (!audio) {
 		return;
 	}
 
 
-	const MUSIC_VOLUME = 0.10;
+	/*
+		Exactly 10 percent.
+	*/
 
-	const FADE_DURATION = 900;
+	const MUSIC_VOLUME =
+		0.10;
 
 
-	let unlocked = false;
+	const FADE_DURATION =
+		900;
+
+
+	let unlocked =
+		false;
+
 
 	let tabHidden =
 		document.hidden;
 
-	let fadeFrame = null;
 
-	let playLock = false;
+	let fadeFrame =
+		null;
 
 
-	audio.loop = true;
+	let playLock =
+		false;
 
-	audio.volume = 0;
 
-	audio.muted = true;
+	audio.loop =
+		true;
+
+
+	audio.volume =
+		0;
+
+
+	audio.muted =
+		true;
 
 
 	try {
@@ -569,18 +667,22 @@ function initBackgroundMusic() {
 			""
 		);
 
+
 		audio.setAttribute(
 			"webkit-playsinline",
 			""
 		);
+
 	} catch (error) {
-		/* ignore */
+		/*
+			Ignore.
+		*/
 	}
 
 
-	/* ---------------------------------------------------------
-	   Fade in
-	   --------------------------------------------------------- */
+	/* =====================================================
+	   Fade the music in
+	   ===================================================== */
 
 	function fadeToVolume(
 		targetVolume
@@ -610,7 +712,9 @@ function initBackgroundMusic() {
 			performance.now();
 
 
-		function step(currentTime) {
+		function step(
+			currentTime
+		) {
 			const progress =
 				Math.min(
 					1,
@@ -631,7 +735,9 @@ function initBackgroundMusic() {
 				progress;
 
 
-			if (progress < 1) {
+			if (
+				progress < 1
+			) {
 				fadeFrame =
 					requestAnimationFrame(
 						step
@@ -641,7 +747,9 @@ function initBackgroundMusic() {
 				audio.volume =
 					safeTarget;
 
-				fadeFrame = null;
+
+				fadeFrame =
+					null;
 			}
 		}
 
@@ -653,14 +761,17 @@ function initBackgroundMusic() {
 	}
 
 
-	/* ---------------------------------------------------------
-	   Prepare muted playback
-	   --------------------------------------------------------- */
+	/* =====================================================
+	   Prepare muted autoplay
+	   ===================================================== */
 
 	function prepareMutedPlayback() {
-		audio.muted = true;
+		audio.muted =
+			true;
 
-		audio.volume = 0;
+
+		audio.volume =
+			0;
 
 
 		let playAttempt;
@@ -692,12 +803,14 @@ function initBackgroundMusic() {
 	}
 
 
-	/* ---------------------------------------------------------
-	   Try audible autoplay
-	   --------------------------------------------------------- */
+	/* =====================================================
+	   Try actual automatic audible playback
+	   ===================================================== */
 
 	function tryAudibleAutoplay() {
-		audio.muted = false;
+		audio.muted =
+			false;
+
 
 		audio.volume =
 			MUSIC_VOLUME;
@@ -712,6 +825,7 @@ function initBackgroundMusic() {
 
 		} catch (error) {
 			prepareMutedPlayback();
+
 			return;
 		}
 
@@ -722,26 +836,37 @@ function initBackgroundMusic() {
 				"function"
 		) {
 			playAttempt
-				.then(() => {
-					unlocked = true;
+				.then(
+					() => {
+						unlocked =
+							true;
 
-					removeUnlockListeners();
-				})
-				.catch(() => {
-					prepareMutedPlayback();
-				});
+
+						removeUnlockListeners();
+					}
+				)
+				.catch(
+					() => {
+						prepareMutedPlayback();
+					}
+				);
 
 		} else {
-			unlocked = true;
+			unlocked =
+				true;
+
 
 			removeUnlockListeners();
 		}
 	}
 
 
-	/* ---------------------------------------------------------
-	   Unlock on first genuine interaction
-	   --------------------------------------------------------- */
+	/* =====================================================
+	   Unlock after the visitor touches the page
+
+	   This is required by Safari, Chrome mobile and most
+	   modern mobile browsers.
+	   ===================================================== */
 
 	function unlockInGesture() {
 		if (
@@ -752,9 +877,12 @@ function initBackgroundMusic() {
 		}
 
 
-		audio.muted = true;
+		audio.muted =
+			true;
 
-		audio.volume = 0;
+
+		audio.volume =
+			0;
 
 
 		let playAttempt;
@@ -770,13 +898,18 @@ function initBackgroundMusic() {
 
 
 		function finishUnlock() {
-			unlocked = true;
+			unlocked =
+				true;
 
-			audio.muted = false;
+
+			audio.muted =
+				false;
+
 
 			fadeToVolume(
 				MUSIC_VOLUME
 			);
+
 
 			removeUnlockListeners();
 		}
@@ -791,13 +924,16 @@ function initBackgroundMusic() {
 				.then(
 					finishUnlock
 				)
-				.catch(() => {
-					/*
-						Keep listeners active.
-						The next interaction
-						can try again.
-					*/
-				});
+				.catch(
+					() => {
+						/*
+							Keep listeners active.
+
+							The next interaction
+							can try again.
+						*/
+					}
+				);
 
 		} else {
 			finishUnlock();
@@ -841,9 +977,9 @@ function initBackgroundMusic() {
 	);
 
 
-	/* ---------------------------------------------------------
-	   Safe resume
-	   --------------------------------------------------------- */
+	/* =====================================================
+	   Resume helper
+	   ===================================================== */
 
 	function safePlay() {
 		if (
@@ -856,7 +992,8 @@ function initBackgroundMusic() {
 		}
 
 
-		playLock = true;
+		playLock =
+			true;
 
 
 		let playAttempt;
@@ -867,14 +1004,18 @@ function initBackgroundMusic() {
 				audio.play();
 
 		} catch (error) {
-			playLock = false;
+			playLock =
+				false;
+
 			return;
 		}
 
 
-		const release = () => {
-			playLock = false;
-		};
+		const release =
+			() => {
+				playLock =
+					false;
+			};
 
 
 		if (
@@ -883,8 +1024,12 @@ function initBackgroundMusic() {
 				"function"
 		) {
 			playAttempt
-				.then(release)
-				.catch(release);
+				.then(
+					release
+				)
+				.catch(
+					release
+				);
 
 		} else {
 			release();
@@ -892,19 +1037,20 @@ function initBackgroundMusic() {
 	}
 
 
-	/* ---------------------------------------------------------
-	   Pause while the tab is hidden
-	   --------------------------------------------------------- */
+	/* =====================================================
+	   Pause when tab is hidden
+	   ===================================================== */
 
 	document.addEventListener(
 		"visibilitychange",
 		() => {
-
 			tabHidden =
 				document.hidden;
 
 
-			if (tabHidden) {
+			if (
+				tabHidden
+			) {
 				audio.pause();
 
 			} else {
@@ -914,57 +1060,63 @@ function initBackgroundMusic() {
 	);
 
 
-	/* ---------------------------------------------------------
-	   Mobile Safari page restore
-	   --------------------------------------------------------- */
+	/* =====================================================
+	   iPhone Safari restore
+	   ===================================================== */
 
 	window.addEventListener(
 		"pageshow",
 		() => {
-
 			tabHidden =
 				document.hidden;
 
 
-			if (!tabHidden) {
+			if (
+				!tabHidden
+			) {
 				safePlay();
 			}
 		}
 	);
 
 
-	/* ---------------------------------------------------------
-	   Resume after returning to window
-	   --------------------------------------------------------- */
+	/* =====================================================
+	   Resume when returning to window
+	   ===================================================== */
 
 	window.addEventListener(
 		"focus",
 		() => {
-
-			if (!tabHidden) {
+			if (
+				!tabHidden
+			) {
 				safePlay();
 			}
 		}
 	);
 
 
-	/* ---------------------------------------------------------
-	   Recover if the loop ever ends
-	   --------------------------------------------------------- */
+	/* =====================================================
+	   Recover if audio ends
+	   ===================================================== */
 
 	audio.addEventListener(
 		"ended",
 		() => {
-
 			if (
 				!tabHidden &&
 				unlocked
 			) {
 				try {
-					audio.currentTime = 0;
+					audio.currentTime =
+						0;
+
 				} catch (error) {
-					/* ignore */
+					/*
+						Ignore.
+					*/
 				}
+
 
 				safePlay();
 			}
@@ -972,14 +1124,13 @@ function initBackgroundMusic() {
 	);
 
 
-	/* ---------------------------------------------------------
-	   Keep volume from accidentally becoming louder
-	   --------------------------------------------------------- */
+	/* =====================================================
+	   Never allow volume above 10 percent
+	   ===================================================== */
 
 	audio.addEventListener(
 		"volumechange",
 		() => {
-
 			if (
 				!audio.muted &&
 				audio.volume >
@@ -992,9 +1143,9 @@ function initBackgroundMusic() {
 	);
 
 
-	/* ---------------------------------------------------------
-	   Audio error
-	   --------------------------------------------------------- */
+	/* =====================================================
+	   Error
+	   ===================================================== */
 
 	audio.addEventListener(
 		"error",
@@ -1006,9 +1157,9 @@ function initBackgroundMusic() {
 	);
 
 
-	/* ---------------------------------------------------------
+	/* =====================================================
 	   Start
-	   --------------------------------------------------------- */
+	   ===================================================== */
 
 	tryAudibleAutoplay();
 }
