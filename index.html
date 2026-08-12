@@ -50,11 +50,14 @@
   <script>
     (function () {
       try {
-        const saved = localStorage.getItem("themePreference");
+        const saved =
+          localStorage.getItem("themePreference");
 
         const prefersLight =
           window.matchMedia &&
-          window.matchMedia("(prefers-color-scheme: light)").matches;
+          window.matchMedia(
+            "(prefers-color-scheme: light)"
+          ).matches;
 
         const systemTheme =
           prefersLight ? "light" : "dark";
@@ -63,8 +66,10 @@
           saved === "light" || saved === "dark"
             ? saved
             : systemTheme;
+
       } catch (error) {
-        document.documentElement.dataset.theme = "dark";
+        document.documentElement.dataset.theme =
+          "dark";
       }
     })();
   </script>
@@ -101,7 +106,10 @@
   ></script>
 </head>
 
+
 <body>
+
+  <!-- background music -->
 
   <audio
     id="backgroundMusic"
@@ -119,6 +127,8 @@
   </audio>
 
 
+  <!-- navigation -->
+
   <nav
     class="topbar"
     aria-label="Main navigation"
@@ -131,6 +141,7 @@
       saptarshi
     </a>
 
+
     <div class="top-actions">
 
       <button
@@ -142,6 +153,7 @@
       >
         other stuff
       </button>
+
 
       <button
         class="quiet-button theme-button"
@@ -159,15 +171,19 @@
 
   <main id="top">
 
+    <!-- intro -->
+
     <section class="intro">
 
       <p class="intro-kicker">
         hi, i am Saptarshi.
       </p>
 
+
       <h1>
         Just keeping track of things.
       </h1>
+
 
       <p class="intro-text">
         This is mostly where I keep the bits of my life that are worth
@@ -175,11 +191,13 @@
         else I happen to be curious about at the time.
       </p>
 
+
       <p class="intro-text intro-text-secondary">
         I study at IISER Bhopal and spend an unreasonable amount of time
         around machine learning, data, maths and problems that usually
         lead to more problems.
       </p>
+
 
       <div class="intro-links">
 
@@ -191,6 +209,7 @@
           GitHub
         </a>
 
+
         <a
           href="https://www.linkedin.com/in/saptarshi-halder/"
           target="_blank"
@@ -198,6 +217,7 @@
         >
           LinkedIn
         </a>
+
 
         <a
           href="https://saptarshihalder.github.io/blog"
@@ -212,6 +232,8 @@
     </section>
 
 
+    <!-- timeline -->
+
     <section class="timeline-section">
 
       <div class="section-heading">
@@ -220,9 +242,11 @@
           so far
         </p>
 
+
         <h2>
           A somewhat incomplete history
         </h2>
+
 
         <p>
           Mostly the things that somehow led to whatever I am doing now.
@@ -246,6 +270,7 @@
             open everything
           </button>
 
+
           <button
             class="small-button"
             type="button"
@@ -257,7 +282,7 @@
         </div>
 
 
-        <!-- School -->
+        <!-- school -->
 
         <article class="timeline__item">
 
@@ -272,6 +297,7 @@
               aria-controls="item1-ctrld"
               data-item="1"
             >
+
               <svg
                 class="timeline__arrow-icon"
                 viewBox="0 0 24 24"
@@ -279,12 +305,15 @@
               >
                 <use href="#arrow"></use>
               </svg>
+
             </button>
+
 
             <span
               class="timeline__dot"
               aria-hidden="true"
             ></span>
+
 
             <div
               id="item1-name"
@@ -294,6 +323,7 @@
               <time class="timeline__date">
                 2009 to 2020
               </time>
+
 
               <h3 class="timeline__title">
                 School days
@@ -322,6 +352,7 @@
                   something to figure out.
                 </p>
 
+
                 <p>
                   Nothing particularly dramatic happened here. I mostly went
                   to school, came home, played around with whatever interested
@@ -338,7 +369,7 @@
         </article>
 
 
-        <!-- Science and entrance exams -->
+        <!-- science and entrance exams -->
 
         <article class="timeline__item">
 
@@ -353,6 +384,7 @@
               aria-controls="item2-ctrld"
               data-item="2"
             >
+
               <svg
                 class="timeline__arrow-icon"
                 viewBox="0 0 24 24"
@@ -360,12 +392,15 @@
               >
                 <use href="#arrow"></use>
               </svg>
+
             </button>
+
 
             <span
               class="timeline__dot"
               aria-hidden="true"
             ></span>
+
 
             <div
               id="item2-name"
@@ -375,6 +410,7 @@
               <time class="timeline__date">
                 2020 to 2022
               </time>
+
 
               <h3 class="timeline__title">
                 Science, lockdown and entrance exams
@@ -402,11 +438,13 @@
                   immediately the world shut down.
                 </p>
 
+
                 <p>
                   Classes moved online, sleep schedules stopped making much
                   sense and JEE, JEE Advanced, IAT, WBJEE and a few other
                   exams occupied a fairly unreasonable amount of my life.
                 </p>
+
 
                 <p>
                   Not my favourite era, but I survived it.
@@ -436,6 +474,7 @@
               aria-controls="item3-ctrld"
               data-item="3"
             >
+
               <svg
                 class="timeline__arrow-icon"
                 viewBox="0 0 24 24"
@@ -443,12 +482,15 @@
               >
                 <use href="#arrow"></use>
               </svg>
+
             </button>
+
 
             <span
               class="timeline__dot"
               aria-hidden="true"
             ></span>
+
 
             <div
               id="item3-name"
@@ -458,6 +500,7 @@
               <time class="timeline__date">
                 2022 to present
               </time>
+
 
               <h3 class="timeline__title">
                 IISER Bhopal
@@ -486,6 +529,7 @@
                   mathematics and research.
                 </p>
 
+
                 <p>
                   University has mostly been a mixture of interesting ideas,
                   unfinished side projects, questionable sleep and finding new
@@ -498,7 +542,7 @@
               <div class="timeline__nested">
 
 
-                <!-- Projects -->
+                <!-- things I built -->
 
                 <article class="timeline__item">
 
@@ -513,6 +557,7 @@
                       aria-controls="item4-ctrld"
                       data-item="4"
                     >
+
                       <svg
                         class="timeline__arrow-icon"
                         viewBox="0 0 24 24"
@@ -520,12 +565,15 @@
                       >
                         <use href="#arrow"></use>
                       </svg>
+
                     </button>
+
 
                     <span
                       class="timeline__dot"
                       aria-hidden="true"
                     ></span>
+
 
                     <div
                       id="item4-name"
@@ -535,6 +583,7 @@
                       <time class="timeline__date">
                         ongoing
                       </time>
+
 
                       <h3 class="timeline__title">
                         Things I have built
@@ -558,7 +607,9 @@
 
                       <!-- GamerKraft -->
 
-                      <article class="timeline__item timeline__item-small">
+                      <article
+                        class="timeline__item timeline__item-small"
+                      >
 
                         <div class="timeline__item-header">
 
@@ -571,6 +622,7 @@
                             aria-controls="item5-ctrld"
                             data-item="5"
                           >
+
                             <svg
                               class="timeline__arrow-icon"
                               viewBox="0 0 24 24"
@@ -578,12 +630,15 @@
                             >
                               <use href="#arrow"></use>
                             </svg>
+
                           </button>
+
 
                           <span
                             class="timeline__dot"
                             aria-hidden="true"
                           ></span>
+
 
                           <div
                             id="item5-name"
@@ -617,16 +672,19 @@
                                 JavaScript.
                               </p>
 
+
                               <p>
                                 It eventually became a browser based editor
                                 with tiles, physics, logic and the ability to
                                 export games as standalone HTML files.
                               </p>
 
+
                               <p>
                                 Basically, a tiny Mario Maker that got slightly
                                 out of hand.
                               </p>
+
 
                               <p>
                                 <a
@@ -638,11 +696,13 @@
                                 </a>
                               </p>
 
+
                               <p>
                                 There is also a 3D version. It is still a bit
                                 unstable and occasionally behaves like it has
                                 personal issues.
                               </p>
+
 
                               <p>
                                 <a
@@ -669,7 +729,7 @@
                 </article>
 
 
-                <!-- Research and internships -->
+                <!-- research -->
 
                 <article class="timeline__item">
 
@@ -684,6 +744,7 @@
                       aria-controls="item6-ctrld"
                       data-item="6"
                     >
+
                       <svg
                         class="timeline__arrow-icon"
                         viewBox="0 0 24 24"
@@ -691,12 +752,15 @@
                       >
                         <use href="#arrow"></use>
                       </svg>
+
                     </button>
+
 
                     <span
                       class="timeline__dot"
                       aria-hidden="true"
                     ></span>
+
 
                     <div
                       id="item6-name"
@@ -725,7 +789,9 @@
 
                       <!-- IIIT Kalyani -->
 
-                      <article class="timeline__item timeline__item-small">
+                      <article
+                        class="timeline__item timeline__item-small"
+                      >
 
                         <div class="timeline__item-header">
 
@@ -738,6 +804,7 @@
                             aria-controls="item7-ctrld"
                             data-item="7"
                           >
+
                             <svg
                               class="timeline__arrow-icon"
                               viewBox="0 0 24 24"
@@ -745,12 +812,15 @@
                             >
                               <use href="#arrow"></use>
                             </svg>
+
                           </button>
+
 
                           <span
                             class="timeline__dot"
                             aria-hidden="true"
                           ></span>
+
 
                           <div
                             id="item7-name"
@@ -760,6 +830,7 @@
                             <time class="timeline__date">
                               December 2023 to June 2024
                             </time>
+
 
                             <h3 class="timeline__title">
                               IIIT Kalyani
@@ -789,6 +860,7 @@
                                 how messy research can actually be.
                               </p>
 
+
                               <p>
                                 Ideas changed, experiments did not always work
                                 and the paper we hoped for never really happened.
@@ -806,7 +878,9 @@
 
                       <!-- Oxford -->
 
-                      <article class="timeline__item timeline__item-small">
+                      <article
+                        class="timeline__item timeline__item-small"
+                      >
 
                         <div class="timeline__item-header">
 
@@ -819,6 +893,7 @@
                             aria-controls="item8-ctrld"
                             data-item="8"
                           >
+
                             <svg
                               class="timeline__arrow-icon"
                               viewBox="0 0 24 24"
@@ -826,12 +901,15 @@
                             >
                               <use href="#arrow"></use>
                             </svg>
+
                           </button>
+
 
                           <span
                             class="timeline__dot"
                             aria-hidden="true"
                           ></span>
+
 
                           <div
                             id="item8-name"
@@ -841,6 +919,7 @@
                             <time class="timeline__date">
                               April 2024 to June 2024
                             </time>
+
 
                             <h3 class="timeline__title">
                               Oxford
@@ -864,10 +943,11 @@
                             <div class="timeline__item-body-content">
 
                               <p>
-                                I worked remotely with Professor Robin Evans and
-                                spent some time learning about Markov models,
-                                Bayesian networks and graphical models.
+                                I worked remotely with Professor Robin Evans
+                                and spent some time learning about Markov
+                                models, Bayesian networks and graphical models.
                               </p>
+
 
                               <p>
                                 It was one of those experiences where every
@@ -885,7 +965,9 @@
 
                       <!-- IIT BHU -->
 
-                      <article class="timeline__item timeline__item-small">
+                      <article
+                        class="timeline__item timeline__item-small"
+                      >
 
                         <div class="timeline__item-header">
 
@@ -898,6 +980,7 @@
                             aria-controls="item9-ctrld"
                             data-item="9"
                           >
+
                             <svg
                               class="timeline__arrow-icon"
                               viewBox="0 0 24 24"
@@ -905,12 +988,15 @@
                             >
                               <use href="#arrow"></use>
                             </svg>
+
                           </button>
+
 
                           <span
                             class="timeline__dot"
                             aria-hidden="true"
                           ></span>
+
 
                           <div
                             id="item9-name"
@@ -920,6 +1006,7 @@
                             <time class="timeline__date">
                               May 2024 to July 2024
                             </time>
+
 
                             <h3 class="timeline__title">
                               IIT BHU
@@ -946,6 +1033,7 @@
                                 My first offline research internship.
                               </p>
 
+
                               <p>
                                 I worked around EEG signals, biometrics and
                                 machine learning, while also getting much better
@@ -964,7 +1052,9 @@
 
                       <!-- Duke -->
 
-                      <article class="timeline__item timeline__item-small">
+                      <article
+                        class="timeline__item timeline__item-small"
+                      >
 
                         <div class="timeline__item-header">
 
@@ -977,6 +1067,7 @@
                             aria-controls="item10-ctrld"
                             data-item="10"
                           >
+
                             <svg
                               class="timeline__arrow-icon"
                               viewBox="0 0 24 24"
@@ -984,12 +1075,15 @@
                             >
                               <use href="#arrow"></use>
                             </svg>
+
                           </button>
+
 
                           <span
                             class="timeline__dot"
                             aria-hidden="true"
                           ></span>
+
 
                           <div
                             id="item10-name"
@@ -999,6 +1093,7 @@
                             <time class="timeline__date">
                               May 2024 to December 2024
                             </time>
+
 
                             <h3 class="timeline__title">
                               Duke Health
@@ -1026,6 +1121,7 @@
                                 from scalp EEG signals using deep learning.
                               </p>
 
+
                               <p>
                                 It ended up being a nice mixture of neuroscience,
                                 signal processing, machine learning and many
@@ -1043,7 +1139,9 @@
 
                       <!-- DVC -->
 
-                      <article class="timeline__item timeline__item-small">
+                      <article
+                        class="timeline__item timeline__item-small"
+                      >
 
                         <div class="timeline__item-header">
 
@@ -1056,6 +1154,7 @@
                             aria-controls="item11-ctrld"
                             data-item="11"
                           >
+
                             <svg
                               class="timeline__arrow-icon"
                               viewBox="0 0 24 24"
@@ -1063,12 +1162,15 @@
                             >
                               <use href="#arrow"></use>
                             </svg>
+
                           </button>
+
 
                           <span
                             class="timeline__dot"
                             aria-hidden="true"
                           ></span>
+
 
                           <div
                             id="item11-name"
@@ -1078,6 +1180,7 @@
                             <time class="timeline__date">
                               December 2024 to January 2025
                             </time>
+
 
                             <h3 class="timeline__title">
                               Damodar Valley Corporation
@@ -1104,10 +1207,12 @@
                                 My first proper corporate internship.
                               </p>
 
+
                               <p>
                                 I worked around cybersecurity, NIST frameworks,
                                 security processes and risk assessment.
                               </p>
+
 
                               <p>
                                 Very different from academic research, which was
@@ -1143,7 +1248,7 @@
   </main>
 
 
-  <!-- Hobbies popup -->
+  <!-- hobbies popup -->
 
   <div
     class="overlay"
@@ -1167,9 +1272,11 @@
         away from the laptop, sometimes
       </p>
 
+
       <h2 id="hobbiesTitle">
         Other stuff I like
       </h2>
+
 
       <p>
         Research is thankfully not my entire personality.
@@ -1190,9 +1297,11 @@
           aria-hidden="true"
         ></i>
 
+
         <span>
           Reading
         </span>
+
 
         <span
           class="hobby-arrow"
@@ -1214,9 +1323,11 @@
           aria-hidden="true"
         ></i>
 
+
         <span>
           Writing
         </span>
+
 
         <span
           class="hobby-arrow"
@@ -1238,9 +1349,11 @@
           aria-hidden="true"
         ></i>
 
+
         <span>
           Numismatics
         </span>
+
 
         <span
           class="hobby-arrow"
@@ -1262,9 +1375,11 @@
           aria-hidden="true"
         ></i>
 
+
         <span>
           Music
         </span>
+
 
         <span
           class="hobby-arrow"
@@ -1289,7 +1404,7 @@
   </section>
 
 
-  <!-- Footer -->
+  <!-- footer -->
 
   <footer>
 
@@ -1308,6 +1423,7 @@
         Blog
       </a>
 
+
       <a
         href="https://www.linkedin.com/in/saptarshi-halder/"
         target="_blank"
@@ -1315,6 +1431,7 @@
       >
         LinkedIn
       </a>
+
 
       <a
         href="https://yourpodcast.com"
@@ -1324,6 +1441,7 @@
         Podcast
       </a>
 
+
       <a
         href="https://x.com/Iamsaptarshi69"
         target="_blank"
@@ -1331,6 +1449,7 @@
       >
         X
       </a>
+
 
       <a
         href="https://github.com/saptarshihalder"
@@ -1345,7 +1464,7 @@
   </footer>
 
 
-  <!-- Timeline arrow definition -->
+  <!-- arrow definition -->
 
   <svg
     class="svg-defs"
