@@ -73,6 +73,7 @@ function initTheme() {
 			return;
 		}
 
+
 		themeColorMeta.setAttribute(
 			"content",
 			theme === "light"
@@ -130,10 +131,6 @@ function initTheme() {
 				);
 
 			} catch (error) {
-				/*
-					Local storage may not
-					be available.
-				*/
 			}
 		}
 
@@ -294,10 +291,6 @@ function initTimeline() {
 		"click",
 		event => {
 
-			/*
-				Expand or collapse all.
-			*/
-
 			const actionButton =
 				event.target.closest(
 					"[data-action]"
@@ -339,10 +332,6 @@ function initTimeline() {
 				return;
 			}
 
-
-			/*
-				Individual item.
-			*/
 
 			const itemButton =
 				event.target.closest(
@@ -414,7 +403,8 @@ function initHobbies() {
 	}
 
 
-	let previousFocus = null;
+	let previousFocus =
+		null;
 
 
 	function getFocusableElements() {
@@ -465,7 +455,8 @@ function initHobbies() {
 		if (
 			focusable.length > 0
 		) {
-			focusable[0].focus();
+			focusable[0]
+				.focus();
 		}
 	}
 
@@ -621,10 +612,6 @@ function initBackgroundMusic() {
 	}
 
 
-	/*
-		Exactly 10 percent.
-	*/
-
 	const MUSIC_VOLUME =
 		0.10;
 
@@ -635,10 +622,6 @@ function initBackgroundMusic() {
 
 	let unlocked =
 		false;
-
-
-	let tabHidden =
-		document.hidden;
 
 
 	let fadeFrame =
@@ -654,11 +637,7 @@ function initBackgroundMusic() {
 
 
 	audio.volume =
-		0;
-
-
-	audio.muted =
-		true;
+		MUSIC_VOLUME;
 
 
 	try {
@@ -674,19 +653,12 @@ function initBackgroundMusic() {
 		);
 
 	} catch (error) {
-		/*
-			Ignore.
-		*/
 	}
 
 
-	/* =====================================================
-	   Fade the music in
-	   ===================================================== */
+	/* fade */
 
-	function fadeToVolume(
-		targetVolume
-	) {
+	function fadeIn() {
 		if (fadeFrame) {
 			cancelAnimationFrame(
 				fadeFrame
@@ -694,44 +666,30 @@ function initBackgroundMusic() {
 		}
 
 
-		const safeTarget =
-			Math.min(
-				MUSIC_VOLUME,
-				Math.max(
-					0,
-					targetVolume
-				)
-			);
+		audio.volume =
+			0;
 
 
-		const startingVolume =
-			audio.volume;
-
-
-		const startingTime =
+		const start =
 			performance.now();
 
 
 		function step(
-			currentTime
+			time
 		) {
 			const progress =
 				Math.min(
 					1,
 					(
-						currentTime -
-						startingTime
+						time -
+						start
 					) /
 					FADE_DURATION
 				);
 
 
 			audio.volume =
-				startingVolume +
-				(
-					safeTarget -
-					startingVolume
-				) *
+				MUSIC_VOLUME *
 				progress;
 
 
@@ -745,7 +703,7 @@ function initBackgroundMusic() {
 
 			} else {
 				audio.volume =
-					safeTarget;
+					MUSIC_VOLUME;
 
 
 				fadeFrame =
@@ -761,185 +719,7 @@ function initBackgroundMusic() {
 	}
 
 
-	/* =====================================================
-	   Prepare muted autoplay
-	   ===================================================== */
-
-	function prepareMutedPlayback() {
-		audio.muted =
-			true;
-
-
-		audio.volume =
-			0;
-
-
-		let playAttempt;
-
-
-		try {
-			playAttempt =
-				audio.play();
-
-		} catch (error) {
-			return;
-		}
-
-
-		if (
-			playAttempt &&
-			typeof playAttempt.catch ===
-				"function"
-		) {
-			playAttempt.catch(
-				() => {
-					/*
-						The first interaction
-						will try again.
-					*/
-				}
-			);
-		}
-	}
-
-
-	/* =====================================================
-	   Try actual automatic audible playback
-	   ===================================================== */
-
-	function tryAudibleAutoplay() {
-		audio.muted =
-			false;
-
-
-		audio.volume =
-			MUSIC_VOLUME;
-
-
-		let playAttempt;
-
-
-		try {
-			playAttempt =
-				audio.play();
-
-		} catch (error) {
-			prepareMutedPlayback();
-
-			return;
-		}
-
-
-		if (
-			playAttempt &&
-			typeof playAttempt.then ===
-				"function"
-		) {
-			playAttempt
-				.then(
-					() => {
-						unlocked =
-							true;
-
-
-						removeUnlockListeners();
-					}
-				)
-				.catch(
-					() => {
-						prepareMutedPlayback();
-					}
-				);
-
-		} else {
-			unlocked =
-				true;
-
-
-			removeUnlockListeners();
-		}
-	}
-
-
-	/* =====================================================
-	   Unlock after the visitor touches the page
-
-	   This is required by Safari, Chrome mobile and most
-	   modern mobile browsers.
-	   ===================================================== */
-
-	function unlockInGesture() {
-		if (
-			unlocked ||
-			tabHidden
-		) {
-			return;
-		}
-
-
-		audio.muted =
-			true;
-
-
-		audio.volume =
-			0;
-
-
-		let playAttempt;
-
-
-		try {
-			playAttempt =
-				audio.play();
-
-		} catch (error) {
-			return;
-		}
-
-
-		function finishUnlock() {
-			unlocked =
-				true;
-
-
-			audio.muted =
-				false;
-
-
-			fadeToVolume(
-				MUSIC_VOLUME
-			);
-
-
-			removeUnlockListeners();
-		}
-
-
-		if (
-			playAttempt &&
-			typeof playAttempt.then ===
-				"function"
-		) {
-			playAttempt
-				.then(
-					finishUnlock
-				)
-				.catch(
-					() => {
-						/*
-							Keep listeners active.
-
-							The next interaction
-							can try again.
-						*/
-					}
-				);
-
-		} else {
-			finishUnlock();
-		}
-	}
-
+	/* remove fallback listeners */
 
 	const unlockEvents = [
 		"pointerdown",
@@ -955,7 +735,7 @@ function initBackgroundMusic() {
 			eventName => {
 				document.removeEventListener(
 					eventName,
-					unlockInGesture,
+					unlockMusic,
 					true
 				);
 			}
@@ -963,11 +743,78 @@ function initBackgroundMusic() {
 	}
 
 
+	/* fallback after first interaction */
+
+	function unlockMusic() {
+		if (
+			unlocked ||
+			document.hidden
+		) {
+			return;
+		}
+
+
+		audio.muted =
+			false;
+
+
+		audio.volume =
+			0;
+
+
+		let attempt;
+
+
+		try {
+			attempt =
+				audio.play();
+
+		} catch (error) {
+			return;
+		}
+
+
+		function success() {
+			unlocked =
+				true;
+
+
+			audio.muted =
+				false;
+
+
+			fadeIn();
+
+
+			removeUnlockListeners();
+		}
+
+
+		if (
+			attempt &&
+			typeof attempt.then ===
+				"function"
+		) {
+			attempt
+				.then(
+					success
+				)
+				.catch(
+					() => {
+					}
+				);
+
+		} else {
+			success();
+		}
+	}
+
+
 	unlockEvents.forEach(
 		eventName => {
 			document.addEventListener(
 				eventName,
-				unlockInGesture,
+				unlockMusic,
 				{
 					capture: true,
 					passive: true
@@ -977,16 +824,76 @@ function initBackgroundMusic() {
 	);
 
 
-	/* =====================================================
-	   Resume helper
-	   ===================================================== */
+	/* desktop audible autoplay attempt */
 
-	function safePlay() {
+	async function attemptImmediateAutoplay() {
+		audio.muted =
+			false;
+
+
+		audio.volume =
+			MUSIC_VOLUME;
+
+
+		try {
+			await audio.play();
+
+
+			unlocked =
+				true;
+
+
+			removeUnlockListeners();
+
+
+			return;
+
+		} catch (error) {
+			/*
+				The browser rejected
+				audible autoplay.
+			*/
+		}
+
+
+		/*
+			Prepare muted playback.
+
+			This usually succeeds on Chrome
+			and Safari and leaves the audio
+			ready for the first interaction.
+		*/
+
+		audio.muted =
+			true;
+
+
+		audio.volume =
+			0;
+
+
+		try {
+			await audio.play();
+
+		} catch (error) {
+			/*
+				No problem.
+
+				The first interaction
+				will try again.
+			*/
+		}
+	}
+
+
+	/* resume helper */
+
+	async function resumeMusic() {
 		if (
-			tabHidden ||
-			playLock ||
 			!unlocked ||
-			!audio.paused
+			!audio.paused ||
+			document.hidden ||
+			playLock
 		) {
 			return;
 		}
@@ -996,141 +903,88 @@ function initBackgroundMusic() {
 			true;
 
 
-		let playAttempt;
-
-
 		try {
-			playAttempt =
-				audio.play();
+			await audio.play();
 
 		} catch (error) {
-			playLock =
-				false;
-
-			return;
 		}
 
 
-		const release =
-			() => {
-				playLock =
-					false;
-			};
-
-
-		if (
-			playAttempt &&
-			typeof playAttempt.then ===
-				"function"
-		) {
-			playAttempt
-				.then(
-					release
-				)
-				.catch(
-					release
-				);
-
-		} else {
-			release();
-		}
+		playLock =
+			false;
 	}
 
 
-	/* =====================================================
-	   Pause when tab is hidden
-	   ===================================================== */
+	/* tab handling */
 
 	document.addEventListener(
 		"visibilitychange",
 		() => {
-			tabHidden =
-				document.hidden;
-
 
 			if (
-				tabHidden
+				document.hidden
 			) {
 				audio.pause();
 
 			} else {
-				safePlay();
+				resumeMusic();
 			}
 		}
 	);
 
 
-	/* =====================================================
-	   iPhone Safari restore
-	   ===================================================== */
+	/* browser cache restore */
 
 	window.addEventListener(
 		"pageshow",
 		() => {
-			tabHidden =
-				document.hidden;
-
-
-			if (
-				!tabHidden
-			) {
-				safePlay();
-			}
+			resumeMusic();
 		}
 	);
 
 
-	/* =====================================================
-	   Resume when returning to window
-	   ===================================================== */
+	/* focus */
 
 	window.addEventListener(
 		"focus",
 		() => {
-			if (
-				!tabHidden
-			) {
-				safePlay();
-			}
+			resumeMusic();
 		}
 	);
 
 
-	/* =====================================================
-	   Recover if audio ends
-	   ===================================================== */
+	/* recover after ending */
 
 	audio.addEventListener(
 		"ended",
 		() => {
 			if (
-				!tabHidden &&
-				unlocked
+				!unlocked ||
+				document.hidden
 			) {
-				try {
-					audio.currentTime =
-						0;
-
-				} catch (error) {
-					/*
-						Ignore.
-					*/
-				}
-
-
-				safePlay();
+				return;
 			}
+
+
+			try {
+				audio.currentTime =
+					0;
+
+			} catch (error) {
+			}
+
+
+			resumeMusic();
 		}
 	);
 
 
-	/* =====================================================
-	   Never allow volume above 10 percent
-	   ===================================================== */
+	/* volume cap */
 
 	audio.addEventListener(
 		"volumechange",
 		() => {
+
 			if (
 				!audio.muted &&
 				audio.volume >
@@ -1143,23 +997,15 @@ function initBackgroundMusic() {
 	);
 
 
-	/* =====================================================
-	   Error
-	   ===================================================== */
-
 	audio.addEventListener(
 		"error",
 		() => {
 			console.error(
-				"Background music could not be loaded. Check audio.mp3."
+				"Could not load audio.mp3"
 			);
 		}
 	);
 
 
-	/* =====================================================
-	   Start
-	   ===================================================== */
-
-	tryAudibleAutoplay();
+	attemptImmediateAutoplay();
 }
