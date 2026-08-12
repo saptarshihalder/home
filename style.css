@@ -4,14 +4,17 @@
 	padding: 0;
 }
 
+
 :root {
 	--bg: #090a0d;
 	--bg-soft: #0d0f13;
+
 	--surface: #111318;
 	--surface-hover: #15181e;
 
 	--text: #d8d9dd;
 	--text-soft: #a2a5ad;
+
 	--muted: #777b85;
 	--faint: #555962;
 
@@ -24,7 +27,10 @@
 	--wide-width: 980px;
 
 	--transition: 220ms ease;
-	--timeline-transition: 320ms cubic-bezier(0.65, 0, 0.35, 1);
+
+	--timeline-transition:
+		320ms
+		cubic-bezier(0.65, 0, 0.35, 1);
 
 	font-size: 16px;
 }
@@ -33,11 +39,13 @@
 html[data-theme="light"] {
 	--bg: #f1f0ed;
 	--bg-soft: #ebeae7;
+
 	--surface: #f8f7f4;
 	--surface-hover: #efeeeb;
 
 	--text: #27282c;
 	--text-soft: #565960;
+
 	--muted: #777980;
 	--faint: #99999c;
 
@@ -50,6 +58,7 @@ html[data-theme="light"] {
 
 html {
 	scroll-behavior: smooth;
+
 	color-scheme: dark;
 
 	-webkit-text-size-adjust: 100%;
@@ -64,12 +73,15 @@ html[data-theme="light"] {
 
 body {
 	min-width: 0;
+
 	min-height: 100vh;
 	min-height: 100dvh;
 
 	overflow-x: hidden;
 
-	font-family: "IBM Plex Sans", sans-serif;
+	font-family:
+		"IBM Plex Sans",
+		sans-serif;
 
 	background:
 		radial-gradient(
@@ -121,7 +133,9 @@ svg {
 
 
 ::selection {
-	background: rgba(145, 153, 172, 0.25);
+	background:
+		rgba(145, 153, 172, 0.25);
+
 	color: var(--text);
 }
 
@@ -131,16 +145,23 @@ svg {
    ========================================================= */
 
 .topbar {
-	width: min(calc(100% - 36px), var(--wide-width));
+	width:
+		min(
+			calc(100% - 36px),
+			var(--wide-width)
+		);
 
 	margin: 0 auto;
 
 	min-height: 72px;
 
-	padding-top: env(safe-area-inset-top);
+	padding-top:
+		env(safe-area-inset-top);
 
 	display: flex;
+
 	align-items: center;
+
 	justify-content: space-between;
 
 	gap: 20px;
@@ -151,18 +172,21 @@ svg {
 	min-height: 44px;
 
 	display: inline-flex;
+
 	align-items: center;
 
 	text-decoration: none;
 
 	font-size: 0.88rem;
+
 	font-weight: 600;
 
 	letter-spacing: 0.025em;
 
 	color: var(--muted);
 
-	transition: color var(--transition);
+	transition:
+		color var(--transition);
 }
 
 
@@ -173,6 +197,7 @@ svg {
 
 .top-actions {
 	display: flex;
+
 	align-items: center;
 
 	gap: 8px;
@@ -184,11 +209,13 @@ svg {
 
 	padding: 8px 13px;
 
-	border: 1px solid var(--border);
+	border:
+		1px solid var(--border);
 
 	border-radius: 10px;
 
-	background: rgba(255, 255, 255, 0.018);
+	background:
+		rgba(255, 255, 255, 0.018);
 
 	color: var(--muted);
 
@@ -203,22 +230,28 @@ svg {
 }
 
 
-html[data-theme="light"] .quiet-button {
-	background: rgba(0, 0, 0, 0.015);
+html[data-theme="light"]
+.quiet-button {
+	background:
+		rgba(0, 0, 0, 0.015);
 }
 
 
 .quiet-button:hover {
-	background: rgba(255, 255, 255, 0.045);
+	background:
+		rgba(255, 255, 255, 0.045);
 
-	border-color: var(--border-strong);
+	border-color:
+		var(--border-strong);
 
 	color: var(--text);
 }
 
 
-html[data-theme="light"] .quiet-button:hover {
-	background: rgba(0, 0, 0, 0.035);
+html[data-theme="light"]
+.quiet-button:hover {
+	background:
+		rgba(0, 0, 0, 0.035);
 }
 
 
@@ -234,9 +267,14 @@ html[data-theme="light"] .quiet-button:hover {
    ========================================================= */
 
 .intro {
-	width: min(calc(100% - 40px), var(--page-width));
+	width:
+		min(
+			calc(100% - 40px),
+			var(--page-width)
+		);
 
-	margin: 92px auto 122px;
+	margin:
+		92px auto 122px;
 }
 
 
@@ -252,7 +290,12 @@ html[data-theme="light"] .quiet-button:hover {
 .intro h1 {
 	max-width: 690px;
 
-	font-size: clamp(2.75rem, 8vw, 4.8rem);
+	font-size:
+		clamp(
+			2.75rem,
+			8vw,
+			4.8rem
+		);
 
 	font-weight: 600;
 
@@ -288,6 +331,7 @@ html[data-theme="light"] .quiet-button:hover {
 	margin-top: 30px;
 
 	display: flex;
+
 	flex-wrap: wrap;
 
 	gap: 12px 18px;
@@ -298,11 +342,13 @@ html[data-theme="light"] .quiet-button:hover {
 	min-height: 40px;
 
 	display: inline-flex;
+
 	align-items: center;
 
 	text-decoration: none;
 
-	border-bottom: 1px solid var(--border-strong);
+	border-bottom:
+		1px solid var(--border-strong);
 
 	color: var(--muted);
 
@@ -324,9 +370,14 @@ html[data-theme="light"] .quiet-button:hover {
    ========================================================= */
 
 .timeline-section {
-	width: min(calc(100% - 40px), var(--page-width));
+	width:
+		min(
+			calc(100% - 40px),
+			var(--page-width)
+		);
 
-	margin: 0 auto 130px;
+	margin:
+		0 auto 130px;
 }
 
 
@@ -347,7 +398,12 @@ html[data-theme="light"] .quiet-button:hover {
 
 
 .section-heading h2 {
-	font-size: clamp(1.65rem, 4vw, 2.15rem);
+	font-size:
+		clamp(
+			1.65rem,
+			4vw,
+			2.15rem
+		);
 
 	font-weight: 600;
 
@@ -365,11 +421,12 @@ html[data-theme="light"] .quiet-button:hover {
 
 
 /* =========================================================
-   Expand and collapse controls
+   Expand and collapse buttons
    ========================================================= */
 
 .btn-group {
 	display: flex;
+
 	flex-wrap: wrap;
 
 	gap: 8px;
@@ -383,7 +440,8 @@ html[data-theme="light"] .quiet-button:hover {
 
 	padding: 8px 12px;
 
-	border: 1px solid var(--border);
+	border:
+		1px solid var(--border);
 
 	border-radius: 8px;
 
@@ -403,16 +461,20 @@ html[data-theme="light"] .quiet-button:hover {
 
 
 .small-button:hover {
-	background: rgba(255, 255, 255, 0.035);
+	background:
+		rgba(255, 255, 255, 0.035);
 
-	border-color: var(--border-strong);
+	border-color:
+		var(--border-strong);
 
 	color: var(--text);
 }
 
 
-html[data-theme="light"] .small-button:hover {
-	background: rgba(0, 0, 0, 0.035);
+html[data-theme="light"]
+.small-button:hover {
+	background:
+		rgba(0, 0, 0, 0.035);
 }
 
 
@@ -421,6 +483,8 @@ html[data-theme="light"] .small-button:hover {
    ========================================================= */
 
 .timeline {
+	position: relative;
+
 	width: 100%;
 
 	min-width: 0;
@@ -441,14 +505,49 @@ html[data-theme="light"] .small-button:hover {
 }
 
 
+/*
+	The connector line now belongs to the entire item.
+
+	This is the important phone fix.
+
+	It means the line automatically becomes taller when the
+	item body expands instead of using a fixed pixel height.
+*/
+
+.timeline__item:not(:last-child)::before {
+	content: "";
+
+	position: absolute;
+
+	top: 22px;
+
+	bottom: -2px;
+
+	left: 61px;
+
+	width: 1px;
+
+	background: var(--border);
+
+	pointer-events: none;
+
+	z-index: 0;
+}
+
+
 .timeline__item-header {
 	position: relative;
+
+	z-index: 1;
 
 	min-width: 0;
 
 	display: grid;
 
-	grid-template-columns: 44px 14px minmax(0, 1fr);
+	grid-template-columns:
+		44px
+		14px
+		minmax(0, 1fr);
 
 	align-items: start;
 
@@ -458,13 +557,17 @@ html[data-theme="light"] .small-button:hover {
 
 .timeline__arrow {
 	width: 44px;
+
 	height: 44px;
 
 	display: flex;
+
 	align-items: center;
+
 	justify-content: center;
 
 	border: 0;
+
 	border-radius: 8px;
 
 	background: transparent;
@@ -480,14 +583,17 @@ html[data-theme="light"] .small-button:hover {
 
 
 .timeline__arrow:hover {
-	background: rgba(255, 255, 255, 0.04);
+	background:
+		rgba(255, 255, 255, 0.04);
 
 	color: var(--text);
 }
 
 
-html[data-theme="light"] .timeline__arrow:hover {
-	background: rgba(0, 0, 0, 0.035);
+html[data-theme="light"]
+.timeline__arrow:hover {
+	background:
+		rgba(0, 0, 0, 0.035);
 }
 
 
@@ -499,7 +605,8 @@ html[data-theme="light"] .timeline__arrow:hover {
 .site-name:focus-visible,
 .intro-links a:focus-visible,
 .footer-links a:focus-visible {
-	outline: 2px solid var(--text-soft);
+	outline:
+		2px solid var(--text-soft);
 
 	outline-offset: 3px;
 }
@@ -507,56 +614,51 @@ html[data-theme="light"] .timeline__arrow:hover {
 
 .timeline__arrow-icon {
 	width: 22px;
+
 	height: 22px;
 
 	display: block;
 
-	transform: rotate(-90deg);
+	transform:
+		rotate(-90deg);
 
-	transition: transform var(--timeline-transition);
+	transition:
+		transform
+		var(--timeline-transition);
 
 	pointer-events: none;
 }
 
 
-.timeline__arrow[aria-expanded="true"] .timeline__arrow-icon {
-	transform: rotate(0deg);
+.timeline__arrow[
+	aria-expanded="true"
+]
+.timeline__arrow-icon {
+	transform:
+		rotate(0deg);
 }
 
 
 .timeline__dot {
 	position: relative;
 
+	z-index: 2;
+
 	width: 8px;
+
 	height: 8px;
 
 	margin-top: 18px;
 
 	border-radius: 999px;
 
-	background: var(--text-soft);
+	background:
+		var(--text-soft);
 
-	opacity: 0.68;
-}
+	opacity: 0.72;
 
-
-.timeline__item:not(:last-child)
-	> .timeline__item-header
-	.timeline__dot::after {
-
-	content: "";
-
-	position: absolute;
-
-	top: 13px;
-	left: 50%;
-
-	width: 1px;
-	height: calc(100% + 4.8rem);
-
-	transform: translateX(-50%);
-
-	background: var(--border-strong);
+	box-shadow:
+		0 0 0 5px var(--bg);
 }
 
 
@@ -598,7 +700,7 @@ html[data-theme="light"] .timeline__arrow:hover {
 
 
 /* =========================================================
-   Expandable timeline bodies
+   Expandable body
    ========================================================= */
 
 .timeline__item-body {
@@ -608,9 +710,16 @@ html[data-theme="light"] .timeline__arrow:hover {
 
 	min-width: 0;
 
-	margin-left: 68px;
+	/*
+		This matches the beginning of the title column.
+		The connector is safely to the left of the cards.
+	*/
 
-	transition: grid-template-rows var(--timeline-transition);
+	margin-left: 78px;
+
+	transition:
+		grid-template-rows
+		var(--timeline-transition);
 }
 
 
@@ -621,6 +730,7 @@ html[data-theme="light"] .timeline__arrow:hover {
 
 .timeline__item-body-inner {
 	min-height: 0;
+
 	min-width: 0;
 
 	overflow: hidden;
@@ -634,13 +744,16 @@ html[data-theme="light"] .timeline__arrow:hover {
 
 	padding: 17px 19px;
 
-	border: 1px solid var(--border);
+	border:
+		1px solid var(--border);
 
 	border-radius: 10px;
 
-	background: var(--surface);
+	background:
+		var(--surface);
 
-	color: var(--text-soft);
+	color:
+		var(--text-soft);
 
 	font-size: 0.94rem;
 
@@ -650,7 +763,8 @@ html[data-theme="light"] .timeline__arrow:hover {
 }
 
 
-.timeline__item-body-content p + p {
+.timeline__item-body-content
+p + p {
 	margin-top: 13px;
 }
 
@@ -658,7 +772,8 @@ html[data-theme="light"] .timeline__arrow:hover {
 .timeline__item-body-content a {
 	color: var(--link);
 
-	text-decoration-color: var(--border-strong);
+	text-decoration-color:
+		var(--border-strong);
 
 	text-underline-offset: 3px;
 
@@ -666,14 +781,16 @@ html[data-theme="light"] .timeline__arrow:hover {
 
 	transition:
 		color var(--transition),
-		text-decoration-color var(--transition);
+		text-decoration-color
+		var(--transition);
 }
 
 
 .timeline__item-body-content a:hover {
 	color: var(--text);
 
-	text-decoration-color: var(--text-soft);
+	text-decoration-color:
+		var(--text-soft);
 }
 
 
@@ -682,65 +799,90 @@ html[data-theme="light"] .timeline__arrow:hover {
    ========================================================= */
 
 .timeline__nested {
+	position: relative;
+
 	min-width: 0;
 
 	margin-top: 28px;
 }
 
 
-.timeline__nested > .timeline__item {
+.timeline__nested
+> .timeline__item {
 	padding-bottom: 1.8rem;
 }
 
 
-.timeline__nested .timeline__title {
-	font-size: 1.08rem;
+.timeline__nested
+.timeline__item:not(:last-child)::before {
+	left: 52.5px;
+
+	top: 19px;
+
+	bottom: -2px;
 }
 
 
-.timeline__nested .timeline__item-body {
-	margin-left: 58px;
-}
-
-
-.timeline__nested .timeline__item-header {
-	grid-template-columns: 38px 11px minmax(0, 1fr);
+.timeline__nested
+.timeline__item-header {
+	grid-template-columns:
+		38px
+		11px
+		minmax(0, 1fr);
 
 	column-gap: 9px;
 }
 
 
-.timeline__nested .timeline__arrow {
+.timeline__nested
+.timeline__arrow {
 	width: 38px;
+
 	height: 38px;
 }
 
 
-.timeline__nested .timeline__arrow-icon {
+.timeline__nested
+.timeline__arrow-icon {
 	width: 19px;
+
 	height: 19px;
 }
 
 
-.timeline__nested .timeline__dot {
+.timeline__nested
+.timeline__dot {
 	width: 7px;
+
 	height: 7px;
 
 	margin-top: 15px;
+
+	box-shadow:
+		0 0 0 4px var(--bg);
 }
 
 
-.timeline__nested .timeline__meta {
+.timeline__nested
+.timeline__meta {
 	padding-top: 4px;
 }
 
 
 .timeline__nested
-	.timeline__item:not(:last-child)
-	> .timeline__item-header
-	.timeline__dot::after {
+.timeline__title {
+	font-size: 1.08rem;
+}
 
-	height: calc(100% + 4rem);
+
+.timeline__nested
+.timeline__item-body {
+	/*
+		Nested title begins around here.
+		This keeps the card away from the connector.
+	*/
+
+	margin-left: 67px;
 }
 
 
@@ -751,18 +893,20 @@ html[data-theme="light"] .timeline__arrow:hover {
 }
 
 
-.timeline__item-small .timeline__title {
+.timeline__item-small
+.timeline__title {
 	font-size: 1rem;
 }
 
 
-.timeline__item-small .timeline__item-body-content {
+.timeline__item-small
+.timeline__item-body-content {
 	font-size: 0.9rem;
 }
 
 
 /* =========================================================
-   Popup overlay
+   Overlay
    ========================================================= */
 
 .overlay {
@@ -772,10 +916,14 @@ html[data-theme="light"] .timeline__arrow:hover {
 
 	z-index: 900;
 
-	background: rgba(3, 4, 6, 0.7);
+	background:
+		rgba(3, 4, 6, 0.7);
 
-	backdrop-filter: blur(5px);
-	-webkit-backdrop-filter: blur(5px);
+	backdrop-filter:
+		blur(5px);
+
+	-webkit-backdrop-filter:
+		blur(5px);
 
 	opacity: 0;
 
@@ -802,18 +950,24 @@ html[data-theme="light"] .timeline__arrow:hover {
 	position: fixed;
 
 	top: 50%;
+
 	left: 50%;
 
 	z-index: 901;
 
-	width: min(calc(100% - 36px), 420px);
+	width:
+		min(
+			calc(100% - 36px),
+			420px
+		);
 
-	max-height: calc(
-		100dvh
-		- 40px
-		- env(safe-area-inset-top)
-		- env(safe-area-inset-bottom)
-	);
+	max-height:
+		calc(
+			100dvh
+			- 40px
+			- env(safe-area-inset-top)
+			- env(safe-area-inset-bottom)
+		);
 
 	overflow-y: auto;
 
@@ -823,13 +977,17 @@ html[data-theme="light"] .timeline__arrow:hover {
 			calc(-50% + 8px)
 		);
 
-	border: 1px solid var(--border);
+	border:
+		1px solid var(--border);
 
 	border-radius: 15px;
 
-	background: var(--bg-soft);
+	background:
+		var(--bg-soft);
 
-	box-shadow: 0 28px 80px rgba(0, 0, 0, 0.46);
+	box-shadow:
+		0 28px 80px
+		rgba(0, 0, 0, 0.46);
 
 	opacity: 0;
 
@@ -840,12 +998,14 @@ html[data-theme="light"] .timeline__arrow:hover {
 		visibility var(--transition),
 		transform var(--transition);
 
-	-webkit-overflow-scrolling: touch;
+	-webkit-overflow-scrolling:
+		touch;
 }
 
 
 .popup.is-open {
-	transform: translate(-50%, -50%);
+	transform:
+		translate(-50%, -50%);
 
 	opacity: 1;
 
@@ -854,9 +1014,11 @@ html[data-theme="light"] .timeline__arrow:hover {
 
 
 .popup-header {
-	padding: 25px 24px 18px;
+	padding:
+		25px 24px 18px;
 
-	border-bottom: 1px solid var(--border);
+	border-bottom:
+		1px solid var(--border);
 }
 
 
@@ -901,7 +1063,10 @@ html[data-theme="light"] .timeline__arrow:hover {
 
 	display: grid;
 
-	grid-template-columns: 28px minmax(0, 1fr) auto;
+	grid-template-columns:
+		28px
+		minmax(0, 1fr)
+		auto;
 
 	align-items: center;
 
@@ -922,14 +1087,17 @@ html[data-theme="light"] .timeline__arrow:hover {
 
 
 .hobby-row:hover {
-	background: rgba(255, 255, 255, 0.04);
+	background:
+		rgba(255, 255, 255, 0.04);
 
 	color: var(--text);
 }
 
 
-html[data-theme="light"] .hobby-row:hover {
-	background: rgba(0, 0, 0, 0.035);
+html[data-theme="light"]
+.hobby-row:hover {
+	background:
+		rgba(0, 0, 0, 0.035);
 }
 
 
@@ -959,7 +1127,9 @@ html[data-theme="light"] .hobby-row:hover {
 	padding: 11px;
 
 	border: 0;
-	border-top: 1px solid var(--border);
+
+	border-top:
+		1px solid var(--border);
 
 	background: transparent;
 
@@ -969,7 +1139,8 @@ html[data-theme="light"] .hobby-row:hover {
 
 	cursor: pointer;
 
-	transition: color var(--transition);
+	transition:
+		color var(--transition);
 }
 
 
@@ -983,20 +1154,29 @@ html[data-theme="light"] .hobby-row:hover {
    ========================================================= */
 
 footer {
-	width: min(calc(100% - 40px), var(--wide-width));
+	width:
+		min(
+			calc(100% - 40px),
+			var(--wide-width)
+		);
 
 	margin: 0 auto;
 
 	padding:
 		34px
 		0
-		calc(48px + env(safe-area-inset-bottom));
+		calc(
+			48px +
+			env(safe-area-inset-bottom)
+		);
 
-	border-top: 1px solid var(--border);
+	border-top:
+		1px solid var(--border);
 
 	display: flex;
 
 	align-items: center;
+
 	justify-content: space-between;
 
 	gap: 20px;
@@ -1023,6 +1203,7 @@ footer {
 	min-height: 40px;
 
 	display: inline-flex;
+
 	align-items: center;
 
 	color: var(--muted);
@@ -1031,7 +1212,8 @@ footer {
 
 	text-decoration: none;
 
-	transition: color var(--transition);
+	transition:
+		color var(--transition);
 }
 
 
@@ -1044,6 +1226,7 @@ footer {
 	position: absolute;
 
 	width: 0;
+
 	height: 0;
 
 	overflow: hidden;
@@ -1053,15 +1236,17 @@ footer {
 
 
 /* =========================================================
-   Tablets and smaller screens
+   Tablets
    ========================================================= */
 
 @media (max-width: 760px) {
 
 	.intro {
 		margin-top: 76px;
+
 		margin-bottom: 100px;
 	}
+
 
 	.timeline-section {
 		margin-bottom: 105px;
@@ -1077,10 +1262,8 @@ footer {
 @media (max-width: 640px) {
 
 	.topbar {
-		width: min(
-			calc(100% - 28px),
-			var(--wide-width)
-		);
+		width:
+			calc(100% - 28px);
 
 		min-height: 64px;
 	}
@@ -1105,74 +1288,130 @@ footer {
 	}
 
 
-	.intro {
-		width: min(
-			calc(100% - 32px),
-			var(--page-width)
-		);
+	/* intro */
 
-		margin-top: 68px;
-		margin-bottom: 88px;
+	.intro {
+		width:
+			calc(100% - 32px);
+
+		margin-top: 64px;
+
+		margin-bottom: 82px;
 	}
 
 
 	.intro-kicker {
-		font-size: 0.9rem;
+		font-size: 0.88rem;
 	}
 
 
 	.intro h1 {
-		font-size: clamp(
-			2.45rem,
-			13vw,
-			3.6rem
-		);
+		font-size:
+			clamp(
+				2.35rem,
+				12vw,
+				3.5rem
+			);
 
 		line-height: 1.04;
+
+		letter-spacing: -0.045em;
 	}
 
 
 	.intro-text {
-		margin-top: 24px;
+		margin-top: 22px;
 
-		font-size: 0.98rem;
+		font-size: 0.96rem;
 
-		line-height: 1.72;
+		line-height: 1.7;
 	}
 
 
 	.intro-text-secondary {
-		margin-top: 12px;
+		margin-top: 11px;
 	}
 
 
 	.intro-links {
-		margin-top: 25px;
+		margin-top: 24px;
 	}
 
 
-	.timeline-section {
-		width: min(
-			calc(100% - 28px),
-			var(--page-width)
-		);
+	/* timeline section */
 
-		margin-bottom: 90px;
+	.timeline-section {
+		width:
+			calc(100% - 28px);
+
+		margin-bottom: 88px;
 	}
 
 
 	.section-heading {
-		margin-bottom: 30px;
+		margin-bottom: 28px;
 	}
 
+
+	.section-heading h2 {
+		font-size: 1.55rem;
+	}
+
+
+	.section-heading > p:last-child {
+		font-size: 0.9rem;
+
+		line-height: 1.6;
+	}
+
+
+	/* buttons */
 
 	.btn-group {
-		margin-bottom: 32px;
+		width: 100%;
+
+		display: grid;
+
+		grid-template-columns:
+			1fr 1fr;
+
+		gap: 8px;
+
+		margin-bottom: 34px;
 	}
 
 
+	.small-button {
+		width: 100%;
+
+		min-height: 44px;
+
+		padding: 8px;
+
+		font-size: 0.78rem;
+	}
+
+
+	/* main timeline */
+
 	.timeline__item {
-		padding-bottom: 1.95rem;
+		padding-bottom: 2.2rem;
+	}
+
+
+	.timeline__item:not(:last-child)::before {
+		/*
+			40px arrow
+			8px gap
+			9px dot
+			dot centre = 52.5px
+		*/
+
+		left: 52.5px;
+
+		top: 20px;
+
+		bottom: -2px;
 	}
 
 
@@ -1188,21 +1427,27 @@ footer {
 
 	.timeline__arrow {
 		width: 40px;
+
 		height: 40px;
 	}
 
 
 	.timeline__arrow-icon {
 		width: 19px;
+
 		height: 19px;
 	}
 
 
 	.timeline__dot {
 		width: 7px;
+
 		height: 7px;
 
 		margin-top: 16px;
+
+		box-shadow:
+			0 0 0 4px var(--bg);
 	}
 
 
@@ -1223,15 +1468,27 @@ footer {
 	}
 
 
+	/*
+		The title begins at roughly 65px.
+
+		The card begins there as well.
+
+		The connector is around 52px, leaving enough empty
+		space that it can no longer cut through the card.
+	*/
+
 	.timeline__item-body {
-		margin-left: 49px;
+		margin-left: 65px;
 	}
 
 
 	.timeline__item-body-content {
-		margin-top: 9px;
+		margin-top: 10px;
 
-		padding: 14px 15px;
+		padding:
+			15px 16px;
+
+		border-radius: 10px;
 
 		font-size: 0.9rem;
 
@@ -1239,17 +1496,27 @@ footer {
 	}
 
 
+	.timeline__item-body-content
+	p + p {
+		margin-top: 16px;
+	}
+
+
+	/* nested timeline */
+
 	.timeline__nested {
-		margin-top: 22px;
+		margin-top: 25px;
 	}
 
 
-	.timeline__nested .timeline__item-body {
-		margin-left: 39px;
+	.timeline__nested
+	> .timeline__item {
+		padding-bottom: 1.8rem;
 	}
 
 
-	.timeline__nested .timeline__item-header {
+	.timeline__nested
+	.timeline__item-header {
 		grid-template-columns:
 			32px
 			7px
@@ -1259,55 +1526,110 @@ footer {
 	}
 
 
-	.timeline__nested .timeline__arrow {
+	.timeline__nested
+	.timeline__arrow {
 		width: 32px;
+
 		height: 32px;
 	}
 
 
-	.timeline__nested .timeline__arrow-icon {
+	.timeline__nested
+	.timeline__arrow-icon {
 		width: 17px;
+
 		height: 17px;
 	}
 
 
-	.timeline__nested .timeline__dot {
+	.timeline__nested
+	.timeline__dot {
 		width: 6px;
+
 		height: 6px;
 
 		margin-top: 13px;
+
+		box-shadow:
+			0 0 0 4px var(--bg);
 	}
 
 
-	.timeline__nested .timeline__meta {
+	.timeline__nested
+	.timeline__item:not(:last-child)::before {
+		/*
+			32px arrow
+			7px gap
+			7px dot
+			centre = 42.5px
+		*/
+
+		left: 42.5px;
+
+		top: 17px;
+
+		bottom: -2px;
+	}
+
+
+	.timeline__nested
+	.timeline__meta {
 		padding-top: 2px;
 	}
 
 
-	.timeline__nested .timeline__title {
+	.timeline__nested
+	.timeline__title {
 		font-size: 0.98rem;
+
+		line-height: 1.4;
 	}
 
 
-	.timeline__item-small .timeline__title {
+	.timeline__nested
+	.timeline__item-body {
+		/*
+			The nested title starts at about 53px.
+		*/
+
+		margin-left: 53px;
+	}
+
+
+	.timeline__item-small {
+		margin-top: 13px;
+
+		padding-bottom: 1.6rem;
+	}
+
+
+	.timeline__item-small
+	.timeline__title {
 		font-size: 0.94rem;
 	}
 
 
-	.timeline__item-small .timeline__item-body-content {
+	.timeline__item-small
+	.timeline__item-body-content {
 		font-size: 0.87rem;
+
+		line-height: 1.68;
 	}
 
 
+	/* popup */
+
 	.popup {
-		width: calc(100% - 24px);
+		width:
+			calc(100% - 24px);
 
 		border-radius: 14px;
 	}
 
 
 	.popup-header {
-		padding: 21px 19px 16px;
+		padding:
+			21px 19px 16px;
 	}
 
 
@@ -1316,11 +1638,16 @@ footer {
 	}
 
 
+	.hobby-row {
+		min-height: 52px;
+	}
+
+
+	/* footer */
+
 	footer {
-		width: min(
-			calc(100% - 32px),
-			var(--wide-width)
-		);
+		width:
+			calc(100% - 32px);
 
 		flex-direction: column;
 
@@ -1346,7 +1673,8 @@ footer {
 @media (max-width: 380px) {
 
 	.topbar {
-		width: calc(100% - 20px);
+		width:
+			calc(100% - 20px);
 	}
 
 
@@ -1362,6 +1690,7 @@ footer {
 
 	.quiet-button {
 		padding-left: 8px;
+
 		padding-right: 8px;
 
 		font-size: 0.76rem;
@@ -1374,7 +1703,8 @@ footer {
 
 
 	.intro {
-		width: calc(100% - 26px);
+		width:
+			calc(100% - 26px);
 	}
 
 
@@ -1384,22 +1714,97 @@ footer {
 
 
 	.timeline-section {
-		width: calc(100% - 20px);
+		width:
+			calc(100% - 20px);
+	}
+
+
+	.timeline__item-header {
+		grid-template-columns:
+			36px
+			8px
+			minmax(0, 1fr);
+
+		column-gap: 7px;
+	}
+
+
+	.timeline__arrow {
+		width: 36px;
+
+		height: 36px;
+	}
+
+
+	.timeline__dot {
+		width: 6px;
+
+		height: 6px;
+
+		margin-top: 15px;
+	}
+
+
+	.timeline__item:not(:last-child)::before {
+		left: 47px;
+
+		top: 19px;
 	}
 
 
 	.timeline__item-body {
-		margin-left: 43px;
-	}
-
-
-	.timeline__nested .timeline__item-body {
-		margin-left: 34px;
+		margin-left: 58px;
 	}
 
 
 	.timeline__item-body-content {
-		padding: 13px;
+		padding:
+			13px 14px;
+
+		font-size: 0.86rem;
+	}
+
+
+	.timeline__nested
+	.timeline__item-header {
+		grid-template-columns:
+			30px
+			6px
+			minmax(0, 1fr);
+
+		column-gap: 6px;
+	}
+
+
+	.timeline__nested
+	.timeline__arrow {
+		width: 30px;
+
+		height: 30px;
+	}
+
+
+	.timeline__nested
+	.timeline__dot {
+		width: 5px;
+
+		height: 5px;
+
+		margin-top: 12px;
+	}
+
+
+	.timeline__nested
+	.timeline__item:not(:last-child)::before {
+		left: 39.5px;
+
+		top: 15px;
+	}
+
+
+	.timeline__nested
+	.timeline__item-body {
+		margin-left: 48px;
 	}
 
 }
@@ -1409,7 +1814,9 @@ footer {
    Reduced motion
    ========================================================= */
 
-@media (prefers-reduced-motion: reduce) {
+@media (
+	prefers-reduced-motion: reduce
+) {
 
 	html {
 		scroll-behavior: auto;
@@ -1419,18 +1826,21 @@ footer {
 	*,
 	*::before,
 	*::after {
-		animation-duration: 0.01ms !important;
+		animation-duration:
+			0.01ms !important;
 
-		animation-iteration-count: 1 !important;
+		animation-iteration-count:
+			1 !important;
 
-		transition-duration: 0.01ms !important;
+		transition-duration:
+			0.01ms !important;
 	}
 
 }
 
 
 /* =========================================================
-   Devices without hover
+   Touch devices
    ========================================================= */
 
 @media (hover: none) {
@@ -1442,8 +1852,6 @@ footer {
 	.footer-links a:hover,
 	.intro-links a:hover,
 	.site-name:hover {
-		background: initial;
-
 		color: inherit;
 	}
 
