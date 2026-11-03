@@ -1001,7 +1001,7 @@ function initBackgroundMusic() {
 		"error",
 		() => {
 			console.error(
-				"Could not load audio.mp3"
+				"Could not load Lantern In The Abyss.mp3"
 			);
 		}
 	);
