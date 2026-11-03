@@ -12,19 +12,26 @@
 	--surface: #111318;
 	--surface-hover: #15181e;
 
-	--text: #d8d9dd;
-	--text-soft: #a2a5ad;
+	--text: #dcd9d3;
+	--text-soft: #a9a59e;
 
-	--muted: #777b85;
-	--faint: #555962;
+	--muted: #7e7972;
+	--faint: #5c5852;
 
 	--border: rgba(255, 255, 255, 0.075);
 	--border-strong: rgba(255, 255, 255, 0.12);
 
-	--link: #b9c0cc;
+	--link: #c3bcb1;
+
+	--glow: rgba(190, 158, 128, 0.07);
 
 	--page-width: 780px;
 	--wide-width: 980px;
+
+	--serif:
+		"Newsreader",
+		Georgia,
+		serif;
 
 	--transition: 220ms ease;
 
@@ -42,16 +49,18 @@ html[data-theme="light"] {
 	--surface: #f8f7f4;
 	--surface-hover: #efeeeb;
 
-	--text: #27282c;
-	--text-soft: #565960;
+	--text: #2b2825;
+	--text-soft: #5b5650;
 
-	--muted: #777980;
-	--faint: #99999c;
+	--muted: #7b756d;
+	--faint: #9b958c;
 
 	--border: rgba(0, 0, 0, 0.075);
 	--border-strong: rgba(0, 0, 0, 0.13);
 
-	--link: #444a54;
+	--link: #4f4840;
+
+	--glow: rgba(196, 150, 104, 0.09);
 }
 
 
@@ -85,7 +94,7 @@ body {
 	background:
 		radial-gradient(
 			circle at 50% -10%,
-			rgba(110, 120, 145, 0.065),
+			var(--glow),
 			transparent 36rem
 		),
 		var(--bg);
@@ -133,7 +142,7 @@ svg {
 
 ::selection {
 	background:
-		rgba(145, 153, 172, 0.25);
+		rgba(176, 158, 134, 0.28);
 
 	color: var(--text);
 }
@@ -174,11 +183,13 @@ svg {
 
 	text-decoration: none;
 
-	font-size: 0.88rem;
+	font-family: var(--serif);
 
-	font-weight: 600;
+	font-style: italic;
 
-	letter-spacing: 0.025em;
+	font-size: 1.02rem;
+
+	letter-spacing: 0.005em;
 
 	color: var(--muted);
 
@@ -278,12 +289,18 @@ html[data-theme="light"]
 
 	color: var(--muted);
 
-	font-size: 0.94rem;
+	font-family: var(--serif);
+
+	font-style: italic;
+
+	font-size: 1.04rem;
 }
 
 
 .intro h1 {
 	max-width: 690px;
+
+	font-family: var(--serif);
 
 	font-size:
 		clamp(
@@ -292,11 +309,13 @@ html[data-theme="light"]
 			4.8rem
 		);
 
-	font-weight: 600;
+	font-weight: 400;
 
-	line-height: 1.02;
+	line-height: 1.06;
 
-	letter-spacing: -0.052em;
+	letter-spacing: -0.022em;
+
+	text-wrap: balance;
 
 	overflow-wrap: break-word;
 }
@@ -309,9 +328,13 @@ html[data-theme="light"]
 
 	color: var(--text-soft);
 
-	font-size: 1.05rem;
+	font-family: var(--serif);
 
-	line-height: 1.8;
+	font-size: 1.12rem;
+
+	line-height: 1.75;
+
+	text-wrap: pretty;
 }
 
 
@@ -384,9 +407,13 @@ html[data-theme="light"]
 
 	color: var(--faint);
 
-	font-size: 0.82rem;
+	font-family: var(--serif);
 
-	letter-spacing: 0.06em;
+	font-style: italic;
+
+	font-size: 0.95rem;
+
+	letter-spacing: 0.01em;
 }
 
 
@@ -398,11 +425,13 @@ html[data-theme="light"]
 			2.15rem
 		);
 
-	font-weight: 600;
+	font-family: var(--serif);
+
+	font-weight: 500;
 
 	line-height: 1.25;
 
-	letter-spacing: -0.025em;
+	letter-spacing: -0.012em;
 }
 
 
@@ -410,6 +439,10 @@ html[data-theme="light"]
 	margin-top: 8px;
 
 	color: var(--muted);
+
+	font-family: var(--serif);
+
+	font-size: 1.06rem;
 }
 
 
@@ -642,6 +675,28 @@ html[data-theme="light"]
 }
 
 
+/* the chapter that is still happening */
+
+.timeline__dot--now {
+	animation:
+		breathe 5s
+		ease-in-out
+		infinite;
+}
+
+
+@keyframes breathe {
+	0%,
+	100% {
+		opacity: 0.4;
+	}
+
+	50% {
+		opacity: 1;
+	}
+}
+
+
 .timeline__meta {
 	min-width: 0;
 
@@ -667,13 +722,15 @@ html[data-theme="light"]
 
 	color: var(--text);
 
+	font-family: var(--serif);
+
 	font-size: 1.24rem;
 
-	font-weight: 600;
+	font-weight: 500;
 
 	line-height: 1.35;
 
-	letter-spacing: -0.018em;
+	letter-spacing: -0.005em;
 
 	overflow-wrap: break-word;
 }
@@ -728,11 +785,25 @@ html[data-theme="light"]
 	color:
 		var(--text-soft);
 
-	font-size: 0.94rem;
+	font-family: var(--serif);
+
+	font-size: 0.98rem;
 
 	line-height: 1.75;
 
 	overflow-wrap: break-word;
+
+	opacity: 0;
+
+	transition:
+		opacity 480ms ease 60ms;
+}
+
+
+.timeline__item-body--expanded
+> .timeline__item-body-inner
+> .timeline__item-body-content {
+	opacity: 1;
 }
 
 
@@ -867,7 +938,7 @@ p + p {
 
 .timeline__item-small
 .timeline__item-body-content {
-	font-size: 0.9rem;
+	font-size: 0.94rem;
 }
 
 
@@ -989,18 +1060,24 @@ p + p {
 
 	color: var(--faint);
 
-	font-size: 0.76rem;
+	font-family: var(--serif);
+
+	font-style: italic;
+
+	font-size: 0.9rem;
 }
 
 
 .popup-header h2 {
-	font-size: 1.35rem;
+	font-family: var(--serif);
 
-	font-weight: 600;
+	font-size: 1.4rem;
+
+	font-weight: 500;
 
 	line-height: 1.3;
 
-	letter-spacing: -0.02em;
+	letter-spacing: -0.01em;
 }
 
 
@@ -1009,7 +1086,9 @@ p + p {
 
 	color: var(--muted);
 
-	font-size: 0.9rem;
+	font-family: var(--serif);
+
+	font-size: 0.98rem;
 }
 
 
@@ -1146,7 +1225,11 @@ footer {
 .footer-note {
 	color: var(--faint);
 
-	font-size: 0.82rem;
+	font-family: var(--serif);
+
+	font-style: italic;
+
+	font-size: 0.95rem;
 }
 
 
@@ -1195,6 +1278,52 @@ footer {
 }
 
 
+/* a slow arrival */
+
+@keyframes settle {
+	from {
+		opacity: 0;
+
+		transform:
+			translateY(6px);
+	}
+}
+
+
+.intro > *,
+.timeline-section {
+	animation:
+		settle 1.2s
+		cubic-bezier(0.22, 0.61, 0.36, 1)
+		both;
+}
+
+
+.intro > :nth-child(2) {
+	animation-delay: 150ms;
+}
+
+
+.intro > :nth-child(3) {
+	animation-delay: 320ms;
+}
+
+
+.intro > :nth-child(4) {
+	animation-delay: 440ms;
+}
+
+
+.intro > :nth-child(5) {
+	animation-delay: 560ms;
+}
+
+
+.timeline-section {
+	animation-delay: 720ms;
+}
+
+
 /* tablets */
 
 @media (max-width: 760px) {
@@ -1226,7 +1355,7 @@ footer {
 
 
 	.site-name {
-		font-size: 0.84rem;
+		font-size: 0.98rem;
 	}
 
 
@@ -1255,7 +1384,7 @@ footer {
 
 
 	.intro-kicker {
-		font-size: 0.88rem;
+		font-size: 0.98rem;
 	}
 
 
@@ -1267,16 +1396,16 @@ footer {
 				3.5rem
 			);
 
-		line-height: 1.04;
+		line-height: 1.08;
 
-		letter-spacing: -0.045em;
+		letter-spacing: -0.02em;
 	}
 
 
 	.intro-text {
 		margin-top: 22px;
 
-		font-size: 0.96rem;
+		font-size: 1.02rem;
 
 		line-height: 1.7;
 	}
@@ -1311,7 +1440,7 @@ footer {
 
 
 	.section-heading > p:last-child {
-		font-size: 0.9rem;
+		font-size: 0.98rem;
 
 		line-height: 1.6;
 	}
@@ -1422,7 +1551,7 @@ footer {
 
 		border-radius: 10px;
 
-		font-size: 0.9rem;
+		font-size: 0.94rem;
 
 		line-height: 1.7;
 	}
@@ -1530,7 +1659,7 @@ footer {
 
 	.timeline__item-small
 	.timeline__item-body-content {
-		font-size: 0.87rem;
+		font-size: 0.91rem;
 
 		line-height: 1.68;
 	}
@@ -1592,7 +1721,7 @@ footer {
 
 
 	.site-name {
-		font-size: 0.78rem;
+		font-size: 0.92rem;
 	}
 
 
@@ -1674,7 +1803,7 @@ footer {
 		padding:
 			13px 14px;
 
-		font-size: 0.86rem;
+		font-size: 0.9rem;
 	}
 
 
@@ -1731,6 +1860,13 @@ footer {
 
 	html {
 		scroll-behavior: auto;
+	}
+
+
+	.intro > *,
+	.timeline-section,
+	.timeline__dot--now {
+		animation: none;
 	}
 
 
