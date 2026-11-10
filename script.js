@@ -613,7 +613,7 @@ function initBackgroundMusic() {
 
 
 	const MUSIC_VOLUME =
-		0.10;
+		0.08;
 
 
 	const FADE_DURATION =
@@ -892,7 +892,6 @@ function initBackgroundMusic() {
 		if (
 			!unlocked ||
 			!audio.paused ||
-			document.hidden ||
 			playLock
 		) {
 			return;
@@ -919,17 +918,7 @@ function initBackgroundMusic() {
 
 	document.addEventListener(
 		"visibilitychange",
-		() => {
-
-			if (
-				document.hidden
-			) {
-				audio.pause();
-
-			} else {
-				resumeMusic();
-			}
-		}
+		resumeMusic
 	);
 
 
@@ -958,10 +947,7 @@ function initBackgroundMusic() {
 	audio.addEventListener(
 		"ended",
 		() => {
-			if (
-				!unlocked ||
-				document.hidden
-			) {
+			if (!unlocked) {
 				return;
 			}
 
