@@ -64,40 +64,26 @@ hobbies.addEventListener("click", (event) => {
 });
 
 const audio = document.querySelector("#backgroundMusic");
-const soundButtons = document.querySelectorAll("[data-sound]");
 audio.volume = 0.08;
+const musicUnlock = new AbortController();
 
-function updateSound(isPlaying) {
-  soundButtons.forEach((button) => {
-    button.setAttribute("aria-pressed", String(isPlaying));
-    button.querySelector(".sound-label").textContent = isPlaying ? "Pause music" : "Play music";
+function startMusic() {
+  audio.play()
+    .then(() => musicUnlock.abort())
+    .catch(() => {
+      // Browsers can require a gesture before playing sound.
+    });
+}
+
+for (const eventName of ["click", "keydown", "touchend"]) {
+  document.addEventListener(eventName, startMusic, {
+    capture: true,
+    signal: musicUnlock.signal,
   });
 }
 
-function markSoundUnavailable() {
-  soundButtons.forEach((button) => {
-    button.dataset.unavailable = "true";
-    button.setAttribute("aria-pressed", "false");
-    button.querySelector(".sound-label").textContent = "Music unavailable";
-  });
-}
-
-audio.addEventListener("playing", () => updateSound(true));
-audio.addEventListener("pause", () => updateSound(false));
-audio.addEventListener("error", markSoundUnavailable);
-
-soundButtons.forEach((button) => {
-  button.addEventListener("click", async () => {
-    if (!audio.paused) {
-      audio.pause();
-      return;
-    }
-
-    try {
-      await audio.play();
-      soundButtons.forEach((control) => delete control.dataset.unavailable);
-    } catch {
-      if (audio.paused) markSoundUnavailable();
-    }
-  });
+window.addEventListener("pageshow", (event) => {
+  if (event.persisted && audio.paused) startMusic();
 });
+
+startMusic();
