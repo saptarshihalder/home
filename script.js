@@ -17,9 +17,7 @@ themeButton.addEventListener("click", () => {
 
   try {
     localStorage.setItem("themePreference", nextTheme);
-  } catch {
-    // The current page can still switch themes when storage is unavailable.
-  }
+  } catch {}
 });
 
 const timelineEntries = document.querySelectorAll(".timeline details");
@@ -53,9 +51,7 @@ const musicUnlock = new AbortController();
 function startMusic() {
   audio.play()
     .then(() => musicUnlock.abort())
-    .catch(() => {
-      // Browsers can require a gesture before playing sound.
-    });
+    .catch(() => {});
 }
 
 for (const eventName of ["click", "keydown", "touchend"]) {
