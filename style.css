@@ -96,16 +96,6 @@ a[href]:active {
   color: var(--paper);
 }
 
-.skip-link {
-  position: absolute;
-  z-index: 1;
-  top: .7rem;
-  left: 1rem;
-  transform: translateY(-200%);
-}
-
-.skip-link:focus { transform: none; }
-
 .site-header, main, .site-footer {
   position: relative;
   max-width: 74rem;
@@ -136,6 +126,7 @@ a[href]:active {
 
 .site-name {
   justify-self: start;
+  font-weight: 500;
 }
 
 .nav-links {
