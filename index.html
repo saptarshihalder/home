@@ -1,53 +1,76 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="A small personal archive of the things Saptarshi Halder did not want to forget.">
-  <meta name="theme-color" content="#14151b">
-  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0b0d12">
+  <meta name="color-scheme" content="dark">
   <meta property="og:title" content="Saptarshi Halder">
   <meta property="og:description" content="Research, projects, books, code and a few small things I wanted to keep.">
   <meta property="og:type" content="website">
   <title>Saptarshi Halder</title>
-  <script>
-    try {
-      const saved = localStorage.getItem("themePreference");
-      if (saved === "light" || saved === "dark") {
-        document.documentElement.dataset.theme = saved;
-      }
-    } catch {}
-  </script>
   <link rel="preload" href="./fonts/SadSap-ExtraBold.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="./fonts/SadSap-Light.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="./fonts/IBMPlexMono-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="./fonts.css">
   <link rel="stylesheet" href="./style.css">
-  <script src="./script.js" defer></script>
+  <script type="module" src="./script.js"></script>
 </head>
 
 <body>
-  <header>
-    <button id="toggleTheme" type="button">day</button>
-    <h1>Saptarshi Halder</h1>
-    <p class="epigraph">Keeping track,<br>before I forget.</p>
+  <canvas class="glass" aria-hidden="true"></canvas>
+
+  <dialog class="threshold" aria-label="Welcome">
+    <p>it's raining again.</p>
+    <form method="dialog">
+      <button>come in</button>
+    </form>
+    <small>sound on, if you can.</small>
+  </dialog>
+
+  <header class="bar">
+    <span class="mark">saptarshi halder</span>
+    <label class="weather">
+      <span>weather</span>
+      <select id="weather">
+        <option value="drizzle">drizzle</option>
+        <option value="rain" selected>rain</option>
+        <option value="downpour">downpour</option>
+        <option value="fog">fog</option>
+        <option value="clearing">clearing</option>
+      </select>
+    </label>
+    <button class="elsewhere" type="button" popovertarget="elsewhere">elsewhere</button>
+    <nav id="elsewhere" popover>
+      <a href="https://github.com/saptarshihalder" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://www.linkedin.com/in/saptarshi-halder/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://x.com/Iamsaptarshi69" target="_blank" rel="noopener noreferrer">X</a>
+      <a href="https://saptarshihalder.github.io/blog" target="_blank" rel="noopener noreferrer">Blog</a>
+      <a href="https://saptarshihalder.github.io/mybooks/" target="_blank" rel="noopener noreferrer">Books</a>
+    </nav>
   </header>
 
   <main>
+    <section class="hero">
+      <h1><span>Saptarshi</span> <span>Halder</span></h1>
+      <p class="epigraph">Keeping track,<br>before I forget.</p>
+      <p class="now"><canvas class="pulse" width="144" height="36" aria-hidden="true"></canvas><span id="now"></span></p>
+      <p class="hint">you can write on the glass. it won't last.</p>
+    </section>
+
     <div class="preface">
       <p>Mostly, this is a place to keep things. Things I have studied, built, read, left unfinished, come back to and thought about for longer than I probably needed to.</p>
       <p>I study at IISER Bhopal. Most days are some mix of machine learning, data, maths, research, too many open tabs and evenings spent wondering where the week went.</p>
-      <p class="elsewhere">
-        <a href="https://github.com/saptarshihalder" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/saptarshi-halder/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://x.com/Iamsaptarshi69" target="_blank" rel="noopener noreferrer">X</a>
-        <a href="https://saptarshihalder.github.io/blog" target="_blank" rel="noopener noreferrer">Blog</a>
-      </p>
     </div>
 
     <section>
       <h2>A somewhat incomplete history</h2>
       <p class="aside">A few things I remember more clearly than the rest.</p>
+      <div class="memory-controls">
+        <button type="button" value="remember">remember everything</button>
+        <button type="button" value="forget">let it fade</button>
+      </div>
 
       <details>
         <summary><span class="line"><span class="title">School days</span><span class="when">2009 to 2020</span></span></summary>
@@ -128,7 +151,7 @@
       <ul class="stanza">
         <li><a href="https://saptarshihalder.github.io/mybooks/" target="_blank" rel="noopener noreferrer">Reading</a></li>
         <li><a href="https://saptarshihalder.github.io/blog" target="_blank" rel="noopener noreferrer">Writing</a></li>
-        <li>Numismatics <span>coin collecting</span></li>
+        <li>Numismatics <small>coin collecting</small></li>
         <li>Music</li>
       </ul>
     </section>
@@ -136,6 +159,7 @@
 
   <footer>
     <p>still figuring things out, slowly.<br>thanks for reading this far.</p>
+    <p class="late" hidden>it's late where you are. get some sleep.</p>
   </footer>
 </body>
 </html>
