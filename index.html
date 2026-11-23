@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="A small personal archive of the things Saptarshi Halder did not want to forget.">
-  <meta name="theme-color" content="#18181c">
+  <meta name="theme-color" content="#14151b">
   <meta name="color-scheme" content="dark light">
   <meta property="og:title" content="Saptarshi Halder">
   <meta property="og:description" content="Research, projects, books, code and a few small things I wanted to keep.">
@@ -19,6 +19,7 @@
     } catch {}
   </script>
   <link rel="preload" href="./fonts/SadSap-ExtraBold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./fonts/SadSap-Light.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="./fonts/IBMPlexMono-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="./fonts.css">
   <link rel="stylesheet" href="./style.css">
@@ -27,41 +28,43 @@
 
 <body>
   <header>
+    <button id="toggleTheme" type="button">day</button>
     <h1>Saptarshi Halder</h1>
-    <button id="toggleTheme" type="button">Light mode</button>
+    <p class="epigraph">Keeping track,<br>before I forget.</p>
   </header>
 
   <main>
-    <p class="lede">Keeping track, before I forget.</p>
-    <p>Mostly, this is a place to keep things. Things I have studied, built, read, left unfinished, come back to and thought about for longer than I probably needed to.</p>
-    <p>I study at IISER Bhopal. Most days are some mix of machine learning, data, maths, research, too many open tabs and evenings spent wondering where the week went.</p>
-    <p class="links">
-      <a href="https://github.com/saptarshihalder" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a href="https://www.linkedin.com/in/saptarshi-halder/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a href="https://x.com/Iamsaptarshi69" target="_blank" rel="noopener noreferrer">X</a>
-      <a href="https://saptarshihalder.github.io/blog" target="_blank" rel="noopener noreferrer">Blog</a>
-    </p>
+    <div class="preface">
+      <p>Mostly, this is a place to keep things. Things I have studied, built, read, left unfinished, come back to and thought about for longer than I probably needed to.</p>
+      <p>I study at IISER Bhopal. Most days are some mix of machine learning, data, maths, research, too many open tabs and evenings spent wondering where the week went.</p>
+      <p class="elsewhere">
+        <a href="https://github.com/saptarshihalder" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/saptarshi-halder/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://x.com/Iamsaptarshi69" target="_blank" rel="noopener noreferrer">X</a>
+        <a href="https://saptarshihalder.github.io/blog" target="_blank" rel="noopener noreferrer">Blog</a>
+      </p>
+    </div>
 
     <section>
       <h2>A somewhat incomplete history</h2>
-      <p class="note">A few things I remember more clearly than the rest.</p>
+      <p class="aside">A few things I remember more clearly than the rest.</p>
 
       <details>
-        <summary><span class="when">2009 to 2020</span>School days</summary>
+        <summary><span class="line"><span class="title">School days</span><span class="when">2009 to 2020</span></span></summary>
         <p>I spent most of my school years at Don Bosco in West Bengal. I liked computers, books, puzzles and anything that gave me something to figure out.</p>
         <p>Most of it was ordinary in the best way. School, home, books, computers and years that felt slow until they were suddenly over.</p>
         <p>Somehow, those are the days I remember best.</p>
       </details>
 
       <details>
-        <summary><span class="when">2020 to 2022</span>Science, lockdown and entrance exams</summary>
+        <summary><span class="line"><span class="title">Science, lockdown and entrance exams</span><span class="when">2020 to 2022</span></span></summary>
         <p>I picked science for senior secondary school and almost immediately the world shut down.</p>
         <p>School shrank to the size of a screen, sleep schedules stopped making much sense and JEE, JEE Advanced, IAT, WBJEE and a few other exams took up a fairly unreasonable amount of my life.</p>
         <p>Not my favourite era. Strange how far away it feels now.</p>
       </details>
 
       <details>
-        <summary><span class="when">2022 to now</span>IISER Bhopal</summary>
+        <summary><span class="line"><span class="title">IISER Bhopal</span><span class="when">2022 to now</span></span></summary>
         <p>I came to IISER Bhopal and, one rabbit hole at a time, ended up spending most of my days around data science, machine learning, mathematics and research.</p>
         <p>University has mostly been a mixture of interesting ideas, unfinished side projects, questionable sleep and new subjects I suddenly decide I need to learn. Somewhere in between, the years started moving a little faster.</p>
         <p>I am trying to notice more of it while I am still in it.</p>
@@ -70,33 +73,34 @@
 
     <section>
       <h2>Research and internships</h2>
+      <p class="aside">Some of it worked. All of it taught me something.</p>
 
       <details>
-        <summary><span class="when">Dec 2023 to Jun 2024</span>IIIT Kalyani</summary>
+        <summary><span class="line"><span class="title">IIIT Kalyani</span><span class="when">Dec 2023 to Jun 2024</span></span></summary>
         <p>This was one of my first proper research experiences. I worked remotely with Professor Imon Mukherjee and got a fairly early look at how messy research can actually be.</p>
         <p>Ideas changed, experiments did not always work and the paper we hoped for never quite arrived. Still learned a lot, probably more than I realised at the time.</p>
       </details>
 
       <details>
-        <summary><span class="when">Apr 2024 to Jun 2024</span>Oxford</summary>
+        <summary><span class="line"><span class="title">Oxford</span><span class="when">Apr 2024 to Jun 2024</span></span></summary>
         <p>I worked with Professor Robin Evans from a few time zones away, learning about Markov models, Bayesian networks and graphical models.</p>
         <p>It was one of those experiences where every answer somehow created three more questions.</p>
       </details>
 
       <details>
-        <summary><span class="when">May 2024 to Jul 2024</span>IIT BHU</summary>
+        <summary><span class="line"><span class="title">IIT BHU</span><span class="when">May 2024 to Jul 2024</span></span></summary>
         <p>My first offline research internship, and a summer away from home.</p>
         <p>I worked around EEG signals, biometrics and machine learning, while also getting much better at figuring things out when nothing works the first time.</p>
       </details>
 
       <details>
-        <summary><span class="when">May 2024 to Dec 2024</span>Duke Health</summary>
+        <summary><span class="line"><span class="title">Duke Health</span><span class="when">May 2024 to Dec 2024</span></span></summary>
         <p>I worked with John Thomas on removing artifacts from scalp EEG signals using deep learning.</p>
         <p>It ended up being a nice mixture of neuroscience, signal processing, machine learning and many quiet hours spent looking at waveforms, trying to work out which squiggles were the brain and which were just someone blinking.</p>
       </details>
 
       <details>
-        <summary><span class="when">Dec 2024 to Jan 2025</span>Damodar Valley Corporation</summary>
+        <summary><span class="line"><span class="title">Damodar Valley Corporation</span><span class="when">Dec 2024 to Jan 2025</span></span></summary>
         <p>My first proper corporate internship, over one winter.</p>
         <p>I worked around cybersecurity, NIST frameworks, security processes and risk assessment.</p>
         <p>Very different from academic research, which was probably exactly why it was useful.</p>
@@ -105,9 +109,10 @@
 
     <section>
       <h2>Things I have made</h2>
+      <p class="aside">On and off.</p>
 
       <details>
-        <summary><span class="when">on and off</span>GamerKraft 2D</summary>
+        <summary><span class="line"><span class="title">GamerKraft 2D</span><span class="when">a game builder</span></span></summary>
         <p>I wanted to see how far I could get making a little game builder with plain HTML, CSS and JavaScript.</p>
         <p>It eventually became a browser based editor with tiles, physics, logic and the ability to export games as standalone HTML files.</p>
         <p>Basically, a tiny Mario Maker that got slightly out of hand.</p>
@@ -119,18 +124,18 @@
 
     <section>
       <h2>Other stuff I like</h2>
-      <p class="note">Research is thankfully not my entire personality.</p>
-      <ul>
+      <p class="aside">Research is thankfully not my entire personality.</p>
+      <ul class="stanza">
         <li><a href="https://saptarshihalder.github.io/mybooks/" target="_blank" rel="noopener noreferrer">Reading</a></li>
         <li><a href="https://saptarshihalder.github.io/blog" target="_blank" rel="noopener noreferrer">Writing</a></li>
-        <li>Numismatics (coin collecting)</li>
+        <li>Numismatics <span>coin collecting</span></li>
         <li>Music</li>
       </ul>
     </section>
   </main>
 
-  <footer>still figuring things out, slowly. thanks for reading this far.</footer>
-
-  <audio id="music" src="./music.mp3" preload="none" loop></audio>
+  <footer>
+    <p>still figuring things out, slowly.<br>thanks for reading this far.</p>
+  </footer>
 </body>
 </html>

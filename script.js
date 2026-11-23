@@ -5,8 +5,8 @@ const root = document.documentElement;
 function applyTheme(theme) {
   const isDark = theme === "dark";
   root.dataset.theme = theme;
-  themeButton.textContent = isDark ? "Light mode" : "Dark mode";
-  themeColor.content = isDark ? "#18181c" : "#ebe5dc";
+  themeButton.textContent = isDark ? "day" : "night";
+  themeColor.content = isDark ? "#14151b" : "#ece3d4";
 }
 
 applyTheme(root.dataset.theme === "dark" ? "dark" : "light");
@@ -20,42 +20,42 @@ themeButton.addEventListener("click", () => {
   } catch {}
 });
 
-const music = document.querySelector("#music");
 const volume = 0.06;
 let context;
 
-music.volume = volume;
+function startMusic() {
+  if (context) {
+    if (context.state !== "running") context.resume().catch(() => {});
+    return;
+  }
 
-if (music.volume !== volume && window.AudioContext) {
   context = new AudioContext();
+  context.resume().catch(() => {});
+  context.addEventListener("statechange", () => {
+    if (!document.hidden) startMusic();
+  });
+
   const gain = context.createGain();
   gain.gain.value = volume;
-  context.createMediaElementSource(music).connect(gain).connect(context.destination);
-}
+  gain.connect(context.destination);
 
-function playMusic() {
-  if (context && context.state !== "running") context.resume().catch(() => {});
-  if (music.paused) music.play().catch(() => {});
+  fetch("./music.mp3")
+    .then((response) => response.arrayBuffer())
+    .then((data) => context.decodeAudioData(data))
+    .then((buffer) => {
+      const source = context.createBufferSource();
+      source.buffer = buffer;
+      source.loop = true;
+      source.connect(gain);
+      source.start();
+    })
+    .catch(() => {});
 }
 
 for (const eventName of ["click", "keydown", "touchend"]) {
-  document.addEventListener(eventName, playMusic, true);
+  document.addEventListener(eventName, startMusic, true);
 }
-
-music.addEventListener("pause", () => {
-  if (!document.hidden) playMusic();
-});
 
 document.addEventListener("visibilitychange", () => {
-  if (!document.hidden) playMusic();
+  if (context && !document.hidden) startMusic();
 });
-
-window.addEventListener("pageshow", playMusic);
-
-if ("mediaSession" in navigator) {
-  for (const action of ["pause", "stop"]) {
-    try {
-      navigator.mediaSession.setActionHandler(action, () => {});
-    } catch {}
-  }
-}
