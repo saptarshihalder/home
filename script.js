@@ -6,7 +6,7 @@ function applyTheme(theme) {
   const isDark = theme === "dark";
   root.dataset.theme = theme;
   themeButton.textContent = isDark ? "Light mode" : "Dark mode";
-  themeColor.content = isDark ? "#18181c" : "#d3ccc6";
+  themeColor.content = isDark ? "#18181c" : "#ebe5dc";
 }
 
 applyTheme(root.dataset.theme === "dark" ? "dark" : "light");
@@ -18,30 +18,6 @@ themeButton.addEventListener("click", () => {
   try {
     localStorage.setItem("themePreference", nextTheme);
   } catch {}
-});
-
-const timelineEntries = document.querySelectorAll(".timeline details");
-document.querySelector(".timeline-actions").addEventListener("click", (event) => {
-  const control = event.target.closest("button[data-action]");
-  if (!control) return;
-
-  const open = control.dataset.action === "expand";
-  timelineEntries.forEach((entry) => {
-    entry.open = open;
-  });
-});
-
-const hobbies = document.querySelector("#hobbiesPopup");
-document.querySelector("#openHobbies").addEventListener("click", () => {
-  hobbies.showModal();
-});
-hobbies.addEventListener("click", (event) => {
-  if (event.target !== hobbies) return;
-
-  const bounds = hobbies.getBoundingClientRect();
-  const outside = event.clientX < bounds.left || event.clientX > bounds.right ||
-    event.clientY < bounds.top || event.clientY > bounds.bottom;
-  if (outside) hobbies.close();
 });
 
 const music = document.querySelector("#music");
