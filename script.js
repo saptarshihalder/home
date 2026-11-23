@@ -44,25 +44,42 @@ hobbies.addEventListener("click", (event) => {
   if (outside) hobbies.close();
 });
 
-const audio = document.querySelector("#backgroundMusic");
-audio.volume = 0.08;
-const musicUnlock = new AbortController();
+const music = document.querySelector("#music");
+const volume = 0.06;
+let context;
 
-function startMusic() {
-  audio.play()
-    .then(() => musicUnlock.abort())
-    .catch(() => {});
+music.volume = volume;
+
+if (music.volume !== volume && window.AudioContext) {
+  context = new AudioContext();
+  const gain = context.createGain();
+  gain.gain.value = volume;
+  context.createMediaElementSource(music).connect(gain).connect(context.destination);
+}
+
+function playMusic() {
+  if (context && context.state !== "running") context.resume().catch(() => {});
+  if (music.paused) music.play().catch(() => {});
 }
 
 for (const eventName of ["click", "keydown", "touchend"]) {
-  document.addEventListener(eventName, startMusic, {
-    capture: true,
-    signal: musicUnlock.signal,
-  });
+  document.addEventListener(eventName, playMusic, true);
 }
 
-window.addEventListener("pageshow", (event) => {
-  if (event.persisted && audio.paused) startMusic();
+music.addEventListener("pause", () => {
+  if (!document.hidden) playMusic();
 });
 
-startMusic();
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) playMusic();
+});
+
+window.addEventListener("pageshow", playMusic);
+
+if ("mediaSession" in navigator) {
+  for (const action of ["pause", "stop"]) {
+    try {
+      navigator.mediaSession.setActionHandler(action, () => {});
+    } catch {}
+  }
+}
