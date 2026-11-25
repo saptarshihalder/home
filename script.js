@@ -49,3 +49,13 @@ document.addEventListener("visibilitychange", () => {
 addEventListener("load", () => {
   fetchTrack().catch(() => {});
 });
+
+const drawer = document.querySelector(".drawer");
+
+document.querySelector(".menu").addEventListener("click", () => {
+  drawer.showModal();
+});
+
+drawer.addEventListener("click", (event) => {
+  if (event.target === drawer && event.clientX < drawer.getBoundingClientRect().left) drawer.close();
+});
