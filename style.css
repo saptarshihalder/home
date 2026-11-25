@@ -1,6 +1,6 @@
 :root {
   color-scheme: dark;
-  --bg: #080b10;
+  --bg: #06080c;
   --ink: #e3e5e9;
   --pale: #c3c7cd;
   --text: #979da6;
@@ -12,8 +12,8 @@
 html {
   min-height: 100%;
   background:
-    radial-gradient(60rem 40rem at 0 0, rgb(60 72 96 / .14), transparent),
-    linear-gradient(#0a0d12, #050608) var(--bg);
+    radial-gradient(50rem 32rem at 0 0, rgb(56 66 88 / .1), transparent),
+    linear-gradient(#090b10, #030405) var(--bg);
 }
 
 body {
@@ -23,6 +23,15 @@ body {
   color: var(--text);
   font: 300 1.02rem/1.9 var(--sad);
   letter-spacing: .06em;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(120% 90% at 50% 30%, transparent 40%, rgb(0 0 0 / .55));
+  pointer-events: none;
 }
 
 h1, h2, p, ul, ol { margin: 0; }
@@ -106,7 +115,10 @@ h1 {
   letter-spacing: .24em;
 }
 
-h1 em { font-style: italic; }
+h1 em {
+  color: #a9adb4;
+  font-style: italic;
+}
 
 .opening hr {
   width: 1.6rem;
@@ -138,6 +150,29 @@ h2::after {
   flex: 1;
   height: 1px;
   background: var(--faint);
+}
+
+.toggles {
+  display: flex;
+  gap: .6rem;
+  margin-top: 1.4rem;
+}
+
+.toggles button {
+  padding: .35rem .8rem;
+  border: 1px solid var(--faint);
+  border-radius: 2px;
+  background: rgb(255 255 255 / .015);
+  color: var(--dim);
+  font: 300 .74rem/1.4 var(--sad);
+  letter-spacing: .2em;
+  cursor: pointer;
+  transition: color .3s, border-color .3s;
+}
+
+.toggles button:hover {
+  border-color: rgb(255 255 255 / .2);
+  color: var(--pale);
 }
 
 .aside {
@@ -175,6 +210,16 @@ summary::-webkit-details-marker { display: none; }
   background: var(--faint);
 }
 
+section > .path::before {
+  bottom: -9rem;
+  background: linear-gradient(rgb(255 255 255 / .04), rgb(255 255 255 / .13) 60%, transparent);
+}
+
+section > .path > li:nth-child(1) { --pale: #737982; }
+section > .path > li:nth-child(2) { --pale: #8e949c; }
+section > .path > li:nth-child(1) > details > summary::before { scale: .7; background: #262a30; }
+section > .path > li:nth-child(2) > details > summary::before { scale: .85; background: #30343b; }
+
 .path > li > details > summary {
   position: relative;
   display: block;
@@ -197,7 +242,8 @@ summary::-webkit-details-marker { display: none; }
 
 .path > .now > details > summary::before {
   background: var(--ink);
-  box-shadow: 0 0 0 4px rgb(227 229 233 / .07);
+  box-shadow: 0 0 0 4px rgb(227 229 233 / .05), 0 0 14px rgb(227 229 233 / .12);
+  animation: distant 6s ease-in-out infinite;
 }
 
 .path summary span {
@@ -272,7 +318,7 @@ summary::-webkit-details-marker { display: none; }
 .inner .story p { font-size: .92rem; }
 
 footer {
-  margin-top: 7rem;
+  margin-top: 12rem;
   padding: 2rem 0 4rem;
   border-top: 1px solid var(--faint);
   color: var(--dim);
@@ -367,6 +413,14 @@ footer {
   letter-spacing: .2em;
 }
 
+.hobbies a {
+  padding-bottom: .15rem;
+  border-bottom: 1px solid rgb(255 255 255 / .18);
+  letter-spacing: inherit;
+}
+
+.hobbies a:hover { border-color: var(--pale); }
+
 .hobbies small {
   margin-left: .6rem;
   color: var(--dim);
@@ -412,6 +466,12 @@ footer {
   background: var(--pale);
 }
 
+@keyframes distant {
+  50% {
+    box-shadow: 0 0 0 7px rgb(227 229 233 / .02), 0 0 22px rgb(227 229 233 / .2);
+  }
+}
+
 @keyframes arrive {
   from {
     opacity: 0;
@@ -442,5 +502,7 @@ footer {
 
 @media (prefers-reduced-motion: reduce) {
   .drawer[open] { animation: none; }
+  .path > .now > details > summary::before { animation: none; }
+  .toggles button { transition: none; }
   .elsewhere a::before { transition: none; }
 }
