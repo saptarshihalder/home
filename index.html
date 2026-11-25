@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="A small personal archive of the things Saptarshi Halder did not want to forget.">
-  <meta name="theme-color" content="#121316">
+  <meta name="theme-color" content="#080b10">
   <meta name="color-scheme" content="dark">
   <meta property="og:title" content="Saptarshi Halder">
   <meta property="og:description" content="Research, projects, books, code and a few small things I wanted to keep.">
@@ -12,8 +12,6 @@
   <title>Saptarshi Halder</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='2.5' fill='%23707274'/%3E%3C/svg%3E">
   <link rel="preload" href="./fonts/SadSap-Light.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="./fonts/IBMPlexMono-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="./fonts/Greypixel.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="./fonts.css">
   <link rel="stylesheet" href="./style.css">
   <script src="./script.js" defer></script>
@@ -21,116 +19,165 @@
 
 <body>
   <header>
-    <h1>Saptarshi Halder</h1>
-    <nav>
-      <a href="https://github.com/saptarshihalder" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a href="https://www.linkedin.com/in/saptarshi-halder/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a href="https://x.com/Iamsaptarshi69" target="_blank" rel="noopener noreferrer">X</a>
-      <a href="https://saptarshihalder.github.io/blog" target="_blank" rel="noopener noreferrer">Blog</a>
-    </nav>
+    <span class="name">saptarshi halder</span>
+    <button class="menu" type="button" aria-label="Open menu" aria-haspopup="dialog" aria-controls="drawer"><i></i><i></i><i></i></button>
   </header>
 
   <main>
-    <section>
-      <div class="label">
-        <p class="motto">Keeping track, before I forget.</p>
-      </div>
-      <div class="entries">
-        <p>Mostly, this is a place to keep things. Things I have studied, built, read, left unfinished, come back to and thought about for longer than I probably needed to.</p>
-        <p>I study at IISER Bhopal. Most days are some mix of machine learning, data, maths, research, too many open tabs and evenings spent wondering where the week went.</p>
-      </div>
+    <section class="opening">
+      <h1>keeping track,<br><em>before i forget.</em></h1>
+      <hr>
+      <p>Mostly, this is a place to keep things. Things I have studied, built, read, left unfinished, come back to and thought about for longer than I probably needed to.</p>
+      <p>I study at IISER Bhopal. Most days are some mix of machine learning, data, maths, research, too many open tabs and evenings spent wondering where the week went.</p>
     </section>
 
     <section>
-      <div class="label">
-        <h2>A somewhat incomplete history</h2>
-        <p>A few things I remember more clearly than the rest.</p>
-      </div>
-      <div class="entries">
-        <details>
-          <summary>School days <span>2009 to 2020</span></summary>
-          <p>I spent most of my school years at Don Bosco in West Bengal. I liked computers, books, puzzles and anything that gave me something to figure out.</p>
-          <p>Most of it was ordinary in the best way. School, home, books, computers and years that felt slow until they were suddenly over.</p>
-          <p>Somehow, those are the days I remember best.</p>
-        </details>
+      <h2>a somewhat incomplete history</h2>
+      <p class="aside">A few things I remember more clearly than the rest.</p>
 
-        <details>
-          <summary>Science, lockdown and entrance exams <span>2020 to 2022</span></summary>
-          <p>I picked science for senior secondary school and almost immediately the world shut down.</p>
-          <p>School shrank to the size of a screen, sleep schedules stopped making much sense and JEE, JEE Advanced, IAT, WBJEE and a few other exams took up a fairly unreasonable amount of my life.</p>
-          <p>Not my favourite era. Strange how far away it feels now.</p>
-        </details>
+      <ol class="path">
+        <li>
+          <details>
+            <summary><span>School days</span><time>2009 to 2020</time></summary>
+            <div class="story">
+              <p>I spent most of my school years at Don Bosco in West Bengal. I liked computers, books, puzzles and anything that gave me something to figure out.</p>
+              <p>Most of it was ordinary in the best way. School, home, books, computers and years that felt slow until they were suddenly over.</p>
+              <p>Somehow, those are the days I remember best.</p>
+            </div>
+          </details>
+        </li>
 
-        <details>
-          <summary>IISER Bhopal <span>2022 to now</span></summary>
-          <p>I came to IISER Bhopal and, one rabbit hole at a time, ended up spending most of my days around data science, machine learning, mathematics and research.</p>
-          <p>University has mostly been a mixture of interesting ideas, unfinished side projects, questionable sleep and new subjects I suddenly decide I need to learn. Somewhere in between, the years started moving a little faster.</p>
-          <p>I am trying to notice more of it while I am still in it.</p>
+        <li>
+          <details>
+            <summary><span>Science, lockdown and entrance exams</span><time>2020 to 2022</time></summary>
+            <div class="story">
+              <p>I picked science for senior secondary school and almost immediately the world shut down.</p>
+              <p>School shrank to the size of a screen, sleep schedules stopped making much sense and JEE, JEE Advanced, IAT, WBJEE and a few other exams took up a fairly unreasonable amount of my life.</p>
+              <p>Not my favourite era. Strange how far away it feels now.</p>
+            </div>
+          </details>
+        </li>
 
-          <div class="journey">
-            <details>
-              <summary>IIIT Kalyani <span>Dec 2023 to Jun 2024</span></summary>
-              <p>This was one of my first proper research experiences. I worked remotely with Professor Imon Mukherjee and got a fairly early look at how messy research can actually be.</p>
-              <p>Ideas changed, experiments did not always work and the paper we hoped for never quite arrived. Still learned a lot, probably more than I realised at the time.</p>
-            </details>
+        <li class="now">
+          <details>
+            <summary><span>IISER Bhopal</span><time>2022 to now</time></summary>
+            <div class="story">
+              <p>I came to IISER Bhopal and, one rabbit hole at a time, ended up spending most of my days around data science, machine learning, mathematics and research.</p>
+              <p>University has mostly been a mixture of interesting ideas, unfinished side projects, questionable sleep and new subjects I suddenly decide I need to learn. Somewhere in between, the years started moving a little faster.</p>
+              <p>I am trying to notice more of it while I am still in it.</p>
 
-            <details>
-              <summary>Oxford <span>Apr 2024 to Jun 2024</span></summary>
-              <p>I worked with Professor Robin Evans from a few time zones away, learning about Markov models, Bayesian networks and graphical models.</p>
-              <p>It was one of those experiences where every answer somehow created three more questions.</p>
-            </details>
+              <details class="group">
+                <summary>research and internships</summary>
+                <ol class="path inner">
+                  <li>
+                    <details>
+                      <summary><span>IIIT Kalyani</span><time>Dec 2023 to Jun 2024</time></summary>
+                      <div class="story">
+                        <p>This was one of my first proper research experiences. I worked remotely with Professor Imon Mukherjee and got a fairly early look at how messy research can actually be.</p>
+                        <p>Ideas changed, experiments did not always work and the paper we hoped for never quite arrived. Still learned a lot, probably more than I realised at the time.</p>
+                      </div>
+                    </details>
+                  </li>
 
-            <details>
-              <summary>IIT BHU <span>May 2024 to Jul 2024</span></summary>
-              <p>My first offline research internship, and a summer away from home.</p>
-              <p>I worked around EEG signals, biometrics and machine learning, while also getting much better at figuring things out when nothing works the first time.</p>
-            </details>
+                  <li>
+                    <details>
+                      <summary><span>Oxford</span><time>Apr 2024 to Jun 2024</time></summary>
+                      <div class="story">
+                        <p>I worked with Professor Robin Evans from a few time zones away, learning about Markov models, Bayesian networks and graphical models.</p>
+                        <p>It was one of those experiences where every answer somehow created three more questions.</p>
+                      </div>
+                    </details>
+                  </li>
 
-            <details>
-              <summary>Duke Health <span>May 2024 to Dec 2024</span></summary>
-              <p>I worked with John Thomas on removing artifacts from scalp EEG signals using deep learning.</p>
-              <p>It ended up being a nice mixture of neuroscience, signal processing, machine learning and many quiet hours spent looking at waveforms, trying to work out which squiggles were the brain and which were just someone blinking.</p>
-            </details>
+                  <li>
+                    <details>
+                      <summary><span>IIT BHU</span><time>May 2024 to Jul 2024</time></summary>
+                      <div class="story">
+                        <p>My first offline research internship, and a summer away from home.</p>
+                        <p>I worked around EEG signals, biometrics and machine learning, while also getting much better at figuring things out when nothing works the first time.</p>
+                      </div>
+                    </details>
+                  </li>
 
-            <details>
-              <summary>Damodar Valley Corporation <span>Dec 2024 to Jan 2025</span></summary>
-              <p>My first proper corporate internship, over one winter.</p>
-              <p>I worked around cybersecurity, NIST frameworks, security processes and risk assessment.</p>
-              <p>Very different from academic research, which was probably exactly why it was useful.</p>
-            </details>
+                  <li>
+                    <details>
+                      <summary><span>Duke Health</span><time>May 2024 to Dec 2024</time></summary>
+                      <div class="story">
+                        <p>I worked with John Thomas on removing artifacts from scalp EEG signals using deep learning.</p>
+                        <p>It ended up being a nice mixture of neuroscience, signal processing, machine learning and many quiet hours spent looking at waveforms, trying to work out which squiggles were the brain and which were just someone blinking.</p>
+                      </div>
+                    </details>
+                  </li>
 
-            <details>
-              <summary>GamerKraft 2D <span>on and off</span></summary>
-              <p>I wanted to see how far I could get making a little game builder with plain HTML, CSS and JavaScript.</p>
-              <p>It eventually became a browser based editor with tiles, physics, logic and the ability to export games as standalone HTML files.</p>
-              <p>Basically, a tiny Mario Maker that got slightly out of hand.</p>
-              <p><a href="https://saptarshihalder.github.io/gamerkraft/" target="_blank" rel="noopener noreferrer">Try GamerKraft 2D</a></p>
-              <p>There is also a 3D version. It is still a bit unstable and occasionally behaves like it has personal issues.</p>
-              <p><a href="https://saptarshihalder.github.io/gamerkraft-3d/" target="_blank" rel="noopener noreferrer">Try the 3D version</a></p>
-            </details>
-          </div>
-        </details>
-      </div>
-    </section>
+                  <li>
+                    <details>
+                      <summary><span>Damodar Valley Corporation</span><time>Dec 2024 to Jan 2025</time></summary>
+                      <div class="story">
+                        <p>My first proper corporate internship, over one winter.</p>
+                        <p>I worked around cybersecurity, NIST frameworks, security processes and risk assessment.</p>
+                        <p>Very different from academic research, which was probably exactly why it was useful.</p>
+                      </div>
+                    </details>
+                  </li>
+                </ol>
+              </details>
 
-    <section>
-      <div class="label">
-        <h2>Other stuff I like</h2>
-        <p>Research is thankfully not my entire personality.</p>
-      </div>
-      <div class="entries">
-        <p class="links">
-          <a href="https://saptarshihalder.github.io/mybooks/" target="_blank" rel="noopener noreferrer">Reading</a>
-          <a href="https://saptarshihalder.github.io/blog" target="_blank" rel="noopener noreferrer">Writing</a>
-        </p>
-        <ul>
-          <li>Numismatics (coin collecting)</li>
-          <li>Music</li>
-        </ul>
-      </div>
+              <details class="group">
+                <summary>projects</summary>
+                <ol class="path inner">
+                  <li>
+                    <details>
+                      <summary><span>GamerKraft 2D</span><time>on and off</time></summary>
+                      <div class="story">
+                        <p>I wanted to see how far I could get making a little game builder with plain HTML, CSS and JavaScript.</p>
+                        <p>It eventually became a browser based editor with tiles, physics, logic and the ability to export games as standalone HTML files.</p>
+                        <p>Basically, a tiny Mario Maker that got slightly out of hand.</p>
+                        <p><a href="https://saptarshihalder.github.io/gamerkraft/" target="_blank" rel="noopener noreferrer">Try GamerKraft 2D</a></p>
+                        <p>There is also a 3D version. It is still a bit unstable and occasionally behaves like it has personal issues.</p>
+                        <p><a href="https://saptarshihalder.github.io/gamerkraft-3d/" target="_blank" rel="noopener noreferrer">Try the 3D version</a></p>
+                      </div>
+                    </details>
+                  </li>
+                </ol>
+              </details>
+            </div>
+          </details>
+        </li>
+      </ol>
     </section>
   </main>
 
   <footer>still figuring things out, slowly. thanks for reading this far.</footer>
+
+  <dialog class="drawer" id="drawer" aria-label="Menu">
+    <div class="drawer-top">
+      <span class="name">saptarshi halder</span>
+      <form method="dialog">
+        <button class="close" aria-label="Close menu"></button>
+      </form>
+    </div>
+
+    <details class="hobbies" open>
+      <summary>hobbies</summary>
+      <p>Research is thankfully not my entire personality.</p>
+      <ul>
+        <li>reading</li>
+        <li>writing</li>
+        <li>numismatics <small>coin collecting</small></li>
+        <li>music</li>
+      </ul>
+    </details>
+
+    <div class="elsewhere">
+      <p>elsewhere</p>
+      <nav>
+        <a href="https://github.com/saptarshihalder" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/saptarshi-halder/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://x.com/Iamsaptarshi69" target="_blank" rel="noopener noreferrer">X</a>
+        <a href="https://saptarshihalder.github.io/blog" target="_blank" rel="noopener noreferrer">Blog</a>
+        <a href="https://saptarshihalder.github.io/mybooks/" target="_blank" rel="noopener noreferrer">Books</a>
+      </nav>
+    </div>
+  </dialog>
 </body>
 </html>
