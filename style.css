@@ -1,6 +1,6 @@
 :root {
   color-scheme: dark;
-  --bg: #06080c;
+  --bg: #10151c;
   --ink: #e3e5e9;
   --pale: #c3c7cd;
   --text: #979da6;
@@ -12,8 +12,8 @@
 html {
   min-height: 100%;
   background:
-    radial-gradient(50rem 32rem at 0 0, rgb(56 66 88 / .1), transparent),
-    linear-gradient(#090b10, #030405) var(--bg);
+    radial-gradient(50rem 32rem at 0 0, rgb(70 84 108 / .12), transparent),
+    linear-gradient(#131922, #0c1016) var(--bg);
 }
 
 body {
@@ -30,7 +30,7 @@ body::before {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: radial-gradient(120% 90% at 50% 30%, transparent 40%, rgb(0 0 0 / .55));
+  background: radial-gradient(120% 90% at 50% 30%, transparent 40%, rgb(4 6 10 / .42));
   pointer-events: none;
 }
 
@@ -217,8 +217,8 @@ section > .path::before {
 
 section > .path > li:nth-child(1) { --pale: #737982; }
 section > .path > li:nth-child(2) { --pale: #8e949c; }
-section > .path > li:nth-child(1) > details > summary::before { scale: .7; background: #262a30; }
-section > .path > li:nth-child(2) > details > summary::before { scale: .85; background: #30343b; }
+section > .path > li:nth-child(1) > details > summary::before { scale: .7; background: #29303a; }
+section > .path > li:nth-child(2) > details > summary::before { scale: .85; background: #333b46; }
 
 .path > li > details > summary {
   position: relative;
@@ -235,7 +235,7 @@ section > .path > li:nth-child(2) > details > summary::before { scale: .85; back
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #3a3f47;
+  background: #3c4552;
 }
 
 .path > li > details[open] > summary::before { background: var(--pale); }
@@ -337,7 +337,7 @@ footer {
   padding: 2.6rem 2.4rem;
   border: 0;
   border-left: 1px solid var(--faint);
-  background: #090c11;
+  background: #121821;
   color: var(--text);
 }
 
