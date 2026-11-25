@@ -1,3 +1,19 @@
+const scenes = 15;
+const scene = document.querySelector(".scene");
+let lastScene = -1;
+
+try {
+  lastScene = Number(localStorage.getItem("scene") ?? -1);
+} catch {}
+
+let pick = Math.floor(Math.random() * scenes);
+if (pick === lastScene) pick = (pick + 1) % scenes;
+scene.style.backgroundImage = `url("./scenes/${String(pick + 1).padStart(2, "0")}.svg")`;
+
+try {
+  localStorage.setItem("scene", pick);
+} catch {}
+
 const volume = 0.22;
 let context;
 let track;

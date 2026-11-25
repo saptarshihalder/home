@@ -34,6 +34,14 @@ body::before {
   pointer-events: none;
 }
 
+.scene {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: no-repeat center / 100% 100%;
+  pointer-events: none;
+}
+
 h1, h2, p, ul, ol { margin: 0; }
 p { text-wrap: pretty; }
 p + p { margin-top: 1rem; }
@@ -480,6 +488,7 @@ footer {
 }
 
 @media (max-width: 40rem) {
+  .scene { opacity: .55; }
   header { padding-top: 2rem; }
   .opening { padding: 10vh 0 5rem; }
   h1 { letter-spacing: .16em; }
