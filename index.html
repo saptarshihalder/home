@@ -17,9 +17,21 @@
   <link rel="stylesheet" href="./fonts.css">
   <link rel="stylesheet" href="./style.css">
   <script src="./script.js" defer></script>
+  <noscript><style>.loading { display: none; }</style></noscript>
 </head>
 
 <body>
+  <dialog class="loading" aria-label="Loading" open>
+    <p class="line">the past is just a slower connection.</p>
+    <div class="meter">
+      <div class="bar"></div>
+      <span class="percent">0%</span>
+    </div>
+    <form method="dialog">
+      <button hidden>come in anyway</button>
+    </form>
+  </dialog>
+
   <header>
     <h1>Saptarshi Halder</h1>
     <nav>
