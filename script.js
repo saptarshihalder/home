@@ -59,3 +59,13 @@ document.querySelector(".menu").addEventListener("click", () => {
 drawer.addEventListener("click", (event) => {
   if (event.target === drawer && event.clientX < drawer.getBoundingClientRect().left) drawer.close();
 });
+
+const timeline = document.querySelector(".path").parentElement;
+
+document.querySelector(".toggles").addEventListener("click", (event) => {
+  const button = event.target.closest("button");
+  if (!button) return;
+  for (const entry of timeline.querySelectorAll("details")) {
+    entry.open = button.value === "open";
+  }
+});
